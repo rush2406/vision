@@ -1,0 +1,19 @@
+Projective geometry
+===================
+
+.. automodule:: ivy_vision.projective_geometry
+    :members:
+    :special-members: __init__
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+   :maxdepth: -1
+   :caption: Projective geometry
+
+   projective_geometry/transform.rst
+   projective_geometry/projection_matrix_pseudo_inverse.rst
+   projective_geometry/projection_matrix_inverse.rst
+   projective_geometry/solve_homogeneous_dlt.rst
+

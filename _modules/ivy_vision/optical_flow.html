@@ -1,0 +1,764 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ivy_vision.optical_flow &mdash; Ivy Vision 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Ivy Vision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../containers.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../optical_flow.html">Optical flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projective_geometry.html">Projective geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rendering.html">Rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sdf.html">Sdf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../single_view_geometry.html">Single view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../two_view_geometry.html">Two view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../voxel_grids.html">Voxel grids</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Docs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ivy"">Ivy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mech"">Ivy Mech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vision"">Ivy Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../robot"">Ivy Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gym"">Ivy Gym</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Ivy Vision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>ivy_vision.optical_flow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for ivy_vision.optical_flow</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Collection of Optical Flow Functions</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># global</span>
+<span class="kn">import</span> <span class="nn">ivy_mech</span> <span class="k">as</span> <span class="nn">_ivy_mech</span>
+<span class="kn">from</span> <span class="nn">ivy.framework_handler</span> <span class="k">import</span> <span class="n">get_framework</span> <span class="k">as</span> <span class="n">_get_framework</span>
+
+<span class="c1"># local</span>
+<span class="kn">from</span> <span class="nn">ivy_vision</span> <span class="k">import</span> <span class="n">two_view_geometry</span> <span class="k">as</span> <span class="n">_ivy_tvg</span>
+<span class="kn">from</span> <span class="nn">ivy_vision</span> <span class="k">import</span> <span class="n">projective_geometry</span> <span class="k">as</span> <span class="n">_ivy_pg</span>
+<span class="kn">from</span> <span class="nn">ivy_vision</span> <span class="k">import</span> <span class="n">single_view_geometry</span> <span class="k">as</span> <span class="n">_ivy_svg</span>
+
+<span class="n">MIN_DENOMINATOR</span> <span class="o">=</span> <span class="mf">1e-12</span>
+
+
+<div class="viewcode-block" id="depth_from_flow_and_cam_mats"><a class="viewcode-back" href="../../optical_flow/depth_from_flow_and_cam_mats.html#ivy_vision.optical_flow.depth_from_flow_and_cam_mats">[docs]</a><span class="k">def</span> <span class="nf">depth_from_flow_and_cam_mats</span><span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">,</span> <span class="n">inv_full_mats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">camera_centers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                 <span class="n">triangulation_method</span><span class="o">=</span><span class="s1">&#39;cmp&#39;</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute depth map :math:`\mathbf{X}\in\mathbb{R}^{h×w×1}` in frame 1 using optical flow</span>
+<span class="sd">    :math:`\mathbf{U}_{1→2}\in\mathbb{R}^{h×w×2}` from frame 1 to 2, and the camera geometry.\n</span>
+
+<span class="sd">    :param flow: Optical flow from frame 1 to 2 *[batch_shape,h,w,2]*</span>
+<span class="sd">    :type flow: array</span>
+<span class="sd">    :param full_mats: Full projection matrices *[batch_shape,2,3,4]*</span>
+<span class="sd">    :type full_mats: array</span>
+<span class="sd">    :param inv_full_mats: Inverse full projection matrices, inferred from full_mats if None and &#39;cmp&#39; triangulation method *[batch_shape,2,3,4]*</span>
+<span class="sd">    :type inv_full_mats: array, optional</span>
+<span class="sd">    :param camera_centers: Camera centers, inferred from inv_full_mats if None and &#39;cmp&#39; triangulation method *[batch_shape,2,3,1]*</span>
+<span class="sd">    :type camera_centers: array, optional</span>
+<span class="sd">    :param uniform_pixel_coords: Homogeneous uniform (integer) pixel co-ordinate images, inferred from image_dims if None *[batch_shape,h,w,3]*</span>
+<span class="sd">    :type uniform_pixel_coords: array, optional</span>
+<span class="sd">    :param triangulation_method: Triangulation method, one of [cmp|dlt], for closest mutual points or homogeneous dlt approach, closest_mutual_points by default</span>
+<span class="sd">    :type triangulation_method: str, optional</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param image_dims: Image dimensions. Inferred from inputs in None.</span>
+<span class="sd">    :type image_dims: sequence of ints, optional</span>
+<span class="sd">    :param dev: device on which to create the array &#39;cuda:0&#39;, &#39;cuda:1&#39;, &#39;cpu&#39; etc. Same as x if None.</span>
+<span class="sd">    :type dev: str, optional</span>
+<span class="sd">    :param f: Machine learning library. Inferred from inputs if None.</span>
+<span class="sd">    :type f: ml_framework, optional</span>
+<span class="sd">    :return: Depth map in frame 1 *[batch_shape,h,w,1]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">image_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># shapes as list</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dev</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dev</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get_device</span><span class="p">(</span><span class="n">flow</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">inv_full_mats</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">inv_full_mats</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">_ivy_mech</span><span class="o">.</span><span class="n">make_transformation_homogeneous</span><span class="p">(</span>
+            <span class="n">full_mats</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">dev</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">))[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span>
+
+    <span class="k">if</span> <span class="n">camera_centers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">camera_centers</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">inv_ext_mat_to_camera_center</span><span class="p">(</span><span class="n">inv_full_mats</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">uniform_pixel_coords</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">uniform_pixel_coords</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">create_uniform_pixel_coords_image</span><span class="p">(</span><span class="n">image_dims</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">dev</span><span class="o">=</span><span class="n">dev</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">flow_homo</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">flow</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="n">image_dims</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dev</span><span class="o">=</span><span class="n">dev</span><span class="p">)),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">transformed_pixel_coords</span> <span class="o">=</span> <span class="n">uniform_pixel_coords</span> <span class="o">+</span> <span class="n">flow_homo</span>
+
+    <span class="c1"># BS x 2 x H x W x 3</span>
+    <span class="n">pixel_coords</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">f</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">uniform_pixel_coords</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span>
+                                     <span class="n">f</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">transformed_pixel_coords</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">)),</span> <span class="o">-</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 1</span>
+    <span class="k">return</span> <span class="n">_ivy_tvg</span><span class="o">.</span><span class="n">triangulate_depth</span><span class="p">(</span><span class="n">pixel_coords</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">,</span> <span class="n">inv_full_mats</span><span class="p">,</span> <span class="n">camera_centers</span><span class="p">,</span> <span class="n">triangulation_method</span><span class="p">,</span>
+                                      <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span></div>
+
+
+<div class="viewcode-block" id="flow_from_depth_and_cam_mats"><a class="viewcode-back" href="../../optical_flow/flow_from_depth_and_cam_mats.html#ivy_vision.optical_flow.flow_from_depth_and_cam_mats">[docs]</a><span class="k">def</span> <span class="nf">flow_from_depth_and_cam_mats</span><span class="p">(</span><span class="n">pixel_coords1</span><span class="p">,</span> <span class="n">cam1to2_full_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute optical flow :math:`\mathbf{U}_{1→2}\in\mathbb{R}^{h×w×2}` from frame 1 to 2, using depth map</span>
+<span class="sd">    :math:`\mathbf{X}\in\mathbb{R}^{h×w×1}` in frame 1, and the camera geometry.\n</span>
+
+<span class="sd">    :param pixel_coords1: Depth scaled homogeneous pixel co-ordinates image in frame 1 *[batch_shape,h,w,3]*</span>
+<span class="sd">    :type pixel_coords1: array</span>
+<span class="sd">    :param cam1to2_full_mat: Camera1-to-camera2 full projection matrix *[batch_shape,3,4]*</span>
+<span class="sd">    :type cam1to2_full_mat: array</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param image_dims: Image dimensions. Inferred from inputs in None.</span>
+<span class="sd">    :type image_dims: sequence of ints, optional</span>
+<span class="sd">    :param f: Machine learning library. Inferred from inputs if None.</span>
+<span class="sd">    :type f: ml_framework, optional</span>
+<span class="sd">    :return: Optical flow from frame 1 to 2 *[batch_shape,h,w,2]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">pixel_coords1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">pixel_coords1</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">image_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">pixel_coords1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># shapes as list</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">projected_pixel_coords</span> <span class="o">=</span> <span class="n">_ivy_tvg</span><span class="o">.</span><span class="n">pixel_to_pixel_coords</span><span class="p">(</span><span class="n">pixel_coords1</span><span class="p">,</span> <span class="n">cam1to2_full_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span>
+                                                            <span class="n">image_dims</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">projected_pixel_coords_normalized</span> <span class="o">=</span> <span class="n">projected_pixel_coords</span> <span class="o">/</span> <span class="p">(</span><span class="n">projected_pixel_coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">pixel_coords1_normalized</span> <span class="o">=</span> <span class="n">pixel_coords1</span> <span class="o">/</span> <span class="p">(</span><span class="n">pixel_coords1</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 2</span>
+    <span class="k">return</span> <span class="n">projected_pixel_coords_normalized</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">pixel_coords1_normalized</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="project_flow_to_epipolar_line"><a class="viewcode-back" href="../../optical_flow/project_flow_to_epipolar_line.html#ivy_vision.optical_flow.project_flow_to_epipolar_line">[docs]</a><span class="k">def</span> <span class="nf">project_flow_to_epipolar_line</span><span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">fund_mat</span><span class="p">,</span> <span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                  <span class="n">dev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Project optical flow :math:`\mathbf{U}_{1→2}\in\mathbb{R}^{h×w×2}` to epipolar line in frame 1.\n</span>
+<span class="sd">    `[reference] &lt;https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_an_equation&gt;`_</span>
+
+<span class="sd">    :param flow: Optical flow from frame 1 to 2 *[batch_shape,h,w,2]*</span>
+<span class="sd">    :type flow: array</span>
+<span class="sd">    :param fund_mat: Fundamental matrix connecting frames 1 and 2 *[batch_shape,3,3]*</span>
+<span class="sd">    :type fund_mat: array</span>
+<span class="sd">    :param uniform_pixel_coords: Homogeneous uniform (integer) pixel co-ordinate images, inferred from image_dims if None *[batch_shape,h,w,3]*</span>
+<span class="sd">    :type uniform_pixel_coords: array, optional</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param image_dims: Image dimensions. Inferred from inputs in None.</span>
+<span class="sd">    :type image_dims: sequence of ints, optional</span>
+<span class="sd">    :param dev: device on which to create the array &#39;cuda:0&#39;, &#39;cuda:1&#39;, &#39;cpu&#39; etc. Same as x if None.</span>
+<span class="sd">    :type dev: str, optional</span>
+<span class="sd">    :param f: Machine learning library. Inferred from inputs if None.</span>
+<span class="sd">    :type f: ml_framework, optional</span>
+<span class="sd">    :return: Optical flow from frame 1 to 2, projected to frame 1 epipolar line *[batch_shape,h,w,2]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">image_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># shapes as list</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">uniform_pixel_coords</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">uniform_pixel_coords</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">create_uniform_pixel_coords_image</span><span class="p">(</span><span class="n">image_dims</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">dev</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">epipolar_lines</span> <span class="o">=</span> <span class="n">_ivy_pg</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">uniform_pixel_coords</span><span class="p">,</span> <span class="n">fund_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 2</span>
+    <span class="n">flow_pixels</span> <span class="o">=</span> <span class="n">uniform_pixel_coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">flow</span>
+
+    <span class="c1"># BS x H x W x 1</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">epipolar_lines</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">epipolar_lines</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">epipolar_lines</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">flow_pixels</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="n">flow_pixels</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">bx0</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">x0</span>
+    <span class="n">ay0</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">y0</span>
+    <span class="n">a_sqrd</span> <span class="o">=</span> <span class="n">a</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">b_sqrd</span> <span class="o">=</span> <span class="n">b</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">ac</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">c</span>
+    <span class="n">bc</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span>
+    <span class="n">a_sqrd_plus_b_sqrd</span> <span class="o">=</span> <span class="n">a_sqrd</span> <span class="o">+</span> <span class="n">b_sqrd</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="p">(</span><span class="n">bx0</span> <span class="o">-</span> <span class="n">ay0</span><span class="p">)</span> <span class="o">-</span> <span class="n">ac</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a_sqrd_plus_b_sqrd</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">bx0</span> <span class="o">+</span> <span class="n">ay0</span><span class="p">)</span> <span class="o">-</span> <span class="n">bc</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a_sqrd_plus_b_sqrd</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 2</span>
+    <span class="n">projected_pixels</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">projected_flow</span> <span class="o">=</span> <span class="n">projected_pixels</span> <span class="o">-</span> <span class="n">uniform_pixel_coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">projected_flow</span></div>
+
+
+<div class="viewcode-block" id="pixel_cost_volume"><a class="viewcode-back" href="../../optical_flow/pixel_cost_volume.html#ivy_vision.optical_flow.pixel_cost_volume">[docs]</a><span class="k">def</span> <span class="nf">pixel_cost_volume</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">image2</span><span class="p">,</span> <span class="n">search_range</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute cost volume from image feature patch comparisons between first image</span>
+<span class="sd">    :math:`\mathbf{X}_1\in\mathbb{R}^{h×w×d}` and second image :math:`\mathbf{X}_2\in\mathbb{R}^{h×w×d}`, as used in</span>
+<span class="sd">    FlowNet paper.\n</span>
+<span class="sd">    `[reference] &lt;https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Dosovitskiy_FlowNet_Learning_Optical_ICCV_2015_paper.pdf&gt;`_</span>
+
+<span class="sd">    :param image1: Image 1 *[batch_shape,h,w,D]*</span>
+<span class="sd">    :type image1: array</span>
+<span class="sd">    :param image2: Image 2 *[batch_shape,h,w,D]*</span>
+<span class="sd">    :type image2: array</span>
+<span class="sd">    :param search_range: Search range for patch comparisons.</span>
+<span class="sd">    :type search_range: int</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param f: Machine learning library. Inferred from inputs if None.</span>
+<span class="sd">    :type f: ml_framework, optional</span>
+<span class="sd">    :return: Cost volume between the images *[batch_shape,h,w,(search_range*2+1)^2]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">image1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">image1</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="c1"># shapes as list</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+
+    <span class="c1"># shape info</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">image1</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">max_offset</span> <span class="o">=</span> <span class="n">search_range</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># pad dims</span>
+    <span class="n">pad_dims</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span> <span class="o">+</span> <span class="p">[[</span><span class="n">search_range</span><span class="p">,</span> <span class="n">search_range</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+
+    <span class="c1"># BS x (H+2*SR) x (W+2*SR) x D</span>
+    <span class="n">padded_lvl</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">zero_pad</span><span class="p">(</span><span class="n">image2</span><span class="p">,</span> <span class="n">pad_dims</span><span class="p">)</span>
+
+    <span class="c1"># create list</span>
+    <span class="n">cost_vol</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># iterate through patches</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_offset</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_offset</span><span class="p">):</span>
+            <span class="c1"># BS x H x W x D</span>
+            <span class="n">tensor_slice</span> <span class="o">=</span> <span class="n">padded_lvl</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="n">y</span> <span class="o">+</span> <span class="n">h</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="p">:]</span>
+
+            <span class="c1"># BS x H x W x 1</span>
+            <span class="n">cost</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">image1</span> <span class="o">*</span> <span class="n">tensor_slice</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># append to list</span>
+            <span class="n">cost_vol</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x (max_offset^2)</span>
+    <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">cost_vol</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="velocity_from_flow_cam_coords_and_cam_mats"><a class="viewcode-back" href="../../optical_flow/velocity_from_flow_cam_coords_and_cam_mats.html#ivy_vision.optical_flow.velocity_from_flow_cam_coords_and_cam_mats">[docs]</a><span class="k">def</span> <span class="nf">velocity_from_flow_cam_coords_and_cam_mats</span><span class="p">(</span><span class="n">flow_t_to_tm1</span><span class="p">,</span> <span class="n">cam_coords_t</span><span class="p">,</span> <span class="n">cam_coords_tm1</span><span class="p">,</span>
+                                               <span class="n">cam_tm1_to_t_ext_mat</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">,</span> <span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                               <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute relative cartesian velocity from optical flow, camera co-ordinates, and camera extrinsics.</span>
+
+<span class="sd">    :param flow_t_to_tm1: Optical flow from frame t to t-1 *[batch_shape,h,w,2]*</span>
+<span class="sd">    :type flow_t_to_tm1: array</span>
+<span class="sd">    :param cam_coords_t: Camera-centric homogeneous co-ordinates image in frame t *[batch_shape,h,w,4]*</span>
+<span class="sd">    :type cam_coords_t: array</span>
+<span class="sd">    :param cam_coords_tm1: Camera-centric homogeneous co-ordinates image in frame t-1 *[batch_shape,h,w,4]*</span>
+<span class="sd">    :type cam_coords_tm1: array</span>
+<span class="sd">    :param cam_tm1_to_t_ext_mat: Camera t-1 to camera t extrinsic projection matrix *[batch_shape,3,4]*</span>
+<span class="sd">    :type cam_tm1_to_t_ext_mat: array</span>
+<span class="sd">    :param delta_t: Time difference between frame at timestep t-1 and t *[batch_shape,1]*</span>
+<span class="sd">    :type delta_t: array</span>
+<span class="sd">    :param uniform_pixel_coords: Homogeneous uniform (integer) pixel co-ordinate images, inferred from image_dims if None *[batch_shape,h,w,3]*</span>
+<span class="sd">    :type uniform_pixel_coords: array, optional</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param image_dims: Image dimensions. Inferred from inputs in None.</span>
+<span class="sd">    :type image_dims: sequence of ints, optional</span>
+<span class="sd">    :param dev: device on which to create the array &#39;cuda:0&#39;, &#39;cuda:1&#39;, &#39;cpu&#39; etc. Same as x if None.</span>
+<span class="sd">    :type dev: str, optional</span>
+<span class="sd">    :param f: Machine learning library. Inferred from inputs if None.</span>
+<span class="sd">    :type f: ml_framework, optional</span>
+<span class="sd">    :return: Cartesian velocity measurements relative to the camera *[batch_shape,h,w,3]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">flow_t_to_tm1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">flow_t_to_tm1</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">image_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">flow_t_to_tm1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># shapes as list</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dev</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dev</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get_device</span><span class="p">(</span><span class="n">flow_t_to_tm1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">uniform_pixel_coords</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">uniform_pixel_coords</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">create_uniform_pixel_coords_image</span><span class="p">(</span><span class="n">image_dims</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">dev</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># Interpolate cam coords from frame t-1</span>
+
+    <span class="c1"># BS x H x W x 2</span>
+    <span class="n">warp</span> <span class="o">=</span> <span class="n">uniform_pixel_coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">flow_t_to_tm1</span>
+
+    <span class="c1"># BS x H x W x 4</span>
+    <span class="n">cam_coords_tm1_interp</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">bilinear_resample</span><span class="p">(</span><span class="n">cam_coords_tm1</span><span class="p">,</span> <span class="n">warp</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="c1"># Project to frame t</span>
+
+    <span class="c1"># BS x H x W x 4</span>
+    <span class="n">cam_coords_t_proj</span> <span class="o">=</span> <span class="n">_ivy_tvg</span><span class="o">.</span><span class="n">cam_to_cam_coords</span><span class="p">(</span><span class="n">cam_coords_tm1_interp</span><span class="p">,</span> <span class="n">cam_tm1_to_t_ext_mat</span><span class="p">,</span>
+                                                   <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># delta co-ordinates</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">delta_cam_coords_t</span> <span class="o">=</span> <span class="p">(</span><span class="n">cam_coords_t</span> <span class="o">-</span> <span class="n">cam_coords_t_proj</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="c1"># velocity</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">vel</span> <span class="o">=</span> <span class="n">delta_cam_coords_t</span> <span class="o">/</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">delta_t</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># Validity mask</span>
+
+    <span class="c1"># BS x H x W x 1</span>
+    <span class="n">validity_mask</span> <span class="o">=</span> \
+        <span class="n">f</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">warp</span> <span class="o">&lt;</span> <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">image_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">image_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="s1">&#39;float32&#39;</span><span class="p">,</span> <span class="n">dev</span><span class="o">=</span><span class="n">dev</span><span class="p">),</span>
+                                  <span class="s1">&#39;int32&#39;</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+    <span class="c1"># pruned</span>
+
+    <span class="c1"># BS x H x W x 3,    BS x H x W x 1</span>
+    <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">validity_mask</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">vel</span><span class="p">,</span> <span class="n">dev</span><span class="o">=</span><span class="n">dev</span><span class="p">)),</span> <span class="n">validity_mask</span></div>
+
+
+<div class="viewcode-block" id="project_cam_coords_with_object_transformations"><a class="viewcode-back" href="../../optical_flow/project_cam_coords_with_object_transformations.html#ivy_vision.optical_flow.project_cam_coords_with_object_transformations">[docs]</a><span class="k">def</span> <span class="nf">project_cam_coords_with_object_transformations</span><span class="p">(</span><span class="n">cam_coords_1</span><span class="p">,</span> <span class="n">id_image</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">,</span> <span class="n">obj_trans</span><span class="p">,</span>
+                                                   <span class="n">cam_1_to_2_ext_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute velocity image from co-ordinate image, id image, and object transformations.</span>
+
+<span class="sd">    :param cam_coords_1: Camera-centric homogeneous co-ordinates image in frame t *[batch_shape,h,w,4]*</span>
+<span class="sd">    :type cam_coords_1: array</span>
+<span class="sd">    :param id_image: Image containing per-pixel object ids *[batch_shape,h,w,1]*</span>
+<span class="sd">    :type id_image: array</span>
+<span class="sd">    :param obj_ids: Object ids *[batch_shape,num_obj,1]*</span>
+<span class="sd">    :type obj_ids: array</span>
+<span class="sd">    :param obj_trans: Object transformations for this frame over time *[batch_shape,num_obj,3,4]*</span>
+<span class="sd">    :type obj_trans: array</span>
+<span class="sd">    :param cam_1_to_2_ext_mat: Camera 1 to camera 2 extrinsic projection matrix *[batch_shape,3,4]*</span>
+<span class="sd">    :type cam_1_to_2_ext_mat: array</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param image_dims: Image dimensions. Inferred from inputs in None.</span>
+<span class="sd">    :type image_dims: sequence of ints, optional</span>
+<span class="sd">    :param f: Machine learning library. Inferred from inputs if None.</span>
+<span class="sd">    :type f: ml_framework, optional</span>
+<span class="sd">    :return: Relative velocity image *[batch_shape,h,w,3]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">cam_coords_1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">cam_coords_1</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">image_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">cam_coords_1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># shapes as list</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
+    <span class="n">num_batch_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+
+    <span class="c1"># Transform the co-ordinate image by each transformation</span>
+
+    <span class="c1"># BS x (num_obj x 3) x 4</span>
+    <span class="n">obj_trans</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">obj_trans</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+    <span class="c1"># BS x 4 x H x W</span>
+    <span class="n">cam_coords_1_</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">cam_coords_1</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_batch_dims</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">num_batch_dims</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+    <span class="c1"># BS x 4 x (HxW)</span>
+    <span class="n">cam_coords_1_</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cam_coords_1_</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># BS x (num_obj x 3) x (HxW)</span>
+    <span class="n">cam_coords_2_all_obj_trans</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">obj_trans</span><span class="p">,</span> <span class="n">cam_coords_1_</span><span class="p">)</span>
+
+    <span class="c1"># BS x (HxW) x (num_obj x 3)</span>
+    <span class="n">cam_coords_2_all_obj_trans</span> <span class="o">=</span> \
+        <span class="n">f</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">cam_coords_2_all_obj_trans</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_batch_dims</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">num_batch_dims</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+    <span class="c1"># BS x H x W x num_obj x 3</span>
+    <span class="n">cam_coords_2_all_obj_trans</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cam_coords_2_all_obj_trans</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="n">image_dims</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+    <span class="c1"># Multiplier</span>
+
+    <span class="c1"># BS x 1 x 1 x num_obj</span>
+    <span class="n">obj_ids</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">obj_ids</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># BS x H x W x num_obj x 1</span>
+    <span class="n">multiplier</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">obj_ids</span> <span class="o">==</span> <span class="n">id_image</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+
+    <span class="c1"># compute validity mask, for pixels which are on moving objects</span>
+
+    <span class="c1"># BS x H x W x 1</span>
+    <span class="n">motion_mask</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">multiplier</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+    <span class="c1"># make invalid transformations equal to zero</span>
+
+    <span class="c1"># BS x H x W x num_obj x 3</span>
+    <span class="n">cam_coords_2_all_obj_trans_w_zeros</span> <span class="o">=</span> <span class="n">cam_coords_2_all_obj_trans</span> <span class="o">*</span> <span class="n">multiplier</span>
+
+    <span class="c1"># reduce to get only valid transformations</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">cam_coords_2_all_obj_trans</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">cam_coords_2_all_obj_trans_w_zeros</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># find cam coords to for zero motion pixels</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">cam_coords_2_wo_motion</span> <span class="o">=</span> <span class="n">_ivy_tvg</span><span class="o">.</span><span class="n">cam_to_cam_coords</span><span class="p">(</span><span class="n">cam_coords_1</span><span class="p">,</span> <span class="n">cam_1_to_2_ext_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 4</span>
+    <span class="n">cam_coords_2_all_trans_homo</span> <span class="o">=</span>\
+        <span class="n">_ivy_mech</span><span class="o">.</span><span class="n">make_coordinates_homogeneous</span><span class="p">(</span><span class="n">cam_coords_2_all_obj_trans</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="n">image_dims</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">cam_coords_2</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">motion_mask</span><span class="p">,</span> <span class="n">cam_coords_2_all_trans_homo</span><span class="p">,</span> <span class="n">cam_coords_2_wo_motion</span><span class="p">)</span>
+
+    <span class="c1"># return</span>
+
+    <span class="c1"># BS x H x W x 3,    BS x H x W x 1</span>
+    <span class="k">return</span> <span class="n">cam_coords_2</span><span class="p">,</span> <span class="n">motion_mask</span></div>
+
+
+<div class="viewcode-block" id="velocity_from_cam_coords_id_image_and_object_trans"><a class="viewcode-back" href="../../optical_flow/velocity_from_cam_coords_id_image_and_object_trans.html#ivy_vision.optical_flow.velocity_from_cam_coords_id_image_and_object_trans">[docs]</a><span class="k">def</span> <span class="nf">velocity_from_cam_coords_id_image_and_object_trans</span><span class="p">(</span><span class="n">cam_coords_t</span><span class="p">,</span> <span class="n">id_image</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">,</span> <span class="n">obj_trans</span><span class="p">,</span> <span class="n">delta_t</span><span class="p">,</span>
+                                                       <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute velocity image from co-ordinate image, id image, and object transformations.</span>
+
+<span class="sd">    :param cam_coords_t: Camera-centric homogeneous co-ordinates image in frame t *[batch_shape,h,w,4]*</span>
+<span class="sd">    :type cam_coords_t: array</span>
+<span class="sd">    :param id_image: Image containing per-pixel object ids *[batch_shape,h,w,1]*</span>
+<span class="sd">    :type id_image: array</span>
+<span class="sd">    :param obj_ids: Object ids *[batch_shape,num_obj,1]*</span>
+<span class="sd">    :type obj_ids: array</span>
+<span class="sd">    :param obj_trans: Object transformations for this frame over time *[batch_shape,num_obj,3,4]*</span>
+<span class="sd">    :type obj_trans: array</span>
+<span class="sd">    :param delta_t: Time difference between frame at timestep t-1 and t *[batch_shape,1]*</span>
+<span class="sd">    :type delta_t: array</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param image_dims: Image dimensions. Inferred from inputs in None.</span>
+<span class="sd">    :type image_dims: sequence of ints, optional</span>
+<span class="sd">    :param dev: device on which to create the array &#39;cuda:0&#39;, &#39;cuda:1&#39;, &#39;cpu&#39; etc. Same as x if None.</span>
+<span class="sd">    :type dev: str, optional</span>
+<span class="sd">    :param f: Machine learning library. Inferred from inputs if None.</span>
+<span class="sd">    :type f: ml_framework, optional</span>
+<span class="sd">    :return: Relative velocity image *[batch_shape,h,w,3]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">cam_coords_t</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">cam_coords_t</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">image_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">cam_coords_t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">dev</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dev</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get_device</span><span class="p">(</span><span class="n">cam_coords_t</span><span class="p">)</span>
+
+    <span class="c1"># shapes as list</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="c1"># get co-ordinate re-projections</span>
+
+    <span class="c1"># BS x H x W x 4</span>
+    <span class="n">cam_coords_t_all_trans</span><span class="p">,</span> <span class="n">motion_mask</span> <span class="o">=</span>\
+        <span class="n">project_cam_coords_with_object_transformations</span><span class="p">(</span><span class="n">cam_coords_t</span><span class="p">,</span> <span class="n">id_image</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">,</span> <span class="n">obj_trans</span><span class="p">,</span>
+                                                       <span class="n">f</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:],</span>
+                                                       <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 4</span>
+    <span class="n">cam_coords_t_all_trans</span> <span class="o">=</span> \
+        <span class="n">f</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">motion_mask</span><span class="p">,</span> <span class="n">cam_coords_t_all_trans</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">cam_coords_t_all_trans</span><span class="p">,</span> <span class="n">dev</span><span class="o">=</span><span class="n">dev</span><span class="p">))</span>
+
+    <span class="c1"># compute velocities</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">vel</span> <span class="o">=</span> <span class="p">(</span><span class="n">cam_coords_t</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">cam_coords_t_all_trans</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span><span class="o">/</span><span class="n">delta_t</span>
+
+    <span class="c1"># prune velocities</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">motion_mask</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">vel</span><span class="p">,</span> <span class="n">dev</span><span class="o">=</span><span class="n">dev</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="flow_from_cam_coords_id_image_and_object_trans"><a class="viewcode-back" href="../../optical_flow/flow_from_cam_coords_id_image_and_object_trans.html#ivy_vision.optical_flow.flow_from_cam_coords_id_image_and_object_trans">[docs]</a><span class="k">def</span> <span class="nf">flow_from_cam_coords_id_image_and_object_trans</span><span class="p">(</span><span class="n">cam_coords_f1</span><span class="p">,</span> <span class="n">id_image</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">,</span> <span class="n">obj_trans</span><span class="p">,</span>
+                                                   <span class="n">calib_mat</span><span class="p">,</span> <span class="n">cam_1_to_2_ext_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                                   <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute optical flow from co-ordinate image, id image, and object transformations.</span>
+
+<span class="sd">    :param cam_coords_f1: Camera-centric homogeneous co-ordinates image in frame t *[batch_shape,h,w,4]*</span>
+<span class="sd">    :type cam_coords_f1: array</span>
+<span class="sd">    :param id_image: Image containing per-pixel object ids *[batch_shape,h,w,1]*</span>
+<span class="sd">    :type id_image: array</span>
+<span class="sd">    :param obj_ids: Object ids *[batch_shape,num_obj,1]*</span>
+<span class="sd">    :type obj_ids: array</span>
+<span class="sd">    :param obj_trans: Object transformations for this frame over time *[batch_shape,num_obj,3,4]*</span>
+<span class="sd">    :type obj_trans: array</span>
+<span class="sd">    :param calib_mat: Calibration matrix *[batch_shape,3,3]*</span>
+<span class="sd">    :type calib_mat: array</span>
+<span class="sd">    :param cam_1_to_2_ext_mat: Camera 1 to camera 2 extrinsic projection matrix *[batch_shape,3,4]*</span>
+<span class="sd">    :type cam_1_to_2_ext_mat: array</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param image_dims: Image dimensions. Inferred from inputs in None.</span>
+<span class="sd">    :type image_dims: sequence of ints, optional</span>
+<span class="sd">    :param f: Machine learning library. Inferred from inputs if None.</span>
+<span class="sd">    :type f: ml_framework, optional</span>
+<span class="sd">    :return: Relative velocity image *[batch_shape,h,w,3]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">cam_coords_f1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">cam_coords_f1</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">image_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">cam_coords_f1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># shapes as list</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="c1"># get co-ordinate re-projections</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">cam_coords_trans_f2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span>\
+        <span class="n">project_cam_coords_with_object_transformations</span><span class="p">(</span><span class="n">cam_coords_f1</span><span class="p">,</span> <span class="n">id_image</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">,</span> <span class="n">obj_trans</span><span class="p">,</span>
+                                                       <span class="n">cam_1_to_2_ext_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="c1"># co-ordinates to pixel co-ordinates</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">pixel_coords_f1</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">cam_to_pixel_coords</span><span class="p">(</span><span class="n">cam_coords_f1</span><span class="p">,</span> <span class="n">calib_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">pixel_coords_trans_f2</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">cam_to_pixel_coords</span><span class="p">(</span><span class="n">cam_coords_trans_f2</span><span class="p">,</span> <span class="n">calib_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># unscaled pixel coords</span>
+    <span class="n">unscaled_pixel_coords_f1</span> <span class="o">=</span> <span class="n">pixel_coords_f1</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">pixel_coords_f1</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
+    <span class="n">unscaled_pixel_coords_f2</span> <span class="o">=</span> <span class="n">pixel_coords_trans_f2</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">pixel_coords_trans_f2</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
+
+    <span class="c1"># optical flow</span>
+
+    <span class="c1"># BS x H x W x 2</span>
+    <span class="k">return</span> <span class="n">unscaled_pixel_coords_f2</span> <span class="o">-</span> <span class="n">unscaled_pixel_coords_f1</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ivy Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

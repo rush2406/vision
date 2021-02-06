@@ -1,0 +1,16 @@
+Voxel grids
+===========
+
+.. automodule:: ivy_vision.voxel_grids
+    :members:
+    :special-members: __init__
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+   :maxdepth: -1
+   :caption: Voxel grids
+
+   voxel_grids/coords_to_voxel_grid.rst
+

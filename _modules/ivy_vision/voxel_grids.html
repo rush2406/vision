@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ivy_vision.voxel_grids &mdash; Ivy Vision 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Ivy Vision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../containers.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../optical_flow.html">Optical flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projective_geometry.html">Projective geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rendering.html">Rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sdf.html">Sdf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../single_view_geometry.html">Single view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../two_view_geometry.html">Two view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../voxel_grids.html">Voxel grids</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Docs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ivy"">Ivy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mech"">Ivy Mech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vision"">Ivy Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../robot"">Ivy Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gym"">Ivy Gym</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Ivy Vision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>ivy_vision.voxel_grids</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for ivy_vision.voxel_grids</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Collection of Voxel-Grid Functions</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># global</span>
+<span class="kn">from</span> <span class="nn">ivy.framework_handler</span> <span class="k">import</span> <span class="n">get_framework</span> <span class="k">as</span> <span class="n">_get_framework</span>
+
+<span class="n">MIN_DENOMINATOR</span> <span class="o">=</span> <span class="mf">1e-12</span>
+
+
+<div class="viewcode-block" id="coords_to_voxel_grid"><a class="viewcode-back" href="../../voxel_grids/coords_to_voxel_grid.html#ivy_vision.voxel_grids.coords_to_voxel_grid">[docs]</a><span class="k">def</span> <span class="nf">coords_to_voxel_grid</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">voxel_shape_spec</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;DIMS&#39;</span><span class="p">,</span> <span class="n">coord_bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                         <span class="n">dev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create voxel grid :math:`\mathbf{X}_v\in\mathbb{R}^{x×y×z×(3+N+1)}` from homogeneous co-ordinates</span>
+<span class="sd">    :math:`\mathbf{X}_w\in\mathbb{R}^{num\_coords×4}`. Each voxel contains 3+N+1 values: the mean normalized</span>
+<span class="sd">    co-ordinate inside the voxel for the projected pixels with :math:`0 &lt; x, y, z &lt; 1`, N coordinte features (optional),</span>
+<span class="sd">    and also the number of projected pixels inside the voxel.</span>
+<span class="sd">    Grid resolutions and dimensions are also returned separately for each entry in the batch.</span>
+<span class="sd">    Note that the final batched voxel grid returned uses the maximum grid dimensions across the batch, this means</span>
+<span class="sd">    some returned grids may contain redundant space, with all but the single largest batched grid occupying a subset</span>
+<span class="sd">    of the grid space, originating from the corner of minimum :math:`x,y,z` values.\n</span>
+<span class="sd">    `[reference] &lt;https://en.wikipedia.org/wiki/Voxel&gt;`_</span>
+
+<span class="sd">    :param coords: Homogeneous co-ordinates *[batch_shape,c,4]*</span>
+<span class="sd">    :type coords: array</span>
+<span class="sd">    :param voxel_shape_spec: Either the number of voxels in x,y,z directions, or the resolutions (metres) in x,y,z</span>
+<span class="sd">                                directions, depending on mode. Batched or unbatched. *[batch_shape,3]* or *[3]*</span>
+<span class="sd">    :type voxel_shape_spec: array</span>
+<span class="sd">    :param mode: Shape specification mode, either &quot;DIMS&quot; or &quot;RES&quot;</span>
+<span class="sd">    :type mode: str</span>
+<span class="sd">    :param coord_bounds: Co-ordinate x, y, z boundaries *[batch_shape,6]* or *[6]*</span>
+<span class="sd">    :type coord_bounds: array</span>
+<span class="sd">    :param features: Co-ordinate features *[batch_shape,c,4]*.</span>
+<span class="sd">                              E.g. RGB values, low-dimensional features, etc.</span>
+<span class="sd">                              Features mapping to the same voxel are averaged.</span>
+<span class="sd">    :type features: array</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param dev: device on which to create the array &#39;cuda:0&#39;, &#39;cuda:1&#39;, &#39;cpu&#39; etc. Same as x if None.</span>
+<span class="sd">    :type dev: str, optional</span>
+<span class="sd">    :param f: Machine learning library. Inferred from inputs if None.</span>
+<span class="sd">    :type f: ml_framework, optional</span>
+<span class="sd">    :return: Voxel grid *[batch_shape,x_max,v_max,z_max,3+feature_size+1]*, dimensions *[batch_shape,3]*, resolutions *[batch_shape,3]*, voxel_grid_lower_corners *[batch_shape,3]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">dev</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dev</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">get_device</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+
+    <span class="c1"># shapes as list</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">num_batch_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">num_coords_per_batch</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="c1"># voxel shape spec as array</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">voxel_shape_spec</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">3</span><span class="p">:</span>
+
+        <span class="c1"># BS x 1 x 3</span>
+        <span class="n">voxel_shape_spec</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">voxel_shape_spec</span><span class="p">),</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_batch_dims</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># coord bounds spec as array</span>
+    <span class="k">if</span> <span class="n">coord_bounds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">coord_bounds</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">6</span><span class="p">:</span>
+
+        <span class="c1"># BS x 1 x 6</span>
+        <span class="n">coord_bounds</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coord_bounds</span><span class="p">,</span> <span class="n">dtype_str</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">),</span>
+            <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_batch_dims</span> <span class="o">+</span> <span class="p">[</span><span class="mi">6</span><span class="p">]),</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># BS x N x 3</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">coord_bounds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+        <span class="c1"># BS x 1</span>
+        <span class="n">x_min</span> <span class="o">=</span> <span class="n">coord_bounds</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">y_min</span> <span class="o">=</span> <span class="n">coord_bounds</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">z_min</span> <span class="o">=</span> <span class="n">coord_bounds</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">x_max</span> <span class="o">=</span> <span class="n">coord_bounds</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">y_max</span> <span class="o">=</span> <span class="n">coord_bounds</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+        <span class="n">z_max</span> <span class="o">=</span> <span class="n">coord_bounds</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+
+        <span class="c1"># BS x N x 1</span>
+        <span class="n">x_coords</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">y_coords</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">z_coords</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="n">x_validity_mask</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">x_coords</span> <span class="o">&gt;</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_coords</span> <span class="o">&lt;</span> <span class="n">x_max</span><span class="p">)</span>
+        <span class="n">y_validity_mask</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">y_coords</span> <span class="o">&gt;</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">y_coords</span> <span class="o">&lt;</span> <span class="n">y_max</span><span class="p">)</span>
+        <span class="n">z_validity_mask</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">z_coords</span> <span class="o">&gt;</span> <span class="n">z_min</span><span class="p">,</span> <span class="n">z_coords</span> <span class="o">&lt;</span> <span class="n">z_max</span><span class="p">)</span>
+
+        <span class="c1"># BS x N</span>
+        <span class="n">full_validity_mask</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">x_validity_mask</span><span class="p">,</span> <span class="n">y_validity_mask</span><span class="p">),</span>
+                                              <span class="n">z_validity_mask</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># BS x 1 x 3</span>
+        <span class="n">bb_mins</span> <span class="o">=</span> <span class="n">coord_bounds</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">bb_maxs</span> <span class="o">=</span> <span class="n">coord_bounds</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+        <span class="n">bb_ranges</span> <span class="o">=</span> <span class="n">bb_maxs</span> <span class="o">-</span> <span class="n">bb_mins</span>
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="c1"># BS x N</span>
+        <span class="n">full_validity_mask</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">num_coords_per_batch</span><span class="p">]),</span> <span class="s1">&#39;bool&#39;</span><span class="p">)</span>
+
+        <span class="c1"># BS x 1 x 3</span>
+        <span class="n">bb_mins</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reduce_min</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">bb_maxs</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reduce_max</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">bb_ranges</span> <span class="o">=</span> <span class="n">bb_maxs</span> <span class="o">-</span> <span class="n">bb_mins</span>
+
+    <span class="c1"># get voxel dimensions</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="ow">is</span> <span class="s1">&#39;DIMS&#39;</span><span class="p">:</span>
+        <span class="c1"># BS x 1 x 3</span>
+        <span class="n">dims</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">voxel_shape_spec</span><span class="p">,</span> <span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="ow">is</span> <span class="s1">&#39;RES&#39;</span><span class="p">:</span>
+        <span class="c1"># BS x 1 x 3</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">voxel_shape_spec</span><span class="p">,</span> <span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+        <span class="n">dims</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">bb_ranges</span> <span class="o">/</span> <span class="p">(</span><span class="n">res</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)),</span> <span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Invalid mode selection. Must be either &quot;DIMS&quot; or &quot;RES&quot;&#39;</span><span class="p">)</span>
+    <span class="n">dims_m_one</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">dims</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+
+    <span class="c1"># BS x 1 x 3</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">bb_ranges</span> <span class="o">/</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
+
+    <span class="c1"># BS x NC x 3</span>
+    <span class="n">voxel_indices</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">coords</span> <span class="o">-</span> <span class="n">bb_mins</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">res</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)),</span>
+                                           <span class="s1">&#39;int32&#39;</span><span class="p">),</span> <span class="n">dims_m_one</span><span class="p">)</span>
+
+    <span class="c1"># BS x NC x 3</span>
+    <span class="n">voxel_values</span> <span class="o">=</span> <span class="p">((</span><span class="n">coords</span> <span class="o">-</span> <span class="n">bb_mins</span><span class="p">)</span> <span class="o">%</span> <span class="n">res</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">res</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
+
+    <span class="n">feature_size</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">features</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">feature_size</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">voxel_values</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">voxel_values</span><span class="p">,</span> <span class="n">features</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># TNVC x len(BS)+1</span>
+    <span class="n">valid_coord_indices</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">indices_where</span><span class="p">(</span><span class="n">full_validity_mask</span><span class="p">),</span> <span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+
+    <span class="c1"># scalar</span>
+    <span class="n">total_num_valid_coords</span> <span class="o">=</span> <span class="n">valid_coord_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># TNVC x 3</span>
+    <span class="n">voxel_values_pruned_flat</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">gather_nd</span><span class="p">(</span><span class="n">voxel_values</span><span class="p">,</span> <span class="n">valid_coord_indices</span><span class="p">)</span>
+    <span class="n">voxel_indices_pruned_flat</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">gather_nd</span><span class="p">(</span><span class="n">voxel_indices</span><span class="p">,</span> <span class="n">valid_coord_indices</span><span class="p">)</span>
+
+    <span class="c1"># TNVC x len(BS)+2</span>
+    <span class="k">if</span> <span class="n">num_batch_dims</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">all_indices_pruned_flat</span> <span class="o">=</span> <span class="n">voxel_indices_pruned_flat</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">batch_indices</span> <span class="o">=</span> <span class="n">valid_coord_indices</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">all_indices_pruned_flat</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">batch_indices</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">voxel_indices_pruned_flat</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># TNVC x 4</span>
+    <span class="n">voxel_values_pruned_flat</span> <span class="o">=</span>\
+        <span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">voxel_values_pruned_flat</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">total_num_valid_coords</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dev</span><span class="o">=</span><span class="n">dev</span><span class="p">)),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># get max dims list for scatter</span>
+    <span class="k">if</span> <span class="n">num_batch_dims</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">max_dims</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reduce_max</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_batch_dims</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">max_dims</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">batch_shape_array_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">,</span> <span class="s1">&#39;int32&#39;</span><span class="p">)]</span> <span class="k">if</span> <span class="n">num_batch_dims</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="n">total_dims_list</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">batch_shape_array_list</span> <span class="o">+</span>
+                                                    <span class="p">[</span><span class="n">max_dims</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span> <span class="o">+</span> <span class="n">feature_size</span><span class="p">],</span> <span class="s1">&#39;int32&#39;</span><span class="p">)],</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># BS x x_max x y_max x z_max x 4</span>
+    <span class="n">scattered</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">scatter_nd</span><span class="p">(</span><span class="n">all_indices_pruned_flat</span><span class="p">,</span> <span class="n">voxel_values_pruned_flat</span><span class="p">,</span> <span class="n">total_dims_list</span><span class="p">)</span>
+
+    <span class="c1"># BS x x_max x y_max x z_max x 4 + feature_size, BS x 3, BS x 3, BS x 3</span>
+    <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span>
+        <span class="n">scattered</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">scattered</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">),</span>
+        <span class="n">scattered</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">dims</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">res</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">bb_mins</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ivy Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

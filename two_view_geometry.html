@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Two view geometry &mdash; Ivy Vision 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pixel_to_pixel_coords" href="two_view_geometry/pixel_to_pixel_coords.html" />
+    <link rel="prev" title="inv_ext_mat_and_intrinsics_to_cam_geometry_object" href="single_view_geometry/inv_ext_mat_and_intrinsics_to_cam_geometry_object.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Ivy Vision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optical_flow.html">Optical flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="projective_geometry.html">Projective geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">Rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sdf.html">Sdf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="single_view_geometry.html">Single view geometry</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Two view geometry</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/pixel_to_pixel_coords.html">pixel_to_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/cam_to_cam_coords.html">cam_to_cam_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/sphere_to_sphere_coords.html">sphere_to_sphere_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/angular_pixel_to_angular_pixel_coords.html">angular_pixel_to_angular_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/get_fundamental_matrix.html">get_fundamental_matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/closest_mutual_points_along_two_skew_rays.html">closest_mutual_points_along_two_skew_rays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/triangulate_depth.html">triangulate_depth</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Docs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ivy"">Ivy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mech"">Ivy Mech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vision"">Ivy Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../robot"">Ivy Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gym"">Ivy Gym</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Ivy Vision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Two view geometry</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/two_view_geometry.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-ivy_vision.two_view_geometry">
+<span id="two-view-geometry"></span><h1>Two view geometry<a class="headerlink" href="#module-ivy_vision.two_view_geometry" title="Permalink to this headline">¶</a></h1>
+<p>Collection of Two-View-Geometry Functions</p>
+<dl class="py function">
+<dt id="ivy_vision.two_view_geometry.pixel_to_pixel_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">pixel_to_pixel_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pixel_coords1</span></em>, <em class="sig-param"><span class="n">cam1to2_full_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/two_view_geometry.html#pixel_to_pixel_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.pixel_to_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform depth scaled homogeneous pixel co-ordinates image in first camera frame
+<span class="math notranslate nohighlight">\(\mathbf{X}_{p1}\in\mathbb{R}^{h×w×3}\)</span> to depth scaled homogeneous pixel co-ordinates image in second camera
+frame <span class="math notranslate nohighlight">\(\mathbf{X}_{p2}\in\mathbb{R}^{h×w×3}\)</span>, given camera to camera projection matrix
+<span class="math notranslate nohighlight">\(\mathbf{P}_{1→2}\in\mathbb{R}^{3×4}\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=174">[reference]</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pixel_coords1</strong> (<em>array</em>) – Depth scaled homogeneous pixel co-ordinates image in frame 1 <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>cam1to2_full_mat</strong> (<em>array</em>) – Camera1-to-camera2 full projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Depth scaled homogeneous pixel co-ordinates image in frame 2 <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.two_view_geometry.cam_to_cam_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">cam_to_cam_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cam_coords1</span></em>, <em class="sig-param"><span class="n">cam1to2_ext_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/two_view_geometry.html#cam_to_cam_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.cam_to_cam_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform camera-centric homogeneous co-ordinates image for camera 1 <span class="math notranslate nohighlight">\(\mathbf{X}_{c1}\in\mathbb{R}^{h×w×4}\)</span> to
+camera-centric homogeneous co-ordinates image for camera 2 <span class="math notranslate nohighlight">\(\mathbf{X}_{c2}\in\mathbb{R}^{h×w×4}\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=174">[reference]</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cam_coords1</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image in frame 1 <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>cam1to2_ext_mat</strong> (<em>array</em>) – Camera1-to-camera2 extrinsic projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Depth scaled homogeneous pixel co-ordinates image in frame 2 <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.two_view_geometry.sphere_to_sphere_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sphere_to_sphere_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sphere_coords1</span></em>, <em class="sig-param"><span class="n">cam1to2_ext_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/two_view_geometry.html#sphere_to_sphere_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.sphere_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert camera-centric ego-sphere polar co-ordinates image in frame 1 <span class="math notranslate nohighlight">\(\mathbf{S}_{c1}\in\mathbb{R}^{h×w×3}\)</span>
+to camera-centric ego-sphere polar co-ordinates image in frame 2 <span class="math notranslate nohighlight">\(\mathbf{S}_{c2}\in\mathbb{R}^{h×w×3}\)</span>.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sphere_coords1</strong> (<em>array</em>) – Camera-centric ego-sphere polar co-ordinates image in frame 1 <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>cam1to2_ext_mat</strong> (<em>array</em>) – Camera1-to-camera2 extrinsic projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image in frame 2 <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.two_view_geometry.angular_pixel_to_angular_pixel_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">angular_pixel_to_angular_pixel_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">angular_pixel_coords1</span></em>, <em class="sig-param"><span class="n">cam1to2_ext_mat</span></em>, <em class="sig-param"><span class="n">pixels_per_degree</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/two_view_geometry.html#angular_pixel_to_angular_pixel_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.angular_pixel_to_angular_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angular pixel co-ordinates image in frame 1 <span class="math notranslate nohighlight">\(\mathbf{A}_{p1}\in\mathbb{R}^{h×w×3}\)</span> to angular pixel
+co-ordinates image in frame 2 <span class="math notranslate nohighlight">\(\mathbf{A}_{p2}\in\mathbb{R}^{h×w×3}\)</span>.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>angular_pixel_coords1</strong> (<em>array</em>) – Angular pixel co-ordinates image in frame 1 <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>cam1to2_ext_mat</strong> (<em>array</em>) – Camera1-to-camera2 extrinsic projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>pixels_per_degree</strong> (<em>float</em>) – Number of pixels per angular degree</p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image in frame 2 <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.two_view_geometry.get_fundamental_matrix">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">get_fundamental_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">full_mat1</span></em>, <em class="sig-param"><span class="n">full_mat2</span></em>, <em class="sig-param"><span class="n">camera_center1</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pinv_full_mat1</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/two_view_geometry.html#get_fundamental_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.get_fundamental_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute fundamental matrix <span class="math notranslate nohighlight">\(\mathbf{F}\in\mathbb{R}^{3×3}\)</span> between two cameras, given their extrinsic
+matrices <span class="math notranslate nohighlight">\(\mathbf{E}_1\in\mathbb{R}^{3×4}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{E}_2\in\mathbb{R}^{3×4}\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=262">[reference]</a>
+bottom of page 244, section 9.2.2, equation 9.1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>full_mat1</strong> (<em>array</em>) – Frame 1 full projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>full_mat2</strong> (<em>array</em>) – Frame 2 full projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>camera_center1</strong> (<em>array</em><em>, </em><em>optional</em>) – Frame 1 camera center, inferred from full_mat1 if None <em>[batch_shape,3,1]</em></p></li>
+<li><p><strong>pinv_full_mat1</strong> (<em>array</em><em>, </em><em>optional</em>) – Frame 1 full projection matrix pseudo-inverse, inferred from full_mat1 if None <em>[batch_shape,4,3]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Fundamental matrix connecting frames 1 and 2 <em>[batch_shape,3,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.two_view_geometry.closest_mutual_points_along_two_skew_rays">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">closest_mutual_points_along_two_skew_rays</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">camera_centers</span></em>, <em class="sig-param"><span class="n">world_ray_vectors</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/two_view_geometry.html#closest_mutual_points_along_two_skew_rays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.closest_mutual_points_along_two_skew_rays" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute closest mutual homogeneous co-ordinates <span class="math notranslate nohighlight">\(\mathbf{x}_{1,i,j}\in\mathbb{R}^{4}\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{x}_{2,i,j}\in\mathbb{R}^{4}\)</span> along two world-centric rays
+<span class="math notranslate nohighlight">\(\overset{\sim}{\mathbf{C}_1} + λ_1\mathbf{rv}_{1,i,j}\)</span> and
+<span class="math notranslate nohighlight">\(\overset{\sim}{\mathbf{C}_2} + λ_2\mathbf{rv}_{2,i,j}\)</span>, for each index aligned pixel between two
+world-centric ray vector images <span class="math notranslate nohighlight">\(\mathbf{RV}_1\in\mathbb{R}^{h×w×3}\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{RV}_2\in\mathbb{R}^{h×w×3}\)</span>. The function returns two images of closest mutual homogeneous
+co-ordinates <span class="math notranslate nohighlight">\(\mathbf{X}_1\in\mathbb{R}^{h×w×4}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{X}_2\in\mathbb{R}^{h×w×4}\)</span>,
+concatenated together into a single array.</p>
+<p><a class="reference external" href="https://math.stackexchange.com/questions/1414285/location-of-shortest-distance-between-two-skew-lines-in-3d">[reference]</a>
+second answer in forum</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>camera_centers</strong> (<em>array</em>) – Camera center <em>[batch_shape,2,3,1]</em></p></li>
+<li><p><strong>world_ray_vectors</strong> (<em>array</em>) – World ray vectors <em>[batch_shape,2,h,w,3]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Closest mutual points image <em>[batch_shape,2,h,w,4]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.two_view_geometry.triangulate_depth">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">triangulate_depth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pixel_coords</span></em>, <em class="sig-param"><span class="n">full_mats</span></em>, <em class="sig-param"><span class="n">inv_full_mats</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">camera_centers</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'cmp'</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/two_view_geometry.html#triangulate_depth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.triangulate_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triangulate depth in frame 1, returning depth scaled homogeneous pixel co-ordinate image
+<span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{h×w×3}\)</span> in frame 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pixel_coords</strong> (<em>array</em>) – Homogeneous pixel co-ordinate images: <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>full_mats</strong> (<em>array</em>) – Full projection matrices <em>[batch_shape,2,3,4]</em></p></li>
+<li><p><strong>inv_full_mats</strong> (<em>array</em><em>, </em><em>optional</em>) – Inverse full projection matrices, required for closest_mutual_points method <em>[batch_shape,2,3,4]</em></p></li>
+<li><p><strong>camera_centers</strong> (<em>array</em><em>, </em><em>optional</em>) – Camera centers, required for closest_mutual_points method <em>[batch_shape,2,3,1]</em></p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – Triangulation method, one of [cmp|dlt], for closest mutual points or homogeneous dlt approach, closest_mutual_points by default</p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Depth scaled homogeneous pixel co-ordinates image in frame 1 <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Two view geometry</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="two_view_geometry/pixel_to_pixel_coords.html">pixel_to_pixel_coords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="two_view_geometry/cam_to_cam_coords.html">cam_to_cam_coords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="two_view_geometry/sphere_to_sphere_coords.html">sphere_to_sphere_coords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="two_view_geometry/angular_pixel_to_angular_pixel_coords.html">angular_pixel_to_angular_pixel_coords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="two_view_geometry/get_fundamental_matrix.html">get_fundamental_matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="two_view_geometry/closest_mutual_points_along_two_skew_rays.html">closest_mutual_points_along_two_skew_rays</a></li>
+<li class="toctree-l1"><a class="reference internal" href="two_view_geometry/triangulate_depth.html">triangulate_depth</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="two_view_geometry/pixel_to_pixel_coords.html" class="btn btn-neutral float-right" title="pixel_to_pixel_coords" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="single_view_geometry/inv_ext_mat_and_intrinsics_to_cam_geometry_object.html" class="btn btn-neutral float-left" title="inv_ext_mat_and_intrinsics_to_cam_geometry_object" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ivy Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

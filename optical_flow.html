@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Optical flow &mdash; Ivy Vision 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="depth_from_flow_and_cam_mats" href="optical_flow/depth_from_flow_and_cam_mats.html" />
+    <link rel="prev" title="CameraGeometry" href="containers/CameraGeometry.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Ivy Vision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Optical flow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/depth_from_flow_and_cam_mats.html">depth_from_flow_and_cam_mats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/flow_from_depth_and_cam_mats.html">flow_from_depth_and_cam_mats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/project_flow_to_epipolar_line.html">project_flow_to_epipolar_line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/pixel_cost_volume.html">pixel_cost_volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/velocity_from_flow_cam_coords_and_cam_mats.html">velocity_from_flow_cam_coords_and_cam_mats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/project_cam_coords_with_object_transformations.html">project_cam_coords_with_object_transformations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/velocity_from_cam_coords_id_image_and_object_trans.html">velocity_from_cam_coords_id_image_and_object_trans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/flow_from_cam_coords_id_image_and_object_trans.html">flow_from_cam_coords_id_image_and_object_trans</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="projective_geometry.html">Projective geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">Rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sdf.html">Sdf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="single_view_geometry.html">Single view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="two_view_geometry.html">Two view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Docs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ivy"">Ivy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mech"">Ivy Mech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vision"">Ivy Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../robot"">Ivy Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gym"">Ivy Gym</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Ivy Vision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Optical flow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/optical_flow.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-ivy_vision.optical_flow">
+<span id="optical-flow"></span><h1>Optical flow<a class="headerlink" href="#module-ivy_vision.optical_flow" title="Permalink to this headline">¶</a></h1>
+<p>Collection of Optical Flow Functions</p>
+<dl class="py function">
+<dt id="ivy_vision.optical_flow.depth_from_flow_and_cam_mats">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">depth_from_flow_and_cam_mats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flow</span></em>, <em class="sig-param"><span class="n">full_mats</span></em>, <em class="sig-param"><span class="n">inv_full_mats</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">camera_centers</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">triangulation_method</span><span class="o">=</span><span class="default_value">'cmp'</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/optical_flow.html#depth_from_flow_and_cam_mats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.optical_flow.depth_from_flow_and_cam_mats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute depth map <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{h×w×1}\)</span> in frame 1 using optical flow
+<span class="math notranslate nohighlight">\(\mathbf{U}_{1→2}\in\mathbb{R}^{h×w×2}\)</span> from frame 1 to 2, and the camera geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flow</strong> (<em>array</em>) – Optical flow from frame 1 to 2 <em>[batch_shape,h,w,2]</em></p></li>
+<li><p><strong>full_mats</strong> (<em>array</em>) – Full projection matrices <em>[batch_shape,2,3,4]</em></p></li>
+<li><p><strong>inv_full_mats</strong> (<em>array</em><em>, </em><em>optional</em>) – Inverse full projection matrices, inferred from full_mats if None and ‘cmp’ triangulation method <em>[batch_shape,2,3,4]</em></p></li>
+<li><p><strong>camera_centers</strong> (<em>array</em><em>, </em><em>optional</em>) – Camera centers, inferred from inv_full_mats if None and ‘cmp’ triangulation method <em>[batch_shape,2,3,1]</em></p></li>
+<li><p><strong>uniform_pixel_coords</strong> (<em>array</em><em>, </em><em>optional</em>) – Homogeneous uniform (integer) pixel co-ordinate images, inferred from image_dims if None <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>triangulation_method</strong> (<em>str</em><em>, </em><em>optional</em>) – Triangulation method, one of [cmp|dlt], for closest mutual points or homogeneous dlt approach, closest_mutual_points by default</p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Depth map in frame 1 <em>[batch_shape,h,w,1]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.optical_flow.flow_from_depth_and_cam_mats">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">flow_from_depth_and_cam_mats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pixel_coords1</span></em>, <em class="sig-param"><span class="n">cam1to2_full_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/optical_flow.html#flow_from_depth_and_cam_mats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.optical_flow.flow_from_depth_and_cam_mats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute optical flow <span class="math notranslate nohighlight">\(\mathbf{U}_{1→2}\in\mathbb{R}^{h×w×2}\)</span> from frame 1 to 2, using depth map
+<span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{h×w×1}\)</span> in frame 1, and the camera geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pixel_coords1</strong> (<em>array</em>) – Depth scaled homogeneous pixel co-ordinates image in frame 1 <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>cam1to2_full_mat</strong> (<em>array</em>) – Camera1-to-camera2 full projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Optical flow from frame 1 to 2 <em>[batch_shape,h,w,2]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.optical_flow.project_flow_to_epipolar_line">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">project_flow_to_epipolar_line</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flow</span></em>, <em class="sig-param"><span class="n">fund_mat</span></em>, <em class="sig-param"><span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/optical_flow.html#project_flow_to_epipolar_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.optical_flow.project_flow_to_epipolar_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Project optical flow <span class="math notranslate nohighlight">\(\mathbf{U}_{1→2}\in\mathbb{R}^{h×w×2}\)</span> to epipolar line in frame 1.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_an_equation">[reference]</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flow</strong> (<em>array</em>) – Optical flow from frame 1 to 2 <em>[batch_shape,h,w,2]</em></p></li>
+<li><p><strong>fund_mat</strong> (<em>array</em>) – Fundamental matrix connecting frames 1 and 2 <em>[batch_shape,3,3]</em></p></li>
+<li><p><strong>uniform_pixel_coords</strong> (<em>array</em><em>, </em><em>optional</em>) – Homogeneous uniform (integer) pixel co-ordinate images, inferred from image_dims if None <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Optical flow from frame 1 to 2, projected to frame 1 epipolar line <em>[batch_shape,h,w,2]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.optical_flow.pixel_cost_volume">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">pixel_cost_volume</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image1</span></em>, <em class="sig-param"><span class="n">image2</span></em>, <em class="sig-param"><span class="n">search_range</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/optical_flow.html#pixel_cost_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.optical_flow.pixel_cost_volume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute cost volume from image feature patch comparisons between first image
+<span class="math notranslate nohighlight">\(\mathbf{X}_1\in\mathbb{R}^{h×w×d}\)</span> and second image <span class="math notranslate nohighlight">\(\mathbf{X}_2\in\mathbb{R}^{h×w×d}\)</span>, as used in
+FlowNet paper.</p>
+<p><a class="reference external" href="https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Dosovitskiy_FlowNet_Learning_Optical_ICCV_2015_paper.pdf">[reference]</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image1</strong> (<em>array</em>) – Image 1 <em>[batch_shape,h,w,D]</em></p></li>
+<li><p><strong>image2</strong> (<em>array</em>) – Image 2 <em>[batch_shape,h,w,D]</em></p></li>
+<li><p><strong>search_range</strong> (<em>int</em>) – Search range for patch comparisons.</p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Cost volume between the images <em>[batch_shape,h,w,(search_range*2+1)^2]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.optical_flow.velocity_from_flow_cam_coords_and_cam_mats">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">velocity_from_flow_cam_coords_and_cam_mats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flow_t_to_tm1</span></em>, <em class="sig-param"><span class="n">cam_coords_t</span></em>, <em class="sig-param"><span class="n">cam_coords_tm1</span></em>, <em class="sig-param"><span class="n">cam_tm1_to_t_ext_mat</span></em>, <em class="sig-param"><span class="n">delta_t</span></em>, <em class="sig-param"><span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/optical_flow.html#velocity_from_flow_cam_coords_and_cam_mats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.optical_flow.velocity_from_flow_cam_coords_and_cam_mats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute relative cartesian velocity from optical flow, camera co-ordinates, and camera extrinsics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flow_t_to_tm1</strong> (<em>array</em>) – Optical flow from frame t to t-1 <em>[batch_shape,h,w,2]</em></p></li>
+<li><p><strong>cam_coords_t</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image in frame t <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>cam_coords_tm1</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image in frame t-1 <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>cam_tm1_to_t_ext_mat</strong> (<em>array</em>) – Camera t-1 to camera t extrinsic projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>delta_t</strong> (<em>array</em>) – Time difference between frame at timestep t-1 and t <em>[batch_shape,1]</em></p></li>
+<li><p><strong>uniform_pixel_coords</strong> (<em>array</em><em>, </em><em>optional</em>) – Homogeneous uniform (integer) pixel co-ordinate images, inferred from image_dims if None <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Cartesian velocity measurements relative to the camera <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.optical_flow.project_cam_coords_with_object_transformations">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">project_cam_coords_with_object_transformations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cam_coords_1</span></em>, <em class="sig-param"><span class="n">id_image</span></em>, <em class="sig-param"><span class="n">obj_ids</span></em>, <em class="sig-param"><span class="n">obj_trans</span></em>, <em class="sig-param"><span class="n">cam_1_to_2_ext_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/optical_flow.html#project_cam_coords_with_object_transformations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.optical_flow.project_cam_coords_with_object_transformations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute velocity image from co-ordinate image, id image, and object transformations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cam_coords_1</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image in frame t <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>id_image</strong> (<em>array</em>) – Image containing per-pixel object ids <em>[batch_shape,h,w,1]</em></p></li>
+<li><p><strong>obj_ids</strong> (<em>array</em>) – Object ids <em>[batch_shape,num_obj,1]</em></p></li>
+<li><p><strong>obj_trans</strong> (<em>array</em>) – Object transformations for this frame over time <em>[batch_shape,num_obj,3,4]</em></p></li>
+<li><p><strong>cam_1_to_2_ext_mat</strong> (<em>array</em>) – Camera 1 to camera 2 extrinsic projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Relative velocity image <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.optical_flow.velocity_from_cam_coords_id_image_and_object_trans">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">velocity_from_cam_coords_id_image_and_object_trans</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cam_coords_t</span></em>, <em class="sig-param"><span class="n">id_image</span></em>, <em class="sig-param"><span class="n">obj_ids</span></em>, <em class="sig-param"><span class="n">obj_trans</span></em>, <em class="sig-param"><span class="n">delta_t</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/optical_flow.html#velocity_from_cam_coords_id_image_and_object_trans"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.optical_flow.velocity_from_cam_coords_id_image_and_object_trans" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute velocity image from co-ordinate image, id image, and object transformations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cam_coords_t</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image in frame t <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>id_image</strong> (<em>array</em>) – Image containing per-pixel object ids <em>[batch_shape,h,w,1]</em></p></li>
+<li><p><strong>obj_ids</strong> (<em>array</em>) – Object ids <em>[batch_shape,num_obj,1]</em></p></li>
+<li><p><strong>obj_trans</strong> (<em>array</em>) – Object transformations for this frame over time <em>[batch_shape,num_obj,3,4]</em></p></li>
+<li><p><strong>delta_t</strong> (<em>array</em>) – Time difference between frame at timestep t-1 and t <em>[batch_shape,1]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Relative velocity image <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.optical_flow.flow_from_cam_coords_id_image_and_object_trans">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">flow_from_cam_coords_id_image_and_object_trans</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cam_coords_f1</span></em>, <em class="sig-param"><span class="n">id_image</span></em>, <em class="sig-param"><span class="n">obj_ids</span></em>, <em class="sig-param"><span class="n">obj_trans</span></em>, <em class="sig-param"><span class="n">calib_mat</span></em>, <em class="sig-param"><span class="n">cam_1_to_2_ext_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/optical_flow.html#flow_from_cam_coords_id_image_and_object_trans"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.optical_flow.flow_from_cam_coords_id_image_and_object_trans" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute optical flow from co-ordinate image, id image, and object transformations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cam_coords_f1</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image in frame t <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>id_image</strong> (<em>array</em>) – Image containing per-pixel object ids <em>[batch_shape,h,w,1]</em></p></li>
+<li><p><strong>obj_ids</strong> (<em>array</em>) – Object ids <em>[batch_shape,num_obj,1]</em></p></li>
+<li><p><strong>obj_trans</strong> (<em>array</em>) – Object transformations for this frame over time <em>[batch_shape,num_obj,3,4]</em></p></li>
+<li><p><strong>calib_mat</strong> (<em>array</em>) – Calibration matrix <em>[batch_shape,3,3]</em></p></li>
+<li><p><strong>cam_1_to_2_ext_mat</strong> (<em>array</em>) – Camera 1 to camera 2 extrinsic projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Relative velocity image <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Optical flow</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="optical_flow/depth_from_flow_and_cam_mats.html">depth_from_flow_and_cam_mats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optical_flow/flow_from_depth_and_cam_mats.html">flow_from_depth_and_cam_mats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optical_flow/project_flow_to_epipolar_line.html">project_flow_to_epipolar_line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optical_flow/pixel_cost_volume.html">pixel_cost_volume</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optical_flow/velocity_from_flow_cam_coords_and_cam_mats.html">velocity_from_flow_cam_coords_and_cam_mats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optical_flow/project_cam_coords_with_object_transformations.html">project_cam_coords_with_object_transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optical_flow/velocity_from_cam_coords_id_image_and_object_trans.html">velocity_from_cam_coords_id_image_and_object_trans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optical_flow/flow_from_cam_coords_id_image_and_object_trans.html">flow_from_cam_coords_id_image_and_object_trans</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="optical_flow/depth_from_flow_and_cam_mats.html" class="btn btn-neutral float-right" title="depth_from_flow_and_cam_mats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="containers/CameraGeometry.html" class="btn btn-neutral float-left" title="CameraGeometry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ivy Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

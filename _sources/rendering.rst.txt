@@ -1,0 +1,22 @@
+Rendering
+=========
+
+.. automodule:: ivy_vision.rendering
+    :members:
+    :special-members: __init__
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+   :maxdepth: -1
+   :caption: Rendering
+
+   rendering/render_pixel_coords.rst
+   rendering/rasterize_triangles.rst
+   rendering/weighted_image_smooth.rst
+   rendering/smooth_image_fom_var_image.rst
+   rendering/pad_omni_image.rst
+   rendering/create_trimesh_indices_for_image.rst
+   rendering/coord_image_to_trimesh.rst
+

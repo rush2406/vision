@@ -1,0 +1,615 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Contents &mdash; Ivy Vision 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Containers" href="containers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> Ivy Vision
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optical_flow.html">Optical flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="projective_geometry.html">Projective geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">Rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sdf.html">Sdf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="single_view_geometry.html">Single view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="two_view_geometry.html">Two view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Docs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ivy"">Ivy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mech"">Ivy Mech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vision"">Ivy Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../robot"">Ivy Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gym"">Ivy Gym</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Ivy Vision</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Contents</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <embed>
+  <a href="https://github.com/ivy-dl/vision"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa00.png"></a>
+</embed><p align="center">
+    <img width="75%" style="display: block;" src='_images/logo.png'>
+</p><br/>
+<a href="https://github.com/ivy-dl/vision/actions?query=workflow%3Adocs">
+    <img style="float: left; padding-right: 4px; padding-bottom: 4px;" src="https://img.shields.io/github/workflow/status/ivy-dl/vision/docs?label=docs">
+</a>
+<a href="https://github.com/ivy-dl/vision/actions?query=workflow%3Atests">
+    <img style="float: left; padding-right: 4px; padding-bottom: 4px;" src="https://img.shields.io/github/workflow/status/ivy-dl/vision/tests?label=tests">
+</a>
+<a href="https://discord.gg/EN9YS3QW8w">
+    <img style="float: left; padding-right: 4px; padding-bottom: 4px;" src="https://img.shields.io/discord/799879767196958751?color=blue&label=%20&logo=discord&logoColor=white">
+</a>
+<br clear="all" /><p><strong>3D Vision functions with end-to-end support for deep learning developers, written in Ivy.</strong></p>
+<div style="display: block;">
+    <img width="4%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/supported/empty.png">
+    <a href="https://jax.readthedocs.io">
+        <img width="12%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/supported/jax_logo.png">
+    </a>
+    <img width="6.66%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/supported/empty.png">
+    <a href="https://www.tensorflow.org">
+        <img width="12%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/supported/tensorflow_logo.png">
+    </a>
+    <img width="6.66%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/supported/empty.png">
+    <a href="https://pytorch.org">
+        <img width="12%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/supported/pytorch_logo.png">
+    </a>
+    <img width="6.66%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/supported/empty.png">
+    <a href="https://mxnet.apache.org">
+        <img width="12%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/supported/mxnet_logo.png">
+    </a>
+    <img width="6.66%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/supported/empty.png">
+    <a href="https://numpy.org">
+        <img width="12%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/supported/numpy_logo.png">
+    </a>
+</div><div class="section" id="contents">
+<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview">Overview</a></p></li>
+<li><p><a class="reference internal" href="#run-through">Run Through</a></p></li>
+<li><p><a class="reference internal" href="#interactive-demos">Interactive Demos</a></p></li>
+<li><p><a class="reference internal" href="#get-involed">Get Involed</a></p></li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<p><strong>What is Ivy Vision?</strong></p>
+<p>Ivy vision focuses predominantly on 3D vision, with functions for camera geometry, image projections,
+co-ordinate frame transformations, forward warping, inverse warping, optical flow, depth triangulation, voxel grids,
+point clouds, signed distance functions, and others.</p>
+<p>The library is built on top of the Ivy deep learning framework.
+This means all functions simultaneously support:
+Jax, Tensorflow, PyTorch, MXNet, and Numpy.</p>
+<p><strong>A Family of Libraries</strong></p>
+<p>Ivy vision is one library in a family of Ivy libraries.
+There are also Ivy libraries for mechanics, robotics, and differentiable gym environments.
+Click on the icons below for their respective github pages.</p>
+<div style="display: block;">
+    <img width="10%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/empty.png">
+    <a href="https://github.com/ivy-dl/mech">
+        <img width="16%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/ivy_mech.png">
+    </a>
+    <img width="3.2%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/empty.png">
+    <a href="https://github.com/ivy-dl/vision">
+        <img width="16%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/ivy_vision.png">
+    </a>
+    <img width="3.2%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/empty.png">
+    <a href="https://github.com/ivy-dl/robot">
+        <img width="16%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/ivy_robot.png">
+    </a>
+    <img width="3.2%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/empty.png">
+    <a href="https://github.com/ivy-dl/gym">
+        <img width="16%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/ivy_gym.png">
+    </a>
+</div>
+<br clear="all" />
+<br/>
+<br/><p><strong>Quick Start</strong></p>
+<p>Ivy vision can be installed like so: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ivy-vision</span></code></p>
+<p>To quickly see the different aspects of the library, we suggest you check out the <a class="reference external" href="https://github.com/ivy-dl/vision/tree/master/demos">demos</a>!
+we suggest you start by running the script <code class="docutils literal notranslate"><span class="pre">run_through.py</span></code>,
+and read the “Run Through” section below which explains this script.</p>
+<p>For more interactive demos, we suggest you run either
+<code class="docutils literal notranslate"><span class="pre">coords_to_voxel_grid.py</span></code> or <code class="docutils literal notranslate"><span class="pre">render_image.py</span></code> in the <a class="reference external" href="https://github.com/ivy-dl/vision/tree/master/demos/interactive">interactive</a> demos folder.</p>
+</div>
+<div class="section" id="run-through">
+<h1>Run Through<a class="headerlink" href="#run-through" title="Permalink to this headline">¶</a></h1>
+<p>We run through some of the different parts of the library via a simple ongoing example script.
+The full script is available in the <a class="reference external" href="https://github.com/ivy-dl/vision/tree/master/demos">demos</a> folder, as file <code class="docutils literal notranslate"><span class="pre">run_through.py</span></code>.
+First, we select a random backend framework <code class="docutils literal notranslate"><span class="pre">f</span></code> to use for the examples, from the options
+<code class="docutils literal notranslate"><span class="pre">ivy.jax</span></code>, <code class="docutils literal notranslate"><span class="pre">ivy.tensorflow</span></code>, <code class="docutils literal notranslate"><span class="pre">ivy.torch</span></code>, <code class="docutils literal notranslate"><span class="pre">ivy.mxnd</span></code> or <code class="docutils literal notranslate"><span class="pre">ivy.numpy</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ivy_demo_utils.framework_utils</span> <span class="kn">import</span> <span class="n">choose_random_framework</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">choose_random_framework</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Camera Geometry</strong></p>
+<p>To get to grips with some of the basics, we next show how to construct ivy containers which represent camera geometry.
+The camera intrinsic matrix, extrinsic matrix, full matrix, and all of their inverses are central to most of the
+functions in this library.</p>
+<p>All of these matrices are contained within the Ivy camera geometry class.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># intrinsics</span>
+
+<span class="c1"># shared intrinsic params</span>
+<span class="n">img_dims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">]</span>
+<span class="n">pp_offsets</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dim</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">img_dims</span><span class="p">],</span> <span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+<span class="n">cam_persp_angles</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">60</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+
+<span class="c1"># ivy cam intrinsics container</span>
+<span class="n">intrinsics</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">persp_angles_and_pp_offsets_to_intrinsics_object</span><span class="p">(</span>
+    <span class="n">cam_persp_angles</span><span class="p">,</span> <span class="n">pp_offsets</span><span class="p">,</span> <span class="n">img_dims</span><span class="p">)</span>
+
+<span class="c1"># extrinsics</span>
+
+<span class="c1"># 3 x 4</span>
+<span class="n">cam1_inv_ext_mat</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/cam1_inv_ext_mat.npy&#39;</span><span class="p">),</span> <span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+<span class="n">cam2_inv_ext_mat</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/cam2_inv_ext_mat.npy&#39;</span><span class="p">),</span> <span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+
+<span class="c1"># full geometry</span>
+
+<span class="c1"># ivy cam geometry container</span>
+<span class="n">cam1_geom</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">inv_ext_mat_and_intrinsics_to_cam_geometry_object</span><span class="p">(</span>
+    <span class="n">cam1_inv_ext_mat</span><span class="p">,</span> <span class="n">intrinsics</span><span class="p">)</span>
+<span class="n">cam2_geom</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">inv_ext_mat_and_intrinsics_to_cam_geometry_object</span><span class="p">(</span>
+    <span class="n">cam2_inv_ext_mat</span><span class="p">,</span> <span class="n">intrinsics</span><span class="p">)</span>
+<span class="n">cam_geoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">cam1_geom</span><span class="p">,</span> <span class="n">cam2_geom</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The geometries used in this quick start demo are based upon the scene presented below.</p>
+<p align="center">
+    <img width="75%" style="display: block;" src='_images/scene.png'>
+</p><p>The code sample below demonstrates all of the attributes contained within the Ivy camera geometry class.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">cam_geom</span> <span class="ow">in</span> <span class="n">cam_geoms</span><span class="p">:</span>
+
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">intrinsics</span><span class="o">.</span><span class="n">focal_lengths</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)</span>
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">intrinsics</span><span class="o">.</span><span class="n">persp_angles</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)</span>
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">intrinsics</span><span class="o">.</span><span class="n">pp_offsets</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)</span>
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">intrinsics</span><span class="o">.</span><span class="n">calib_mats</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">intrinsics</span><span class="o">.</span><span class="n">inv_calib_mats</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">extrinsics</span><span class="o">.</span><span class="n">cam_centers</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">extrinsics</span><span class="o">.</span><span class="n">Rs</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">extrinsics</span><span class="o">.</span><span class="n">inv_Rs</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">extrinsics</span><span class="o">.</span><span class="n">ext_mats_homo</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">extrinsics</span><span class="o">.</span><span class="n">inv_ext_mats_homo</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">full_mats_homo</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">inv_full_mats_homo</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Load Images</strong></p>
+<p>We next load the color and depth images corresponding to the two camera frames.
+We also construct the depth-scaled homogeneous pixel co-ordinates for each image,
+which is a central representation for the ivy_vision functions.
+This representation simplifies projections between frames.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># loading</span>
+
+<span class="c1"># h x w x 3</span>
+<span class="n">color1</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/rgb.png&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span><span class="p">)</span>
+<span class="n">color2</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/rgb.png&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span><span class="p">)</span>
+
+<span class="c1"># h x w x 1</span>
+<span class="n">depth1</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span>
+    <span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/depth.png&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tobytes</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">img_dims</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">depth2</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span>
+    <span class="n">data_dir</span> <span class="o">+</span> <span class="s1">&#39;/depth.png&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tobytes</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">img_dims</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="c1"># pixel coords</span>
+
+<span class="c1"># h x w x 3</span>
+<span class="n">u_pix_coords</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">create_uniform_pixel_coords_image</span><span class="p">(</span><span class="n">img_dims</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+<span class="n">pixel_coords1</span> <span class="o">=</span> <span class="n">u_pix_coords</span> <span class="o">*</span> <span class="n">depth1</span>
+<span class="n">pixel_coords2</span> <span class="o">=</span> <span class="n">u_pix_coords</span> <span class="o">*</span> <span class="n">depth2</span>
+</pre></div>
+</div>
+<p>The rgb and depth images are presented below.</p>
+<p align="center">
+    <img width="100%" style="display: block;" src='_images/rgb_and_depth.png'>
+</p><p><strong>Optical Flow and Depth Triangulation</strong></p>
+<p>Now that we have two cameras, their geometries, and their images fully defined,
+we can start to apply some of the more interesting vision functions.
+We start with some optical flow and depth triangulation functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># required mat formats</span>
+<span class="n">cam1to2_full_mat_homo</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">cam2_geom</span><span class="o">.</span><span class="n">full_mats_homo</span><span class="p">,</span> <span class="n">cam1_geom</span><span class="o">.</span><span class="n">inv_full_mats_homo</span><span class="p">)</span>
+<span class="n">cam1to2_full_mat</span> <span class="o">=</span> <span class="n">cam1to2_full_mat_homo</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">full_mats_homo</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">f</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">cam1_geom</span><span class="o">.</span><span class="n">full_mats_homo</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                <span class="n">f</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">cam2_geom</span><span class="o">.</span><span class="n">full_mats_homo</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">full_mats</span> <span class="o">=</span> <span class="n">full_mats_homo</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span>
+
+<span class="c1"># flow</span>
+<span class="n">flow1to2</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">flow_from_depth_and_cam_mats</span><span class="p">(</span><span class="n">pixel_coords1</span><span class="p">,</span> <span class="n">cam1to2_full_mat</span><span class="p">)</span>
+
+<span class="c1"># depth again</span>
+<span class="n">depth1_from_flow</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">depth_from_flow_and_cam_mats</span><span class="p">(</span><span class="n">flow1to2</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Visualizations of these images are given below.</p>
+<p align="center">
+    <img width="100%" style="display: block;" src='_images/flow_and_depth.png'>
+</p><p><strong>Inverse and Forward Warping</strong></p>
+<p>Most of the vision functions, including the flow and depth functions above,
+make use of image projections,
+whereby an image of depth-scaled homogeneous pixel-coordinates is transformed into
+cartesian co-ordinates relative to the acquiring camera, the world, another camera,
+or transformed directly to pixel co-ordinates in another camera frame.
+These projections also allow warping of the color values from one camera to another.</p>
+<p>For inverse warping, we assume depth to be known for the target frame.
+We can then determine the pixel projections into the source frame,
+and bilinearly interpolate these color values at the pixel projections,
+to infer the color image in the target frame.</p>
+<p>Treating frame 1 as our target frame,
+we can use the previously calculated optical flow from frame 1 to 2, in order
+to inverse warp the color data from frame 2 to frame 1, as shown below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># inverse warp rendering</span>
+<span class="n">warp</span> <span class="o">=</span> <span class="n">u_pix_coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">flow1to2</span>
+<span class="n">color2_warp_to_f1</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">bilinear_resample</span><span class="p">(</span><span class="n">color2</span><span class="p">,</span> <span class="n">warp</span><span class="p">)</span>
+
+<span class="c1"># projected pixel coords 2</span>
+<span class="n">pixel_coords1_wrt_f2</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">pixel_to_pixel_coords</span><span class="p">(</span><span class="n">pixel_coords1</span><span class="p">,</span> <span class="n">cam1to2_full_mat</span><span class="p">)</span>
+
+<span class="c1"># projected depth 2</span>
+<span class="n">depth1_wrt_f2</span> <span class="o">=</span> <span class="n">pixel_coords1_wrt_f2</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+
+<span class="c1"># inverse warp depth</span>
+<span class="n">depth2_warp_to_f1</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">bilinear_resample</span><span class="p">(</span><span class="n">depth2</span><span class="p">,</span> <span class="n">warp</span><span class="p">)</span>
+
+<span class="c1"># depth validity</span>
+<span class="n">depth_validity</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">depth1_wrt_f2</span> <span class="o">-</span> <span class="n">depth2_warp_to_f1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.01</span>
+
+<span class="c1"># inverse warp rendering with mask</span>
+<span class="n">color2_warp_to_f1_masked</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">depth_validity</span><span class="p">,</span> <span class="n">color2_warp_to_f1</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">color2_warp_to_f1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Again, visualizations of these images are given below.
+The images represent intermediate steps for the inverse warping of color from frame 2 to frame 1,
+which is shown in the bottom right corner.</p>
+<p align="center">
+    <img width="100%" style="display: block;" src='_images/inverse_warped.png'>
+</p><p>For forward warping, we instead assume depth to be known in the source frame.
+A common approach is to construct a mesh, and then perform rasterization of the mesh.</p>
+<p>The ivy method <code class="docutils literal notranslate"><span class="pre">ivy_vision.render_pixel_coords</span></code> instead takes a simpler approach,
+by determining the pixel projections into the target frame,
+quantizing these to integer pixel co-ordinates,
+and scattering the corresponding color values directly into these integer pixel co-ordinates.</p>
+<p>This process in general leads to holes and duplicates in the resultant image,
+but when compared to inverse warping,
+it has the beneft that the target frame does not need to correspond to a real camera with known depth.
+Only the target camera geometry is required, which can be for any hypothetical camera.</p>
+<p>We now consider the case of forward warping the color data from camera frame 2 to camera frame 1,
+and again render the new color image in target frame 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># forward warp rendering</span>
+<span class="n">pixel_coords1_proj</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">pixel_to_pixel_coords</span><span class="p">(</span><span class="n">pixel_coords2</span><span class="p">,</span>
+                                                      <span class="n">f</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">cam1to2_full_mat_homo</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:])</span>
+<span class="n">pix_coords_w_color_in_f1</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">pixel_coords1_proj</span><span class="p">,</span> <span class="n">color2</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># without depth buffer</span>
+<span class="n">f1_forward_warp_no_db</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">render_pixel_coords</span><span class="p">(</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">pix_coords_w_color_in_f1</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span> <span class="n">f</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">pix_coords_w_color_in_f1</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">:]),</span>
+    <span class="n">img_dims</span><span class="p">,</span> <span class="n">with_db</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="c1"># with depth buffer</span>
+<span class="n">f1_forward_warp_w_db</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">render_pixel_coords</span><span class="p">(</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">pix_coords_w_color_in_f1</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span> <span class="n">f</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">pix_coords_w_color_in_f1</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">:]),</span>
+    <span class="n">img_dims</span><span class="p">,</span> <span class="n">with_db</span><span class="o">=</span><span class="bp">False</span> <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="n">ivy</span><span class="o">.</span><span class="n">mxnd</span> <span class="k">else</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Again, visualizations of these images are given below.
+The images show the forward warping of both depth and color from frame 2 to frame 1,
+which are shown with and without depth buffers in the right-hand and central columns respectively.</p>
+<p align="center">
+    <img width="100%" style="display: block;" src='_images/forward_warped.png'>
+</p></div>
+<div class="section" id="interactive-demos">
+<h1>Interactive Demos<a class="headerlink" href="#interactive-demos" title="Permalink to this headline">¶</a></h1>
+<p>In addition to the examples above, we provide two further demo scripts,
+which are more visual and interactive, and are each built around a particular function.</p>
+<p>Rather than presenting the code here, we show visualizations of the demos.
+The scripts for these demos can be found in the <a class="reference external" href="https://github.com/ivy-dl/vision/tree/master/demos/interactive">interactive</a> demos folder.</p>
+<p><strong>Co-ordinates to Voxel Grid</strong></p>
+<p>The first demo captures depth and color images from a set of cameras,
+converts the depth to world-centric co-ordinartes,
+and uses the method <code class="docutils literal notranslate"><span class="pre">ivy_vision.coords_to_voxel_grid</span></code> to
+voxelize the depth and color values into a grid, as shown below:</p>
+<p align="center">
+    <img width="75%" style="display: block;" src='https://github.com/ivy-dl/ivy-dl.github.io/blob/master/img/externally_linked/ivy_vision/demo_a.gif?raw=true'>
+</p><p><strong>Image Rendering</strong></p>
+<p>The second demo again captures depth and color images from a set of cameras,
+but this time uses the method <code class="docutils literal notranslate"><span class="pre">ivy_vision.render_pixel_coords</span></code> to
+dynamically forward warp and render the images into a new target frame, as shown below.
+The acquiring cameras all remain static, while the target frame for rendering moves freely.</p>
+<p align="center">
+    <img width="75%" style="display: block;" src='https://github.com/ivy-dl/ivy-dl.github.io/blob/master/img/externally_linked/ivy_vision/demo_b.gif?raw=true'>
+</p></div>
+<div class="section" id="get-involed">
+<h1>Get Involed<a class="headerlink" href="#get-involed" title="Permalink to this headline">¶</a></h1>
+<p>We hope the functions in this library are useful to a wide range of deep learning developers.
+However, there are many more areas of 3D vision which could be covered by this library.</p>
+<p>If there are any particular vision functions you feel are missing,
+and your needs are not met by the functions currently on offer,
+then we are very happy to accept pull requests!</p>
+<p>We look forward to working with the community on expanding and improving the Ivy vision library.</p>
+</div>
+<div class="section" id="documentation-tree">
+<h1>Documentation Tree<a class="headerlink" href="#documentation-tree" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="containers/PrimitiveScene.html">PrimitiveScene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="containers/Intrinsics.html">Intrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="containers/Extrinsics.html">Extrinsics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="containers/CameraGeometry.html">CameraGeometry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optical_flow.html">Optical flow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/depth_from_flow_and_cam_mats.html">depth_from_flow_and_cam_mats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/flow_from_depth_and_cam_mats.html">flow_from_depth_and_cam_mats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/project_flow_to_epipolar_line.html">project_flow_to_epipolar_line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/pixel_cost_volume.html">pixel_cost_volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/velocity_from_flow_cam_coords_and_cam_mats.html">velocity_from_flow_cam_coords_and_cam_mats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/project_cam_coords_with_object_transformations.html">project_cam_coords_with_object_transformations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/velocity_from_cam_coords_id_image_and_object_trans.html">velocity_from_cam_coords_id_image_and_object_trans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="optical_flow/flow_from_cam_coords_id_image_and_object_trans.html">flow_from_cam_coords_id_image_and_object_trans</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="projective_geometry.html">Projective geometry</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="projective_geometry/transform.html">transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="projective_geometry/projection_matrix_pseudo_inverse.html">projection_matrix_pseudo_inverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="projective_geometry/projection_matrix_inverse.html">projection_matrix_inverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="projective_geometry/solve_homogeneous_dlt.html">solve_homogeneous_dlt</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rendering.html">Rendering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rendering/render_pixel_coords.html">render_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering/rasterize_triangles.html">rasterize_triangles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering/weighted_image_smooth.html">weighted_image_smooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering/smooth_image_fom_var_image.html">smooth_image_fom_var_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering/pad_omni_image.html">pad_omni_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering/create_trimesh_indices_for_image.html">create_trimesh_indices_for_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering/coord_image_to_trimesh.html">coord_image_to_trimesh</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sdf.html">Sdf</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sdf/sphere_signed_distances.html">sphere_signed_distances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdf/cuboid_signed_distances.html">cuboid_signed_distances</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="single_view_geometry.html">Single view geometry</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/create_uniform_pixel_coords_image.html">create_uniform_pixel_coords_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/persp_angles_to_focal_lengths.html">persp_angles_to_focal_lengths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/focal_lengths_to_persp_angles.html">focal_lengths_to_persp_angles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/focal_lengths_and_pp_offsets_to_calib_mat.html">focal_lengths_and_pp_offsets_to_calib_mat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/rot_mat_and_cam_center_to_ext_mat.html">rot_mat_and_cam_center_to_ext_mat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/cam_to_pixel_coords.html">cam_to_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/pixel_to_cam_coords.html">pixel_to_cam_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/world_to_cam_coords.html">world_to_cam_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/cam_to_world_coords.html">cam_to_world_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/world_to_pixel_coords.html">world_to_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/pixel_to_world_coords.html">pixel_to_world_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/pixel_coords_to_world_ray_vectors.html">pixel_coords_to_world_ray_vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/bilinearly_interpolate_image.html">bilinearly_interpolate_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/inv_ext_mat_to_camera_center.html">inv_ext_mat_to_camera_center</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/calib_and_ext_to_full_mat.html">calib_and_ext_to_full_mat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/cam_to_sphere_coords.html">cam_to_sphere_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/pixel_to_sphere_coords.html">pixel_to_sphere_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/angular_pixel_to_sphere_coords.html">angular_pixel_to_sphere_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/sphere_to_cam_coords.html">sphere_to_cam_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/sphere_to_pixel_coords.html">sphere_to_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/sphere_to_angular_pixel_coords.html">sphere_to_angular_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/persp_angles_and_pp_offsets_to_intrinsics_object.html">persp_angles_and_pp_offsets_to_intrinsics_object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/focal_lengths_and_pp_offsets_to_intrinsics_object.html">focal_lengths_and_pp_offsets_to_intrinsics_object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/ext_mat_and_intrinsics_to_cam_geometry_object.html">ext_mat_and_intrinsics_to_cam_geometry_object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/inv_ext_mat_and_intrinsics_to_cam_geometry_object.html">inv_ext_mat_and_intrinsics_to_cam_geometry_object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="two_view_geometry.html">Two view geometry</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/pixel_to_pixel_coords.html">pixel_to_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/cam_to_cam_coords.html">cam_to_cam_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/sphere_to_sphere_coords.html">sphere_to_sphere_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/angular_pixel_to_angular_pixel_coords.html">angular_pixel_to_angular_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/get_fundamental_matrix.html">get_fundamental_matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/closest_mutual_points_along_two_skew_rays.html">closest_mutual_points_along_two_skew_rays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="two_view_geometry/triangulate_depth.html">triangulate_depth</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="voxel_grids/coords_to_voxel_grid.html">coords_to_voxel_grid</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Docs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ivy"">Ivy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mech"">Ivy Mech</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vision"">Ivy Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../robot"">Ivy Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gym"">Ivy Gym</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="containers.html" class="btn btn-neutral float-right" title="Containers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Ivy Team
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
