@@ -24,7 +24,6 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -104,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../mech"">Ivy Mech</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../vision"">Ivy Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../robot"">Ivy Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../memory"">Ivy Memory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gym"">Ivy Gym</a></li>
 </ul>
 
@@ -175,11 +175,11 @@
 <h1>Intrinsics<a class="headerlink" href="#intrinsics" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="ivy_vision.containers.Intrinsics">
-<em class="property">class </em><code class="sig-prename descclassname">ivy_vision.containers.</code><code class="sig-name descname">Intrinsics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">focal_lengths</span></em>, <em class="sig-param"><span class="n">persp_angles</span></em>, <em class="sig-param"><span class="n">pp_offsets</span></em>, <em class="sig-param"><span class="n">calib_mats</span></em>, <em class="sig-param"><span class="n">inv_calib_mats</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ivy_vision.containers.</span></code><code class="sig-name descname"><span class="pre">Intrinsics</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">focal_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persp_angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pp_offsets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calib_mats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_calib_mats</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ivy.core.container.Container</span></code></p>
 <dl class="py method">
 <dt id="ivy_vision.containers.Intrinsics.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">focal_lengths</span></em>, <em class="sig-param"><span class="n">persp_angles</span></em>, <em class="sig-param"><span class="n">pp_offsets</span></em>, <em class="sig-param"><span class="n">calib_mats</span></em>, <em class="sig-param"><span class="n">inv_calib_mats</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">focal_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">persp_angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pp_offsets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calib_mats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_calib_mats</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize camera intrinsics container.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -196,7 +196,7 @@
 
 <dl class="py method">
 <dt id="ivy_vision.containers.Intrinsics.as_keras_inputs">
-<em class="property">static </em><code class="sig-name descname">as_keras_inputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_shape</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.as_keras_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_keras_inputs" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_keras_inputs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.as_keras_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_keras_inputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return camera intrinsics object with array attributes as keras.Input objects. Only applicable for tensorflow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -210,7 +210,7 @@
 
 <dl class="py method">
 <dt id="ivy_vision.containers.Intrinsics.as_tensor_spec">
-<em class="property">static </em><code class="sig-name descname">as_tensor_spec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prefix</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.as_tensor_spec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_tensor_spec" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_tensor_spec</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.as_tensor_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_tensor_spec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return camera intrinsics object with array attributes as tf.TensorSpec objects. Only applicable for tensorflow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -224,7 +224,7 @@
 
 <dl class="py method">
 <dt id="ivy_vision.containers.Intrinsics.as_identity">
-<em class="property">static </em><code class="sig-name descname">as_identity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_shape</span></em>, <em class="sig-param"><span class="n">f</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.as_identity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_identity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_identity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return camera intrinsics object with array attributes as either zeros or identity matrices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -241,7 +241,7 @@
 
 <dl class="py method">
 <dt id="ivy_vision.containers.Intrinsics.set_slice">
-<code class="sig-name descname">set_slice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_obj</span></em>, <em class="sig-param"><span class="n">intrinsics</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.set_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.set_slice" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_slice</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slice_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intrinsics</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.set_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.set_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set slice of intrinsics object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -258,7 +258,7 @@
 
 <dl class="py method">
 <dt id="ivy_vision.containers.Intrinsics.batch_shape">
-<em class="property">property </em><code class="sig-name descname">batch_shape</code><a class="headerlink" href="#ivy_vision.containers.Intrinsics.batch_shape" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">batch_shape</span></code><a class="headerlink" href="#ivy_vision.containers.Intrinsics.batch_shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>Batch shape of each element in container</p>
 </dd></dl>
 

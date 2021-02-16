@@ -125,6 +125,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../mech"">Ivy Mech</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../vision"">Ivy Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../robot"">Ivy Robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../memory"">Ivy Memory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gym"">Ivy Gym</a></li>
 </ul>
 
@@ -196,7 +197,7 @@
 <h1>rot_mat_and_cam_center_to_ext_mat<a class="headerlink" href="#rot-mat-and-cam-center-to-ext-mat" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.rot_mat_and_cam_center_to_ext_mat">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">rot_mat_and_cam_center_to_ext_mat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rotation_mat</span></em>, <em class="sig-param"><span class="n">camera_center</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">f</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#rot_mat_and_cam_center_to_ext_mat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.rot_mat_and_cam_center_to_ext_mat" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">rot_mat_and_cam_center_to_ext_mat</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera_center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#rot_mat_and_cam_center_to_ext_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.rot_mat_and_cam_center_to_ext_mat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get extrinsic matrix <span class="math notranslate nohighlight">\(\mathbf{E}\in\mathbb{R}^{3×4}\)</span> from rotation matrix
 <span class="math notranslate nohighlight">\(\mathbf{R}\in\mathbb{R}^{3×3}\)</span> and camera centers <span class="math notranslate nohighlight">\(\overset{\sim}{\mathbf{C}}\in\mathbb{R}^{3×1}\)</span>.</p>
 <p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=175">[reference]</a>
