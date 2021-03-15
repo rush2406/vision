@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../single_view_geometry.html">Single view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -180,7 +181,7 @@
 <h1>pixel_cost_volume<a class="headerlink" href="#pixel-cost-volume" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.optical_flow.pixel_cost_volume">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">pixel_cost_volume</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/optical_flow.html#pixel_cost_volume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.optical_flow.pixel_cost_volume" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">pixel_cost_volume</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/optical_flow.html#pixel_cost_volume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.optical_flow.pixel_cost_volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute cost volume from image feature patch comparisons between first image
 <span class="math notranslate nohighlight">\(\mathbf{X}_1\in\mathbb{R}^{h×w×d}\)</span> and second image <span class="math notranslate nohighlight">\(\mathbf{X}_2\in\mathbb{R}^{h×w×d}\)</span>, as used in
 FlowNet paper.</p>
@@ -192,7 +193,6 @@ FlowNet paper.</p>
 <li><p><strong>image2</strong> (<em>array</em>) – Image 2 <em>[batch_shape,h,w,D]</em></p></li>
 <li><p><strong>search_range</strong> (<em>int</em>) – Search range for patch comparisons.</p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

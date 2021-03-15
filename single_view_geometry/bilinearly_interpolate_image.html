@@ -118,6 +118,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -197,7 +198,7 @@
 <h1>bilinearly_interpolate_image<a class="headerlink" href="#bilinearly-interpolate-image" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.bilinearly_interpolate_image">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">bilinearly_interpolate_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#bilinearly_interpolate_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.bilinearly_interpolate_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">bilinearly_interpolate_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#bilinearly_interpolate_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.bilinearly_interpolate_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bilinearly interpolate image <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{h×w×d}\)</span> at sampling pixel locations
 <span class="math notranslate nohighlight">\(\mathbf{S}\in\mathbb{R}^{h×w×2}\)</span>, to return interpolated image <span class="math notranslate nohighlight">\(\mathbf{X}_I\in\mathbb{R}^{h×w×d}\)</span>.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Bilinear_interpolation">[reference]</a></p>
@@ -208,7 +209,6 @@
 <li><p><strong>sampling_pixel_coords</strong> (<em>array</em>) – Pixel co-ordinates to sample the image at <em>[batch_shape,h,w,2]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
 <li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

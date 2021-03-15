@@ -100,6 +100,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -179,7 +180,7 @@
 <h1>get_fundamental_matrix<a class="headerlink" href="#get-fundamental-matrix" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.two_view_geometry.get_fundamental_matrix">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">get_fundamental_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_mat1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_mat2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera_center1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pinv_full_mat1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/two_view_geometry.html#get_fundamental_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.get_fundamental_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">get_fundamental_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full_mat1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_mat2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera_center1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pinv_full_mat1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/two_view_geometry.html#get_fundamental_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.get_fundamental_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute fundamental matrix <span class="math notranslate nohighlight">\(\mathbf{F}\in\mathbb{R}^{3×3}\)</span> between two cameras, given their extrinsic
 matrices <span class="math notranslate nohighlight">\(\mathbf{E}_1\in\mathbb{R}^{3×4}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{E}_2\in\mathbb{R}^{3×4}\)</span>.</p>
 <p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=262">[reference]</a>
@@ -192,8 +193,7 @@ bottom of page 244, section 9.2.2, equation 9.1</p>
 <li><p><strong>camera_center1</strong> (<em>array</em><em>, </em><em>optional</em>) – Frame 1 camera center, inferred from full_mat1 if None <em>[batch_shape,3,1]</em></p></li>
 <li><p><strong>pinv_full_mat1</strong> (<em>array</em><em>, </em><em>optional</em>) – Frame 1 full projection matrix pseudo-inverse, inferred from full_mat1 if None <em>[batch_shape,4,3]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

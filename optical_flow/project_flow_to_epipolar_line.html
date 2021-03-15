@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../single_view_geometry.html">Single view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -180,7 +181,7 @@
 <h1>project_flow_to_epipolar_line<a class="headerlink" href="#project-flow-to-epipolar-line" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.optical_flow.project_flow_to_epipolar_line">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">project_flow_to_epipolar_line</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fund_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_pixel_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/optical_flow.html#project_flow_to_epipolar_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.optical_flow.project_flow_to_epipolar_line" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">project_flow_to_epipolar_line</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fund_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_pixel_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/optical_flow.html#project_flow_to_epipolar_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.optical_flow.project_flow_to_epipolar_line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Project optical flow <span class="math notranslate nohighlight">\(\mathbf{U}_{1→2}\in\mathbb{R}^{h×w×2}\)</span> to epipolar line in frame 1.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_an_equation">[reference]</a></p>
 <dl class="field-list simple">
@@ -191,8 +192,7 @@
 <li><p><strong>uniform_pixel_coords</strong> (<em>array</em><em>, </em><em>optional</em>) – Homogeneous uniform (integer) pixel co-ordinate images, inferred from image_dims if None <em>[batch_shape,h,w,3]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
 <li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

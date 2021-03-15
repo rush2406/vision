@@ -96,6 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry.html">Single view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -173,11 +174,11 @@
 <span id="containers"></span><h1>Containers<a class="headerlink" href="#module-ivy_vision.containers" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="ivy_vision.containers.PrimitiveScene">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ivy_vision.containers.</span></code><code class="sig-name descname"><span class="pre">PrimitiveScene</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sphere_positions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sphere_radii</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuboid_ext_mats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuboid_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#PrimitiveScene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.PrimitiveScene" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ivy_vision.containers.</span></code><code class="sig-name descname"><span class="pre">PrimitiveScene</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sphere_positions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sphere_radii</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuboid_ext_mats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuboid_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#PrimitiveScene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.PrimitiveScene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ivy.core.container.Container</span></code></p>
 <dl class="py method">
 <dt id="ivy_vision.containers.PrimitiveScene.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sphere_positions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sphere_radii</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuboid_ext_mats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuboid_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#PrimitiveScene.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.PrimitiveScene.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sphere_positions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sphere_radii</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuboid_ext_mats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuboid_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#PrimitiveScene.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.PrimitiveScene.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize scene description as a composition of primitive shapes.
 # ToDo: extend this to include cylinders and cones once supported in ivy_vision.sdf module</p>
 <dl class="field-list simple">
@@ -187,7 +188,6 @@
 <li><p><strong>sphere_radii</strong> (<em>array</em><em>, </em><em>optional</em>) – Sphere radii <em>[batch_shape,num_spheres,1]</em></p></li>
 <li><p><strong>cuboid_ext_mats</strong> (<em>array</em><em>, </em><em>optional</em>) – Cuboid inverse extrinsic matrices <em>[batch_shape,num_cuboids,3,4]</em></p></li>
 <li><p><strong>cuboid_dims</strong> (<em>array</em><em>, </em><em>optional</em>) – Cuboid dimensions, in order of x, y, z <em>[batch_shape,num_cuboids,3]</em></p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
 </ul>
 </dd>
 </dl>
@@ -223,14 +223,11 @@
 
 <dl class="py method">
 <dt id="ivy_vision.containers.PrimitiveScene.as_identity">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#PrimitiveScene.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.PrimitiveScene.as_identity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#PrimitiveScene.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.PrimitiveScene.as_identity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return primitive scene object with array attributes as either zeros or identity matrices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em>) – Machine learning framework.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>New primitive scene object, with each entry as either zeros or identity matrices.</p>
@@ -328,14 +325,11 @@
 
 <dl class="py method">
 <dt id="ivy_vision.containers.Intrinsics.as_identity">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#Intrinsics.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_identity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#Intrinsics.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_identity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return camera intrinsics object with array attributes as either zeros or identity matrices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em>) – Machine learning framework.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>New camera intrinsics object, with each entry as either zeros or identity matrices.</p>
@@ -419,14 +413,11 @@
 
 <dl class="py method">
 <dt id="ivy_vision.containers.Extrinsics.as_identity">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#Extrinsics.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Extrinsics.as_identity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#Extrinsics.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Extrinsics.as_identity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return camera extrinsics object with array attributes as either zeros or identity matrices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em>) – Machine learning framework.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>New camera extrinsics object, with each entry as either zeros or identity matrices.</p>
@@ -509,14 +500,11 @@
 
 <dl class="py method">
 <dt id="ivy_vision.containers.CameraGeometry.as_identity">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#CameraGeometry.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.as_identity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/containers.html#CameraGeometry.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.as_identity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return camera geometry object with array attributes as either zeros or identity matrices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em>) – Machine learning framework.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>New camera geometry object, with each entry as either zeros or identity matrices.</p>

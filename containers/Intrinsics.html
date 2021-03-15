@@ -96,6 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../single_view_geometry.html">Single view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -224,14 +225,11 @@
 
 <dl class="py method">
 <dt id="ivy_vision.containers.Intrinsics.as_identity">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_identity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_identity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return camera intrinsics object with array attributes as either zeros or identity matrices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em>) – Machine learning framework.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>New camera intrinsics object, with each entry as either zeros or identity matrices.</p>

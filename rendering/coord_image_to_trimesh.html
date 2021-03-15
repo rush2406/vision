@@ -86,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../optical_flow.html">Optical flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../projective_geometry.html">Projective geometry</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../rendering.html">Rendering</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="render_pixel_coords.html">render_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quantize_pixel_coords.html">quantize_pixel_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rasterize_triangles.html">rasterize_triangles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="weighted_image_smooth.html">weighted_image_smooth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="smooth_image_fom_var_image.html">smooth_image_fom_var_image</a></li>
@@ -99,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../single_view_geometry.html">Single view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -178,7 +179,7 @@
 <h1>coord_image_to_trimesh<a class="headerlink" href="#coord-image-to-trimesh" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.rendering.coord_image_to_trimesh">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">coord_image_to_trimesh</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validity_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/rendering.html#coord_image_to_trimesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.coord_image_to_trimesh" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">coord_image_to_trimesh</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validity_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/rendering.html#coord_image_to_trimesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.coord_image_to_trimesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create trimesh, with vertices and triangle indices, from co-ordinate image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -187,8 +188,7 @@
 <li><p><strong>validity_mask</strong> (<em>array</em><em>, </em><em>optional</em>) – Boolean mask of where the coord image contains valid values <em>[batch_shape,h,w,1]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
 <li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

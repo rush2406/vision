@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>depth_from_flow_and_cam_mats &mdash; Ivy Vision 1.0 documentation</title>
+  <title>quantize_pixel_coords &mdash; Ivy Vision 1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="flow_from_depth_and_cam_mats" href="flow_from_depth_and_cam_mats.html" />
-    <link rel="prev" title="Optical flow" href="../optical_flow.html" /> 
+    <link rel="next" title="rasterize_triangles" href="rasterize_triangles.html" />
+    <link rel="prev" title="Rendering" href="../rendering.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,19 +84,18 @@
               <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../containers.html">Containers</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../optical_flow.html">Optical flow</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">depth_from_flow_and_cam_mats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flow_from_depth_and_cam_mats.html">flow_from_depth_and_cam_mats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="project_flow_to_epipolar_line.html">project_flow_to_epipolar_line</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pixel_cost_volume.html">pixel_cost_volume</a></li>
-<li class="toctree-l2"><a class="reference internal" href="velocity_from_flow_cam_coords_and_cam_mats.html">velocity_from_flow_cam_coords_and_cam_mats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="project_cam_coords_with_object_transformations.html">project_cam_coords_with_object_transformations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="velocity_from_cam_coords_id_image_and_object_trans.html">velocity_from_cam_coords_id_image_and_object_trans</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flow_from_cam_coords_id_image_and_object_trans.html">flow_from_cam_coords_id_image_and_object_trans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optical_flow.html">Optical flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../projective_geometry.html">Projective geometry</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../rendering.html">Rendering</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">quantize_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rasterize_triangles.html">rasterize_triangles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="weighted_image_smooth.html">weighted_image_smooth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smooth_image_fom_var_image.html">smooth_image_fom_var_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pad_omni_image.html">pad_omni_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create_trimesh_indices_for_image.html">create_trimesh_indices_for_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coord_image_to_trimesh.html">coord_image_to_trimesh</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../projective_geometry.html">Projective geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rendering.html">Rendering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sdf.html">Sdf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../single_view_geometry.html">Single view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
@@ -156,15 +155,15 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../optical_flow.html">Optical flow</a> &raquo;</li>
+          <li><a href="../rendering.html">Rendering</a> &raquo;</li>
         
-      <li>depth_from_flow_and_cam_mats</li>
+      <li>quantize_pixel_coords</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/optical_flow/depth_from_flow_and_cam_mats.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/rendering/quantize_pixel_coords.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -177,29 +176,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="depth-from-flow-and-cam-mats">
-<h1>depth_from_flow_and_cam_mats<a class="headerlink" href="#depth-from-flow-and-cam-mats" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="quantize-pixel-coords">
+<h1>quantize_pixel_coords<a class="headerlink" href="#quantize-pixel-coords" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="ivy_vision.optical_flow.depth_from_flow_and_cam_mats">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">depth_from_flow_and_cam_mats</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_mats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_full_mats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera_centers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_pixel_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">triangulation_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/optical_flow.html#depth_from_flow_and_cam_mats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.optical_flow.depth_from_flow_and_cam_mats" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute depth map <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{h×w×1}\)</span> in frame 1 using optical flow
-<span class="math notranslate nohighlight">\(\mathbf{U}_{1→2}\in\mathbb{R}^{h×w×2}\)</span> from frame 1 to 2, and the camera geometry.</p>
+<dt id="ivy_vision.rendering.quantize_pixel_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">quantize_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'proj'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_coords_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.001,</span> <span class="pre">1000000000000.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_pixel_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/rendering.html#quantize_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.quantize_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quantize pixel co-ordinates with d feature channels (for depth, rgb, normals etc.), from
+images <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{input\_images\_shape×(2+d)}\)</span>, which may have been reprojected from a host of
+different cameras (leading to non-quantized values), to a new quantized pixel co-ordinate image with the same
+feature channels <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{h×w×(3+d)}\)</span>, and with integer pixel co-ordinates.
+Duplicates during the quantization are mean averaged.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>flow</strong> (<em>array</em>) – Optical flow from frame 1 to 2 <em>[batch_shape,h,w,2]</em></p></li>
-<li><p><strong>full_mats</strong> (<em>array</em>) – Full projection matrices <em>[batch_shape,2,3,4]</em></p></li>
-<li><p><strong>inv_full_mats</strong> (<em>array</em><em>, </em><em>optional</em>) – Inverse full projection matrices, inferred from full_mats if None and ‘cmp’ triangulation method <em>[batch_shape,2,3,4]</em></p></li>
-<li><p><strong>camera_centers</strong> (<em>array</em><em>, </em><em>optional</em>) – Camera centers, inferred from inv_full_mats if None and ‘cmp’ triangulation method <em>[batch_shape,2,3,1]</em></p></li>
-<li><p><strong>uniform_pixel_coords</strong> (<em>array</em><em>, </em><em>optional</em>) – Homogeneous uniform (integer) pixel co-ordinate images, inferred from image_dims if None <em>[batch_shape,h,w,3]</em></p></li>
-<li><p><strong>triangulation_method</strong> (<em>str</em><em>, </em><em>optional</em>) – Triangulation method, one of [cmp|dlt], for closest mutual points or homogeneous dlt approach, closest_mutual_points by default</p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>pixel_coords</strong> (<em>array</em>) – Coordinates to scatter (depth, rgb, normals, etc.) <em>[batch_shape,input_size,2+d]</em></p></li>
+<li><p><strong>prior</strong> (<em>array</em><em> or </em><em>float to fill with</em>) – Coords prior <em>[batch_shape,h,w,d]</em></p></li>
+<li><p><strong>final_image_dims</strong> (<em>sequence of ints</em>) – Image dimensions of the final image.</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – Rendering mode, be one [proj|omni] for projective or omni-directional rendering, default is proj</p></li>
+<li><p><strong>with_db</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to use depth buffer in rendering, default is false</p></li>
+<li><p><strong>pixel_coords_var</strong> (<em>array</em><em> or </em><em>float to fill with</em>) – Spherical polar pixel co-ordinates diagonal covariance <em>[batch_shape,input_size,d]</em></p></li>
+<li><p><strong>prior_var</strong> (<em>array</em><em> or </em><em>float to fill with</em>) – Coords prior diagonal covariance <em>[batch_shape,h,w,d]</em></p></li>
+<li><p><strong>var_threshold</strong> (<em>array</em><em> or </em><em>sequence of floats to fill with</em>) – Variance threshold, for projecting valid coords and clipping <em>[batch_shape,d,2]</em></p></li>
+<li><p><strong>uniform_pixel_coords</strong> (<em>array</em><em>, </em><em>optional</em>) – Homogeneous uniform (integer) pixel co-ordinate images, inferred from final_image_dims if None <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Assumed no batches if None.</p></li>
 <li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Depth map in frame 1 <em>[batch_shape,h,w,1]</em></p>
+<dd class="field-even"><p>Quantized pixel co-ordinates image with d feature channels (for depth, rgb, normals etc.) <em>[batch_shape,h,w,2+d]</em> with other d scattered, and scatter counter image <em>[batch_shape,h,w,1]</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -219,10 +223,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="flow_from_depth_and_cam_mats.html" class="btn btn-neutral float-right" title="flow_from_depth_and_cam_mats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="rasterize_triangles.html" class="btn btn-neutral float-right" title="rasterize_triangles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../optical_flow.html" class="btn btn-neutral float-left" title="Optical flow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../rendering.html" class="btn btn-neutral float-left" title="Rendering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

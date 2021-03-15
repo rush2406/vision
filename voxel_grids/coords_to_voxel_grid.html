@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Ivy" href="../../ivy"" />
+    <link rel="next" title="Warping" href="../warping.html" />
     <link rel="prev" title="Voxel grids" href="../voxel_grids.html" /> 
 </head>
 
@@ -94,6 +94,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">coords_to_voxel_grid</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -173,7 +174,7 @@
 <h1>coords_to_voxel_grid<a class="headerlink" href="#coords-to-voxel-grid" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.voxel_grids.coords_to_voxel_grid">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">coords_to_voxel_grid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxel_shape_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DIMS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/voxel_grids.html#coords_to_voxel_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.voxel_grids.coords_to_voxel_grid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">coords_to_voxel_grid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxel_shape_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DIMS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/voxel_grids.html#coords_to_voxel_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.voxel_grids.coords_to_voxel_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create voxel grid <span class="math notranslate nohighlight">\(\mathbf{X}_v\in\mathbb{R}^{x×y×z×(3+N+1)}\)</span> from homogeneous co-ordinates
 <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{num\_coords×4}\)</span>. Each voxel contains 3+N+1 values: the mean normalized
 co-ordinate inside the voxel for the projected pixels with <span class="math notranslate nohighlight">\(0 &lt; x, y, z &lt; 1\)</span>, N coordinte features (optional),
@@ -195,8 +196,7 @@ directions, depending on mode. Batched or unbatched. <em>[batch_shape,3]</em> or
 E.g. RGB values, low-dimensional features, etc.
 Features mapping to the same voxel are averaged.</p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -220,7 +220,7 @@ Features mapping to the same voxel are averaged.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../ivy"" class="btn btn-neutral float-right" title="Ivy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../warping.html" class="btn btn-neutral float-right" title="Warping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../voxel_grids.html" class="btn btn-neutral float-left" title="Voxel grids" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

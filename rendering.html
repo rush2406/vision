@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="render_pixel_coords" href="rendering/render_pixel_coords.html" />
+    <link rel="next" title="quantize_pixel_coords" href="rendering/quantize_pixel_coords.html" />
     <link rel="prev" title="solve_homogeneous_dlt" href="projective_geometry/solve_homogeneous_dlt.html" /> 
 </head>
 
@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="optical_flow.html">Optical flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="projective_geometry.html">Projective geometry</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Rendering</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="rendering/render_pixel_coords.html">render_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering/quantize_pixel_coords.html">quantize_pixel_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rendering/rasterize_triangles.html">rasterize_triangles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rendering/weighted_image_smooth.html">weighted_image_smooth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rendering/smooth_image_fom_var_image.html">smooth_image_fom_var_image</a></li>
@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry.html">Single view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -177,8 +178,8 @@
 <span id="rendering"></span><h1>Rendering<a class="headerlink" href="#module-ivy_vision.rendering" title="Permalink to this headline">¶</a></h1>
 <p>Collection of Rendering Functions</p>
 <dl class="py function">
-<dt id="ivy_vision.rendering.render_pixel_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">render_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'proj'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_coords_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.001,</span> <span class="pre">1000000000000.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_pixel_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#render_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.render_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<dt id="ivy_vision.rendering.quantize_pixel_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">quantize_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'proj'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_coords_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.001,</span> <span class="pre">1000000000000.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_pixel_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#quantize_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.quantize_pixel_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quantize pixel co-ordinates with d feature channels (for depth, rgb, normals etc.), from
 images <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{input\_images\_shape×(2+d)}\)</span>, which may have been reprojected from a host of
 different cameras (leading to non-quantized values), to a new quantized pixel co-ordinate image with the same
@@ -197,8 +198,7 @@ Duplicates during the quantization are mean averaged.</p>
 <li><p><strong>var_threshold</strong> (<em>array</em><em> or </em><em>sequence of floats to fill with</em>) – Variance threshold, for projecting valid coords and clipping <em>[batch_shape,d,2]</em></p></li>
 <li><p><strong>uniform_pixel_coords</strong> (<em>array</em><em>, </em><em>optional</em>) – Homogeneous uniform (integer) pixel co-ordinate images, inferred from final_image_dims if None <em>[batch_shape,h,w,3]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Assumed no batches if None.</p></li>
-<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -209,7 +209,7 @@ Duplicates during the quantization are mean averaged.</p>
 
 <dl class="py function">
 <dt id="ivy_vision.rendering.rasterize_triangles">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">rasterize_triangles</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coords_triangles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#rasterize_triangles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.rasterize_triangles" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">rasterize_triangles</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coords_triangles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#rasterize_triangles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.rasterize_triangles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rasterize image-projected triangles
 based on: <a class="reference external" href="https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-stage">https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-stage</a>
 and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-practical-implementation">https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-practical-implementation</a></p>
@@ -220,8 +220,7 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 <em>[batch_shape,input_size,3,3]</em></p></li>
 <li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions.</p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from Inputs if None.</p></li>
-<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from Inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -232,7 +231,7 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 
 <dl class="py function">
 <dt id="ivy_vision.rendering.weighted_image_smooth">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">weighted_image_smooth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#weighted_image_smooth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.weighted_image_smooth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">weighted_image_smooth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#weighted_image_smooth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.weighted_image_smooth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Smooth an image using weight values from a weight image of the same size.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -240,7 +239,6 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 <li><p><strong>mean</strong> (<em>array</em>) – Image to smooth <em>[batch_shape,h,w,d]</em></p></li>
 <li><p><strong>weights</strong> (<em>array</em>) – Variance image, with the variance values of each pixel in the image <em>[batch_shape,h,w,d]</em></p></li>
 <li><p><strong>kernel_dim</strong> (<em>int</em>) – The dimension of the kernel</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from Inputs if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -251,7 +249,7 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 
 <dl class="py function">
 <dt id="ivy_vision.rendering.smooth_image_fom_var_image">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">smooth_image_fom_var_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#smooth_image_fom_var_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.smooth_image_fom_var_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">smooth_image_fom_var_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#smooth_image_fom_var_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.smooth_image_fom_var_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Smooth an image using variance values from a variance image of the same size, and a spatial smoothing kernel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -260,8 +258,7 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 <li><p><strong>var</strong> (<em>array</em>) – Variance image, with the variance values of each pixel in the image <em>[batch_shape,h,w,d]</em></p></li>
 <li><p><strong>kernel_dim</strong> (<em>int</em>) – The dimension of the kernel</p></li>
 <li><p><strong>kernel_scale</strong> (<em>array</em>) – The scale of the kernel along the channel dimension <em>[d]</em></p></li>
-<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from Inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -272,7 +269,7 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 
 <dl class="py function">
 <dt id="ivy_vision.rendering.pad_omni_image">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">pad_omni_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#pad_omni_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.pad_omni_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">pad_omni_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#pad_omni_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.pad_omni_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pad an omni-directional image with the correct image wrapping at the edges.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -280,7 +277,6 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 <li><p><strong>image</strong> (<em>array</em>) – Image to perform the padding on <em>[batch_shape,h,w,d]</em></p></li>
 <li><p><strong>pad_size</strong> (<em>int</em>) – Number of pixels to pad.</p></li>
 <li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from Inputs if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from Inputs if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -291,15 +287,14 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 
 <dl class="py function">
 <dt id="ivy_vision.rendering.create_trimesh_indices_for_image">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">create_trimesh_indices_for_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu:0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#create_trimesh_indices_for_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.create_trimesh_indices_for_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">create_trimesh_indices_for_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu:0'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#create_trimesh_indices_for_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.create_trimesh_indices_for_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create triangle mesh for image with given image dimensions</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Shape of batch.</p></li>
 <li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions.</p></li>
-<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Global framework used if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -310,7 +305,7 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 
 <dl class="py function">
 <dt id="ivy_vision.rendering.coord_image_to_trimesh">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">coord_image_to_trimesh</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validity_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#coord_image_to_trimesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.coord_image_to_trimesh" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">coord_image_to_trimesh</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validity_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/rendering.html#coord_image_to_trimesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.coord_image_to_trimesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create trimesh, with vertices and triangle indices, from co-ordinate image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -319,8 +314,7 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 <li><p><strong>validity_mask</strong> (<em>array</em><em>, </em><em>optional</em>) – Boolean mask of where the coord image contains valid values <em>[batch_shape,h,w,1]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
 <li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -332,7 +326,7 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Rendering</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="rendering/render_pixel_coords.html">render_pixel_coords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rendering/quantize_pixel_coords.html">quantize_pixel_coords</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rendering/rasterize_triangles.html">rasterize_triangles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rendering/weighted_image_smooth.html">weighted_image_smooth</a></li>
 <li class="toctree-l1"><a class="reference internal" href="rendering/smooth_image_fom_var_image.html">smooth_image_fom_var_image</a></li>
@@ -351,7 +345,7 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="rendering/render_pixel_coords.html" class="btn btn-neutral float-right" title="render_pixel_coords" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="rendering/quantize_pixel_coords.html" class="btn btn-neutral float-right" title="quantize_pixel_coords" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="projective_geometry/solve_homogeneous_dlt.html" class="btn btn-neutral float-left" title="solve_homogeneous_dlt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

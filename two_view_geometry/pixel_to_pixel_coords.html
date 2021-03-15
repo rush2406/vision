@@ -100,6 +100,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -179,7 +180,7 @@
 <h1>pixel_to_pixel_coords<a class="headerlink" href="#pixel-to-pixel-coords" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.two_view_geometry.pixel_to_pixel_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">pixel_to_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coords1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam1to2_full_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/two_view_geometry.html#pixel_to_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.pixel_to_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">pixel_to_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coords1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam1to2_full_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/two_view_geometry.html#pixel_to_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.pixel_to_pixel_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform depth scaled homogeneous pixel co-ordinates image in first camera frame
 <span class="math notranslate nohighlight">\(\mathbf{X}_{p1}\in\mathbb{R}^{h×w×3}\)</span> to depth scaled homogeneous pixel co-ordinates image in second camera
 frame <span class="math notranslate nohighlight">\(\mathbf{X}_{p2}\in\mathbb{R}^{h×w×3}\)</span>, given camera to camera projection matrix
@@ -192,8 +193,7 @@ frame <span class="math notranslate nohighlight">\(\mathbf{X}_{p2}\in\mathbb{R}^
 <li><p><strong>cam1to2_full_mat</strong> (<em>array</em>) – Camera1-to-camera2 full projection matrix <em>[batch_shape,3,4]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
 <li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>dev</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

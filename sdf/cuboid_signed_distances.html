@@ -94,6 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../single_view_geometry.html">Single view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -173,7 +174,7 @@
 <h1>cuboid_signed_distances<a class="headerlink" href="#cuboid-signed-distances" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.sdf.cuboid_signed_distances">
-<code class="sig-prename descclassname"><span class="pre">ivy_vision.sdf.</span></code><code class="sig-name descname"><span class="pre">cuboid_signed_distances</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cuboid_ext_mats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuboid_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/sdf.html#cuboid_signed_distances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.sdf.cuboid_signed_distances" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">ivy_vision.sdf.</span></code><code class="sig-name descname"><span class="pre">cuboid_signed_distances</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cuboid_ext_mats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuboid_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/sdf.html#cuboid_signed_distances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.sdf.cuboid_signed_distances" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the signed distances of a set of query points from the cuboid surfaces.</p>
 <p><a class="reference external" href="https://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm">[reference]</a></p>
 <dl class="field-list simple">
@@ -183,7 +184,6 @@
 <li><p><strong>cuboid_dims</strong> (<em>array</em>) – Dimensions of the cuboids, in the order x, y, z <em>[batch_shape,num_cuboids,3]</em></p></li>
 <li><p><strong>query_positions</strong> (<em>array</em>) – Points for which to query the signed distances <em>[batch_shape,num_points,3]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Assumed no batches if None.</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning framework. Inferred from inputs if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

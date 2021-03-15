@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../single_view_geometry.html">Single view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -161,12 +162,12 @@
             
   <h1>Source code for ivy_vision.containers</h1><div class="highlight"><pre>
 <span></span><span class="c1"># global</span>
+<span class="kn">import</span> <span class="nn">ivy</span> <span class="k">as</span> <span class="nn">_ivy</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">_tf</span>
 <span class="k">except</span> <span class="p">(</span><span class="n">ModuleNotFoundError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">):</span>
     <span class="n">_tf</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="kn">from</span> <span class="nn">ivy.core.container</span> <span class="k">import</span> <span class="n">Container</span> <span class="k">as</span> <span class="n">_Container</span>
-<span class="kn">from</span> <span class="nn">ivy.framework_handler</span> <span class="k">import</span> <span class="n">get_framework</span> <span class="k">as</span> <span class="n">_get_framework</span>
 
 <span class="c1"># local</span>
 <span class="kn">import</span> <span class="nn">ivy_vision.sdf</span> <span class="k">as</span> <span class="nn">ivy_sdf</span>
@@ -179,8 +180,7 @@
                  <span class="n">sphere_positions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">sphere_radii</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">cuboid_ext_mats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">cuboid_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">cuboid_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize scene description as a composition of primitive shapes.</span>
 <span class="sd">        # ToDo: extend this to include cylinders and cones once supported in ivy_vision.sdf module</span>
@@ -193,10 +193,7 @@
 <span class="sd">        :type cuboid_ext_mats: array, optional</span>
 <span class="sd">        :param cuboid_dims: Cuboid dimensions, in order of x, y, z *[batch_shape,num_cuboids,3]*</span>
 <span class="sd">        :type cuboid_dims: array, optional</span>
-<span class="sd">        :param f: Machine learning library. Inferred from inputs if None.</span>
-<span class="sd">        :type f: ml_framework, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">([</span><span class="n">sphere_positions</span><span class="p">,</span> <span class="n">sphere_radii</span><span class="p">,</span> <span class="n">cuboid_ext_mats</span><span class="p">,</span> <span class="n">cuboid_dims</span><span class="p">],</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
         <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;sphere_positions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sphere_positions</span>
         <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;sphere_radii&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sphere_radii</span>
         <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;cuboid_ext_mats&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cuboid_ext_mats</span>
@@ -243,21 +240,19 @@
         <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">sphere_positions</span><span class="p">,</span> <span class="n">sphere_radii</span><span class="p">,</span> <span class="n">cuboid_ext_mats</span><span class="p">,</span> <span class="n">cuboid_dims</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="PrimitiveScene.as_identity"><a class="viewcode-back" href="../../containers/PrimitiveScene.html#ivy_vision.containers.PrimitiveScene.as_identity">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return primitive scene object with array attributes as either zeros or identity matrices.</span>
 
 <span class="sd">        :param batch_shape: Batch shape for each geometric array attribute</span>
 <span class="sd">        :type batch_shape: sequence of ints</span>
-<span class="sd">        :param f: Machine learning framework.</span>
-<span class="sd">        :type f: ml_framework</span>
 <span class="sd">        :return: New primitive scene object, with each entry as either zeros or identity matrices.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">sphere_positions</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span>
-        <span class="n">sphere_radii</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">cuboid_ext_mats</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span>
-        <span class="n">cuboid_dims</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">sphere_positions</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">sphere_radii</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">cuboid_ext_mats</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">cuboid_dims</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
         <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">sphere_positions</span><span class="p">,</span> <span class="n">sphere_radii</span><span class="p">,</span> <span class="n">cuboid_ext_mats</span><span class="p">,</span> <span class="n">cuboid_dims</span><span class="p">)</span></div>
 
     <span class="c1"># Public Methods #</span>
@@ -383,22 +378,20 @@
         <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">focal_lengths</span><span class="p">,</span> <span class="n">persp_angles</span><span class="p">,</span> <span class="n">pp_offsets</span><span class="p">,</span> <span class="n">calib_mats</span><span class="p">,</span> <span class="n">inv_calib_mats</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Intrinsics.as_identity"><a class="viewcode-back" href="../../containers/Intrinsics.html#ivy_vision.containers.Intrinsics.as_identity">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return camera intrinsics object with array attributes as either zeros or identity matrices.</span>
 
 <span class="sd">        :param batch_shape: Batch shape for each geometric array attribute</span>
 <span class="sd">        :type batch_shape: sequence of ints</span>
-<span class="sd">        :param f: Machine learning framework.</span>
-<span class="sd">        :type f: ml_framework</span>
 <span class="sd">        :return: New camera intrinsics object, with each entry as either zeros or identity matrices.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">focal_lengths</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">persp_angles</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">pp_offsets</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">calib_mats</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">inv_calib_mats</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
+        <span class="n">focal_lengths</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">persp_angles</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">pp_offsets</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">calib_mats</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
+        <span class="n">inv_calib_mats</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
         <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">focal_lengths</span><span class="p">,</span> <span class="n">persp_angles</span><span class="p">,</span> <span class="n">pp_offsets</span><span class="p">,</span> <span class="n">calib_mats</span><span class="p">,</span> <span class="n">inv_calib_mats</span><span class="p">)</span></div>
 
     <span class="c1"># Public Methods #</span>
@@ -503,22 +496,20 @@
         <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">cam_centers</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">inv_Rs</span><span class="p">,</span> <span class="n">ext_mats_homo</span><span class="p">,</span> <span class="n">inv_ext_mats_homo</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Extrinsics.as_identity"><a class="viewcode-back" href="../../containers/Extrinsics.html#ivy_vision.containers.Extrinsics.as_identity">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return camera extrinsics object with array attributes as either zeros or identity matrices.</span>
 
 <span class="sd">        :param batch_shape: Batch shape for each geometric array attribute.</span>
 <span class="sd">        :type batch_shape: sequence of ints</span>
-<span class="sd">        :param f: Machine learning framework.</span>
-<span class="sd">        :type f: ml_framework</span>
 <span class="sd">        :return: New camera extrinsics object, with each entry as either zeros or identity matrices.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">cam_centers</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-        <span class="n">Rs</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">inv_Rs</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">ext_mats_homo</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">inv_ext_mats_homo</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
+        <span class="n">cam_centers</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">Rs</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
+        <span class="n">inv_Rs</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
+        <span class="n">ext_mats_homo</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
+        <span class="n">inv_ext_mats_homo</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
         <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">cam_centers</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">inv_Rs</span><span class="p">,</span> <span class="n">ext_mats_homo</span><span class="p">,</span> <span class="n">inv_ext_mats_homo</span><span class="p">)</span></div>
 
     <span class="c1"># Public Methods #</span>
@@ -617,20 +608,18 @@
         <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">intrinsics</span><span class="p">,</span> <span class="n">extrinsics</span><span class="p">,</span> <span class="n">full_mats_homo</span><span class="p">,</span> <span class="n">inv_full_mats_homo</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CameraGeometry.as_identity"><a class="viewcode-back" href="../../containers/CameraGeometry.html#ivy_vision.containers.CameraGeometry.as_identity">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return camera geometry object with array attributes as either zeros or identity matrices.</span>
 
 <span class="sd">        :param batch_shape: Batch shape for each geometric array attribute</span>
 <span class="sd">        :type batch_shape: sequence of ints</span>
-<span class="sd">        :param f: Machine learning framework.</span>
-<span class="sd">        :type f: ml_framework</span>
 <span class="sd">        :return: New camera geometry object, with each entry as either zeros or identity matrices.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">intrinsics</span> <span class="o">=</span> <span class="n">Intrinsics</span><span class="o">.</span><span class="n">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-        <span class="n">extrinsics</span> <span class="o">=</span> <span class="n">Extrinsics</span><span class="o">.</span><span class="n">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-        <span class="n">full_mats_homo</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">inv_full_mats_homo</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
+        <span class="n">intrinsics</span> <span class="o">=</span> <span class="n">Intrinsics</span><span class="o">.</span><span class="n">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+        <span class="n">extrinsics</span> <span class="o">=</span> <span class="n">Extrinsics</span><span class="o">.</span><span class="n">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+        <span class="n">full_mats_homo</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
+        <span class="n">inv_full_mats_homo</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="n">batch_shape</span><span class="p">)</span>
         <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">intrinsics</span><span class="p">,</span> <span class="n">extrinsics</span><span class="p">,</span> <span class="n">full_mats_homo</span><span class="p">,</span> <span class="n">inv_full_mats_homo</span><span class="p">)</span></div>
 
     <span class="c1"># Public Methods #</span>

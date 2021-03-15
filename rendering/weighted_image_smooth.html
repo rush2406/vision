@@ -86,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../optical_flow.html">Optical flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../projective_geometry.html">Projective geometry</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../rendering.html">Rendering</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="render_pixel_coords.html">render_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quantize_pixel_coords.html">quantize_pixel_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rasterize_triangles.html">rasterize_triangles</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">weighted_image_smooth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="smooth_image_fom_var_image.html">smooth_image_fom_var_image</a></li>
@@ -99,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../single_view_geometry.html">Single view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -178,7 +179,7 @@
 <h1>weighted_image_smooth<a class="headerlink" href="#weighted-image-smooth" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.rendering.weighted_image_smooth">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">weighted_image_smooth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/rendering.html#weighted_image_smooth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.weighted_image_smooth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">weighted_image_smooth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/rendering.html#weighted_image_smooth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.rendering.weighted_image_smooth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Smooth an image using weight values from a weight image of the same size.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -186,7 +187,6 @@
 <li><p><strong>mean</strong> (<em>array</em>) – Image to smooth <em>[batch_shape,h,w,d]</em></p></li>
 <li><p><strong>weights</strong> (<em>array</em>) – Variance image, with the variance values of each pixel in the image <em>[batch_shape,h,w,d]</em></p></li>
 <li><p><strong>kernel_dim</strong> (<em>int</em>) – The dimension of the kernel</p></li>
-<li><p><strong>f</strong> (<em>ml_framework</em><em>, </em><em>optional</em>) – Machine learning library. Inferred from Inputs if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

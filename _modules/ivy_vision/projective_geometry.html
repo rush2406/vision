@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../single_view_geometry.html">Single view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../voxel_grids.html">Voxel grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -165,10 +166,10 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># global</span>
-<span class="kn">from</span> <span class="nn">ivy.framework_handler</span> <span class="k">import</span> <span class="n">get_framework</span> <span class="k">as</span> <span class="n">_get_framework</span>
+<span class="kn">import</span> <span class="nn">ivy</span> <span class="k">as</span> <span class="nn">_ivy</span>
 
 
-<div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../projective_geometry/transform.html#ivy_vision.projective_geometry.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../projective_geometry/transform.html#ivy_vision.projective_geometry.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Transform image of :math:`n`-dimensional co-ordinates :math:`\mathbf{x}\in\mathbb{R}^{h×w×n}` by</span>
 <span class="sd">    transformation matrix :math:`\mathbf{f}\in\mathbb{R}^{m×n}`, to produce image of transformed co-ordinates</span>
@@ -183,12 +184,8 @@
 <span class="sd">    :type batch_shape: sequence of ints, optional</span>
 <span class="sd">    :param image_dims: Image dimensions. Inferred from inputs if None.</span>
 <span class="sd">    :type image_dims: sequence of ints</span>
-<span class="sd">    :param f: Machine learning framework. Inferred from inputs if None.</span>
-<span class="sd">    :type f: ml_framework, optional</span>
 <span class="sd">    :return: Transformed co-ordinate image *[batch_shape,height,width,m]*</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
@@ -205,22 +202,22 @@
     <span class="n">transpose_idxs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_batch_dims</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="n">num_batch_dims</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_batch_dims</span><span class="p">]</span>
 
     <span class="c1"># BS x (HxW) x N</span>
-    <span class="n">coords_flattened</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">image_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">image_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">coords_flattened</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">image_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">image_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
     <span class="c1"># BS x N x (HxW)</span>
-    <span class="n">coords_reshaped</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">coords_flattened</span><span class="p">,</span> <span class="n">transpose_idxs</span><span class="p">)</span>
+    <span class="n">coords_reshaped</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">coords_flattened</span><span class="p">,</span> <span class="n">transpose_idxs</span><span class="p">)</span>
 
     <span class="c1"># BS x M x (HxW)</span>
-    <span class="n">transformed_coords_vector</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">trans</span><span class="p">,</span> <span class="n">coords_reshaped</span><span class="p">)</span>
+    <span class="n">transformed_coords_vector</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">trans</span><span class="p">,</span> <span class="n">coords_reshaped</span><span class="p">)</span>
 
     <span class="c1"># BS x (HxW) x M</span>
-    <span class="n">transformed_coords_vector_transposed</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">transformed_coords_vector</span><span class="p">,</span> <span class="n">transpose_idxs</span><span class="p">)</span>
+    <span class="n">transformed_coords_vector_transposed</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">transformed_coords_vector</span><span class="p">,</span> <span class="n">transpose_idxs</span><span class="p">)</span>
 
     <span class="c1"># BS x H x W x M</span>
-    <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">transformed_coords_vector_transposed</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="n">image_dims</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
+    <span class="k">return</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">transformed_coords_vector_transposed</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="n">image_dims</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="projection_matrix_pseudo_inverse"><a class="viewcode-back" href="../../projective_geometry/projection_matrix_pseudo_inverse.html#ivy_vision.projective_geometry.projection_matrix_pseudo_inverse">[docs]</a><span class="k">def</span> <span class="nf">projection_matrix_pseudo_inverse</span><span class="p">(</span><span class="n">proj_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="projection_matrix_pseudo_inverse"><a class="viewcode-back" href="../../projective_geometry/projection_matrix_pseudo_inverse.html#ivy_vision.projective_geometry.projection_matrix_pseudo_inverse">[docs]</a><span class="k">def</span> <span class="nf">projection_matrix_pseudo_inverse</span><span class="p">(</span><span class="n">proj_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given projection matrix :math:`\mathbf{P}\in\mathbb{R}^{3×4}`, compute it&#39;s pseudo-inverse</span>
 <span class="sd">    :math:`\mathbf{P}^+\in\mathbb{R}^{4×3}`.\n</span>
@@ -231,12 +228,8 @@
 <span class="sd">    :type proj_mat: array</span>
 <span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
 <span class="sd">    :type batch_shape: sequence of ints, optional</span>
-<span class="sd">    :param f: Machine learning framework. Inferred from inputs if None.</span>
-<span class="sd">    :type f: ml_framework, optional</span>
 <span class="sd">    :return: Projection matrix pseudo-inverse *[batch_shape,4,3]*</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">proj_mat</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">proj_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
@@ -249,13 +242,13 @@
     <span class="n">transpose_idxs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_batch_dims</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="n">num_batch_dims</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_batch_dims</span><span class="p">]</span>
 
     <span class="c1"># BS x 4 x 3</span>
-    <span class="n">matrix_transposed</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">proj_mat</span><span class="p">,</span> <span class="n">transpose_idxs</span><span class="p">)</span>
+    <span class="n">matrix_transposed</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">proj_mat</span><span class="p">,</span> <span class="n">transpose_idxs</span><span class="p">)</span>
 
     <span class="c1"># BS x 4 x 3</span>
-    <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">matrix_transposed</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">proj_mat</span><span class="p">,</span> <span class="n">matrix_transposed</span><span class="p">)))</span></div>
+    <span class="k">return</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">matrix_transposed</span><span class="p">,</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">_ivy</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">proj_mat</span><span class="p">,</span> <span class="n">matrix_transposed</span><span class="p">)))</span></div>
 
 
-<div class="viewcode-block" id="projection_matrix_inverse"><a class="viewcode-back" href="../../projective_geometry/projection_matrix_inverse.html#ivy_vision.projective_geometry.projection_matrix_inverse">[docs]</a><span class="k">def</span> <span class="nf">projection_matrix_inverse</span><span class="p">(</span><span class="n">proj_mat</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="projection_matrix_inverse"><a class="viewcode-back" href="../../projective_geometry/projection_matrix_inverse.html#ivy_vision.projective_geometry.projection_matrix_inverse">[docs]</a><span class="k">def</span> <span class="nf">projection_matrix_inverse</span><span class="p">(</span><span class="n">proj_mat</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given projection matrix :math:`\mathbf{P}\in\mathbb{R}^{3×4}`, compute it&#39;s inverse</span>
 <span class="sd">    :math:`\mathbf{P}^{-1}\in\mathbb{R}^{3×4}`.\n</span>
@@ -264,30 +257,26 @@
 
 <span class="sd">    :param proj_mat: Projection matrix *[batch_shape,3,4]*</span>
 <span class="sd">    :type proj_mat: array</span>
-<span class="sd">    :param f: Machine learning framework. Inferred from inputs if None.</span>
-<span class="sd">    :type f: ml_framework, optional</span>
 <span class="sd">    :return: Projection matrix inverse *[batch_shape,3,4]*</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">proj_mat</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
 
     <span class="c1"># BS x 3 x 3</span>
     <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">proj_mat</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
 
     <span class="c1"># BS x 3 x 3</span>
-    <span class="n">rotation_matrix_inverses</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">rotation_matrix</span><span class="p">)</span>
+    <span class="n">rotation_matrix_inverses</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">rotation_matrix</span><span class="p">)</span>
 
     <span class="c1"># BS x 3 x 1</span>
     <span class="n">translations</span> <span class="o">=</span> <span class="n">proj_mat</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
 
     <span class="c1"># BS x 3 x 1</span>
-    <span class="n">translation_inverses</span> <span class="o">=</span> <span class="o">-</span><span class="n">f</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">rotation_matrix_inverses</span><span class="p">,</span> <span class="n">translations</span><span class="p">)</span>
+    <span class="n">translation_inverses</span> <span class="o">=</span> <span class="o">-</span><span class="n">_ivy</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">rotation_matrix_inverses</span><span class="p">,</span> <span class="n">translations</span><span class="p">)</span>
 
     <span class="c1"># BS x 3 x 4</span>
-    <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">rotation_matrix_inverses</span><span class="p">,</span> <span class="n">translation_inverses</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">rotation_matrix_inverses</span><span class="p">,</span> <span class="n">translation_inverses</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="solve_homogeneous_dlt"><a class="viewcode-back" href="../../projective_geometry/solve_homogeneous_dlt.html#ivy_vision.projective_geometry.solve_homogeneous_dlt">[docs]</a><span class="k">def</span> <span class="nf">solve_homogeneous_dlt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="solve_homogeneous_dlt"><a class="viewcode-back" href="../../projective_geometry/solve_homogeneous_dlt.html#ivy_vision.projective_geometry.solve_homogeneous_dlt">[docs]</a><span class="k">def</span> <span class="nf">solve_homogeneous_dlt</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given :math:`\mathbf{A}\in\mathbb{R}^{d×d}`, solve the system of :math:`d` equations in :math:`d` unknowns</span>
 <span class="sd">    :math:`\mathbf{Ax} = \mathbf{0}` using the homogeneous DLT method, to return :math:`\mathbf{x}\in\mathbb{R}^d`.\n</span>
@@ -296,15 +285,11 @@
 
 <span class="sd">    :param A: Matrix representing system of equations to solve *[batch_shape,d,d]*</span>
 <span class="sd">    :type A: array</span>
-<span class="sd">    :param f: Machine learning framework. Inferred from inputs if None.</span>
-<span class="sd">    :type f: ml_framework, optional</span>
 <span class="sd">    :return: Solution to the system of equations *[batch_shape,d]*</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">f</span> <span class="o">=</span> <span class="n">_get_framework</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
-
     <span class="c1"># BS x D x D,    BS x D,    BS x D x D</span>
-    <span class="n">U</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 
     <span class="c1"># BS x D</span>
     <span class="k">return</span> <span class="n">VT</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span></div>
