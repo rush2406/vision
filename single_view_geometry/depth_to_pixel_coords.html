@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>persp_angles_to_focal_lengths &mdash; Ivy Vision 1.0 documentation</title>
+  <title>depth_to_pixel_coords &mdash; Ivy Vision 1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="focal_lengths_to_persp_angles" href="focal_lengths_to_persp_angles.html" />
-    <link rel="prev" title="create_uniform_pixel_coords_image" href="create_uniform_pixel_coords_image.html" /> 
+    <link rel="next" title="cam_to_pixel_coords" href="cam_to_pixel_coords.html" />
+    <link rel="prev" title="rot_mat_and_cam_center_to_ext_mat" href="rot_mat_and_cam_center_to_ext_mat.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,11 +90,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../sdf.html">Sdf</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../single_view_geometry.html">Single view geometry</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="create_uniform_pixel_coords_image.html">create_uniform_pixel_coords_image</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">persp_angles_to_focal_lengths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persp_angles_to_focal_lengths.html">persp_angles_to_focal_lengths</a></li>
 <li class="toctree-l2"><a class="reference internal" href="focal_lengths_to_persp_angles.html">focal_lengths_to_persp_angles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="focal_lengths_and_pp_offsets_to_calib_mat.html">focal_lengths_and_pp_offsets_to_calib_mat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rot_mat_and_cam_center_to_ext_mat.html">rot_mat_and_cam_center_to_ext_mat</a></li>
-<li class="toctree-l2"><a class="reference internal" href="depth_to_pixel_coords.html">depth_to_pixel_coords</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">depth_to_pixel_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cam_to_pixel_coords.html">cam_to_pixel_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pixel_to_cam_coords.html">pixel_to_cam_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="world_to_cam_coords.html">world_to_cam_coords</a></li>
@@ -176,13 +176,13 @@
         
           <li><a href="../single_view_geometry.html">Single view geometry</a> &raquo;</li>
         
-      <li>persp_angles_to_focal_lengths</li>
+      <li>depth_to_pixel_coords</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/single_view_geometry/persp_angles_to_focal_lengths.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/single_view_geometry/depth_to_pixel_coords.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -195,24 +195,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="persp-angles-to-focal-lengths">
-<h1>persp_angles_to_focal_lengths<a class="headerlink" href="#persp-angles-to-focal-lengths" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="depth-to-pixel-coords">
+<h1>depth_to_pixel_coords<a class="headerlink" href="#depth-to-pixel-coords" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="ivy_vision.single_view_geometry.persp_angles_to_focal_lengths">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">persp_angles_to_focal_lengths</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">persp_angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#persp_angles_to_focal_lengths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.persp_angles_to_focal_lengths" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute focal lengths <span class="math notranslate nohighlight">\(f_x, f_y\)</span> from perspective angles <span class="math notranslate nohighlight">\(θ_x, θ_y\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=172">[reference]</a>
-deduction from page 154, section 6.1, figure 6.1</p>
+<dt id="ivy_vision.single_view_geometry.depth_to_pixel_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">depth_to_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_pixel_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#depth_to_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.depth_to_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span> from depth image
+<span class="math notranslate nohighlight">\(\mathbf{X}_d\in\mathbb{R}^{h×w×1}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>persp_angles</strong> (<em>array</em>) – Perspective angles <em>[batch_shape,2]</em></p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+<li><p><strong>depth</strong> (<em>array</em>) – Depth image <em>[batch_shape,h,w,1]</em></p></li>
+<li><p><strong>uniform_pixel_coords</strong> (<em>array</em><em>, </em><em>optional</em>) – Image of homogeneous pixel co-ordinates. Created if None. <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Focal lengths <em>[batch_shape,2]</em></p>
+<dd class="field-even"><p>Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -232,10 +232,10 @@ deduction from page 154, section 6.1, figure 6.1</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="focal_lengths_to_persp_angles.html" class="btn btn-neutral float-right" title="focal_lengths_to_persp_angles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cam_to_pixel_coords.html" class="btn btn-neutral float-right" title="cam_to_pixel_coords" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="create_uniform_pixel_coords_image.html" class="btn btn-neutral float-left" title="create_uniform_pixel_coords_image" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rot_mat_and_cam_center_to_ext_mat.html" class="btn btn-neutral float-left" title="rot_mat_and_cam_center_to_ext_mat" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

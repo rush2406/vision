@@ -17,6 +17,7 @@ Single view geometry
    single_view_geometry/focal_lengths_to_persp_angles.rst
    single_view_geometry/focal_lengths_and_pp_offsets_to_calib_mat.rst
    single_view_geometry/rot_mat_and_cam_center_to_ext_mat.rst
+   single_view_geometry/depth_to_pixel_coords.rst
    single_view_geometry/cam_to_pixel_coords.rst
    single_view_geometry/pixel_to_cam_coords.rst
    single_view_geometry/world_to_cam_coords.rst
