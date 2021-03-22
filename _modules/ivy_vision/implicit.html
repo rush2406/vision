@@ -209,6 +209,31 @@
 
     <span class="c1"># BS x NS</span>
     <span class="k">return</span> <span class="n">linspace_vals</span> <span class="o">+</span> <span class="n">random_offsets</span></div>
+
+
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<div class="viewcode-block" id="render_rays_via_quadrature_rule"><a class="viewcode-back" href="../../implicit/render_rays_via_quadrature_rule.html#ivy_vision.implicit.render_rays_via_quadrature_rule">[docs]</a><span class="k">def</span> <span class="nf">render_rays_via_quadrature_rule</span><span class="p">(</span><span class="n">radial_depths</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">densities</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Render features onto the image plane, given rays sampled at radial depths with readings of</span>
+<span class="sd">    feature values and densities at these sample points.</span>
+
+<span class="sd">    :param radial_depths: Radial depth values *[batch_shape,num_samples_per_ray+1]*</span>
+<span class="sd">    :type radial_depths: array</span>
+<span class="sd">    :param features: Feature values at the sample points *[batch_shape,num_samples_per_ray,feat_dim]*</span>
+<span class="sd">    :type features: array</span>
+<span class="sd">    :param densities: Volume density values at the sample points *[batch_shape,num_samples_per_ray]*</span>
+<span class="sd">    :type densities: array</span>
+<span class="sd">    :return: The feature renderins along the rays, computed via the quadrature rule *[batch_shape,feat_dim]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># BS x NSPR</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">radial_depths</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">radial_depths</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># BS x NSPR</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ivy</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">densities</span> <span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># BS x FD</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">T</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ivy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">densities</span><span class="o">*</span><span class="n">d</span><span class="p">))</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

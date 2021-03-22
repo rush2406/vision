@@ -85,6 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Implicit</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="implicit/stratified_sample.html">stratified_sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implicit/render_rays_via_quadrature_rule.html">render_rays_via_quadrature_rule</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="optical_flow.html">Optical flow</a></li>
@@ -190,10 +191,30 @@ and uniformly samples value within the ranges for each of these bins.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt id="ivy_vision.implicit.render_rays_via_quadrature_rule">
+<code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">render_rays_via_quadrature_rule</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_depths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">densities</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#render_rays_via_quadrature_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.render_rays_via_quadrature_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render features onto the image plane, given rays sampled at radial depths with readings of
+feature values and densities at these sample points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radial_depths</strong> (<em>array</em>) – Radial depth values <em>[batch_shape,num_samples_per_ray+1]</em></p></li>
+<li><p><strong>features</strong> (<em>array</em>) – Feature values at the sample points <em>[batch_shape,num_samples_per_ray,feat_dim]</em></p></li>
+<li><p><strong>densities</strong> (<em>array</em>) – Volume density values at the sample points <em>[batch_shape,num_samples_per_ray]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The feature renderins along the rays, computed via the quadrature rule <em>[batch_shape,feat_dim]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Implicit</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="implicit/stratified_sample.html">stratified_sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implicit/render_rays_via_quadrature_rule.html">render_rays_via_quadrature_rule</a></li>
 </ul>
 </div>
 </div>

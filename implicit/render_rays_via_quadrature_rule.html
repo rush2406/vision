@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>stratified_sample &mdash; Ivy Vision 1.0 documentation</title>
+  <title>render_rays_via_quadrature_rule &mdash; Ivy Vision 1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="render_rays_via_quadrature_rule" href="render_rays_via_quadrature_rule.html" />
-    <link rel="prev" title="Implicit" href="../implicit.html" /> 
+    <link rel="next" title="Optical flow" href="../optical_flow.html" />
+    <link rel="prev" title="stratified_sample" href="stratified_sample.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -84,8 +84,8 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../containers.html">Containers</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../implicit.html">Implicit</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">stratified_sample</a></li>
-<li class="toctree-l2"><a class="reference internal" href="render_rays_via_quadrature_rule.html">render_rays_via_quadrature_rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stratified_sample.html">stratified_sample</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">render_rays_via_quadrature_rule</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../optical_flow.html">Optical flow</a></li>
@@ -152,13 +152,13 @@
         
           <li><a href="../implicit.html">Implicit</a> &raquo;</li>
         
-      <li>stratified_sample</li>
+      <li>render_rays_via_quadrature_rule</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/implicit/stratified_sample.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/implicit/render_rays_via_quadrature_rule.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -171,24 +171,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="stratified-sample">
-<h1>stratified_sample<a class="headerlink" href="#stratified-sample" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="render-rays-via-quadrature-rule">
+<h1>render_rays_via_quadrature_rule<a class="headerlink" href="#render-rays-via-quadrature-rule" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="ivy_vision.implicit.stratified_sample">
-<code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">stratified_sample</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">starts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ends</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/implicit.html#stratified_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.stratified_sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform stratified sampling, between start and end arrays. This operation divides the range into equidistant bins,
-and uniformly samples value within the ranges for each of these bins.</p>
+<dt id="ivy_vision.implicit.render_rays_via_quadrature_rule">
+<code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">render_rays_via_quadrature_rule</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_depths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">densities</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/implicit.html#render_rays_via_quadrature_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.render_rays_via_quadrature_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render features onto the image plane, given rays sampled at radial depths with readings of
+feature values and densities at these sample points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>starts</strong> (<em>array</em>) – Start values <em>[batch_shape]</em></p></li>
-<li><p><strong>ends</strong> (<em>array</em>) – End values <em>[batch_shape]</em></p></li>
-<li><p><strong>num_samples</strong> (<em>int</em>) – The number of samples to generate between starts and ends</p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch, Inferred from inputs if None.</p></li>
+<li><p><strong>radial_depths</strong> (<em>array</em>) – Radial depth values <em>[batch_shape,num_samples_per_ray+1]</em></p></li>
+<li><p><strong>features</strong> (<em>array</em>) – Feature values at the sample points <em>[batch_shape,num_samples_per_ray,feat_dim]</em></p></li>
+<li><p><strong>densities</strong> (<em>array</em>) – Volume density values at the sample points <em>[batch_shape,num_samples_per_ray]</em></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The stratified samples, with each randomly placed in uniformly spaced bins <em>[batch_shape,num_samples]</em></p>
+<dd class="field-even"><p>The feature renderins along the rays, computed via the quadrature rule <em>[batch_shape,feat_dim]</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -208,10 +207,10 @@ and uniformly samples value within the ranges for each of these bins.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="render_rays_via_quadrature_rule.html" class="btn btn-neutral float-right" title="render_rays_via_quadrature_rule" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../optical_flow.html" class="btn btn-neutral float-right" title="Optical flow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../implicit.html" class="btn btn-neutral float-left" title="Implicit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="stratified_sample.html" class="btn btn-neutral float-left" title="stratified_sample" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

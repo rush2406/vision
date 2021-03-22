@@ -13,4 +13,5 @@ Implicit
    :caption: Implicit
 
    implicit/stratified_sample.rst
+   implicit/render_rays_via_quadrature_rule.rst
 
