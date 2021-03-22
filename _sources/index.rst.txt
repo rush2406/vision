@@ -435,6 +435,7 @@ Documentation Tree
    :caption: Modules
 
    containers.rst
+   implicit.rst
    optical_flow.rst
    projective_geometry.rst
    rendering.rst

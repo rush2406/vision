@@ -1,0 +1,16 @@
+Implicit
+========
+
+.. automodule:: ivy_vision.implicit
+    :members:
+    :special-members: __init__
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+   :maxdepth: -1
+   :caption: Implicit
+
+   implicit/stratified_sample.rst
+
