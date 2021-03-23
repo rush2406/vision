@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="stratified_sample" href="implicit/stratified_sample.html" />
+    <link rel="next" title="sampled_volume_density_to_occupancy_probability" href="implicit/sampled_volume_density_to_occupancy_probability.html" />
     <link rel="prev" title="CameraGeometry" href="containers/CameraGeometry.html" /> 
 </head>
 
@@ -84,7 +84,11 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Implicit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="implicit/sampled_volume_density_to_occupancy_probability.html">sampled_volume_density_to_occupancy_probability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implicit/ray_termination_probabilities.html">ray_termination_probabilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/stratified_sample.html">stratified_sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implicit/render_rays_via_termination_probabilities.html">render_rays_via_termination_probabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implicit/render_ray_variances_via_termination_probabilities.html">render_ray_variances_via_termination_probabilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/render_rays_via_quadrature_rule.html">render_rays_via_quadrature_rule</a></li>
 </ul>
 </li>
@@ -172,6 +176,40 @@
   <div class="section" id="module-ivy_vision.implicit">
 <span id="implicit"></span><h1>Implicit<a class="headerlink" href="#module-ivy_vision.implicit" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
+<dt id="ivy_vision.implicit.sampled_volume_density_to_occupancy_probability">
+<code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">sampled_volume_density_to_occupancy_probability</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">density</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inter_sample_distance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#sampled_volume_density_to_occupancy_probability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.sampled_volume_density_to_occupancy_probability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute probability of occupancy, given sampled volume densities and their associated inter-sample distances</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>density</strong> (<em>array</em>) – The sampled density values <em>[batch_shape]</em></p></li>
+<li><p><strong>inter_sample_distance</strong> (<em>array</em>) – The inter-sample distances <em>[batch_shape]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The occupancy probabilities <em>[batch_shape]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.implicit.ray_termination_probabilities">
+<code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">ray_termination_probabilities</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">density</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inter_sample_distance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#ray_termination_probabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.ray_termination_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute probability of occupancy, given sampled volume densities and their associated inter-sample distances</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>density</strong> (<em>array</em>) – The sampled density values <em>[batch_shape,num_samples_per_ray]</em></p></li>
+<li><p><strong>inter_sample_distance</strong> (<em>array</em>) – The inter-sample distances <em>[batch_shape,num_samples_per_ray]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The occupancy probabilities <em>[batch_shape]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="ivy_vision.implicit.stratified_sample">
 <code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">stratified_sample</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">starts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ends</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#stratified_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.stratified_sample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform stratified sampling, between start and end arrays. This operation divides the range into equidistant bins,
@@ -192,6 +230,45 @@ and uniformly samples value within the ranges for each of these bins.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="ivy_vision.implicit.render_rays_via_termination_probabilities">
+<code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">render_rays_via_termination_probabilities</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_depths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">densities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render_variance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#render_rays_via_termination_probabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.render_rays_via_termination_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render features onto the image plane, given rays sampled at radial depths with readings of
+feature values and densities at these sample points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radial_depths</strong> (<em>array</em>) – Radial depth values <em>[batch_shape,num_samples_per_ray+1]</em></p></li>
+<li><p><strong>features</strong> (<em>array</em>) – Feature values at the sample points <em>[batch_shape,num_samples_per_ray,feat_dim]</em></p></li>
+<li><p><strong>densities</strong> (<em>array</em>) – Volume density values at the sample points <em>[batch_shape,num_samples_per_ray]</em></p></li>
+<li><p><strong>render_variance</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to also render the feature variance. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The feature renderings along the rays, computed via the termination probabilities <em>[batch_shape,feat_dim]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.implicit.render_ray_variances_via_termination_probabilities">
+<code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">render_ray_variances_via_termination_probabilities</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_depths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">densities</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#render_ray_variances_via_termination_probabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.render_ray_variances_via_termination_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render features onto the image plane, given rays sampled at radial depths with readings of
+feature values and densities at these sample points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radial_depths</strong> (<em>array</em>) – Radial depth values <em>[batch_shape,num_samples_per_ray+1]</em></p></li>
+<li><p><strong>features</strong> (<em>array</em>) – Feature values at the sample points <em>[batch_shape,num_samples_per_ray,feat_dim]</em></p></li>
+<li><p><strong>densities</strong> (<em>array</em>) – Volume density values at the sample points <em>[batch_shape,num_samples_per_ray]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The feature renderings along the rays, computed via the termination probabilities <em>[batch_shape,feat_dim]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="ivy_vision.implicit.render_rays_via_quadrature_rule">
 <code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">render_rays_via_quadrature_rule</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_depths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">densities</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#render_rays_via_quadrature_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.render_rays_via_quadrature_rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render features onto the image plane, given rays sampled at radial depths with readings of
@@ -205,7 +282,7 @@ feature values and densities at these sample points.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The feature renderins along the rays, computed via the quadrature rule <em>[batch_shape,feat_dim]</em></p>
+<dd class="field-even"><p>The feature renderings along the rays, computed via the quadrature rule <em>[batch_shape,feat_dim]</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -213,7 +290,11 @@ feature values and densities at these sample points.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Implicit</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="implicit/sampled_volume_density_to_occupancy_probability.html">sampled_volume_density_to_occupancy_probability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implicit/ray_termination_probabilities.html">ray_termination_probabilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/stratified_sample.html">stratified_sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implicit/render_rays_via_termination_probabilities.html">render_rays_via_termination_probabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implicit/render_ray_variances_via_termination_probabilities.html">render_ray_variances_via_termination_probabilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/render_rays_via_quadrature_rule.html">render_rays_via_quadrature_rule</a></li>
 </ul>
 </div>
@@ -227,7 +308,7 @@ feature values and densities at these sample points.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="implicit/stratified_sample.html" class="btn btn-neutral float-right" title="stratified_sample" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="implicit/sampled_volume_density_to_occupancy_probability.html" class="btn btn-neutral float-right" title="sampled_volume_density_to_occupancy_probability" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="containers/CameraGeometry.html" class="btn btn-neutral float-left" title="CameraGeometry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
