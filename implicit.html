@@ -88,7 +88,6 @@
 <li class="toctree-l2"><a class="reference internal" href="implicit/ray_termination_probabilities.html">ray_termination_probabilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/stratified_sample.html">stratified_sample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/render_rays_via_termination_probabilities.html">render_rays_via_termination_probabilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implicit/render_ray_variances_via_termination_probabilities.html">render_ray_variances_via_termination_probabilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/render_rays_via_quadrature_rule.html">render_rays_via_quadrature_rule</a></li>
 </ul>
 </li>
@@ -250,25 +249,6 @@ feature values and densities at these sample points.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ivy_vision.implicit.render_ray_variances_via_termination_probabilities">
-<code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">render_ray_variances_via_termination_probabilities</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_depths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">densities</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#render_ray_variances_via_termination_probabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.render_ray_variances_via_termination_probabilities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Render features onto the image plane, given rays sampled at radial depths with readings of
-feature values and densities at these sample points.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>radial_depths</strong> (<em>array</em>) – Radial depth values <em>[batch_shape,num_samples_per_ray+1]</em></p></li>
-<li><p><strong>features</strong> (<em>array</em>) – Feature values at the sample points <em>[batch_shape,num_samples_per_ray,feat_dim]</em></p></li>
-<li><p><strong>densities</strong> (<em>array</em>) – Volume density values at the sample points <em>[batch_shape,num_samples_per_ray]</em></p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The feature renderings along the rays, computed via the termination probabilities <em>[batch_shape,feat_dim]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt id="ivy_vision.implicit.render_rays_via_quadrature_rule">
 <code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">render_rays_via_quadrature_rule</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radial_depths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">densities</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#render_rays_via_quadrature_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.render_rays_via_quadrature_rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render features onto the image plane, given rays sampled at radial depths with readings of
@@ -294,7 +274,6 @@ feature values and densities at these sample points.</p>
 <li class="toctree-l1"><a class="reference internal" href="implicit/ray_termination_probabilities.html">ray_termination_probabilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/stratified_sample.html">stratified_sample</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/render_rays_via_termination_probabilities.html">render_rays_via_termination_probabilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implicit/render_ray_variances_via_termination_probabilities.html">render_ray_variances_via_termination_probabilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/render_rays_via_quadrature_rule.html">render_rays_via_quadrature_rule</a></li>
 </ul>
 </div>

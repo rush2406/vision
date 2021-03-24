@@ -232,7 +232,7 @@
 
     <span class="c1"># BS_flat x NS</span>
     <span class="n">random_offsets_flat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">random_uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">))</span>
+        <span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">random_uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">),</span> <span class="n">dev_str</span><span class="o">=</span><span class="n">ivy</span><span class="o">.</span><span class="n">dev_str</span><span class="p">(</span><span class="n">starts</span><span class="p">))</span>
          <span class="k">for</span> <span class="n">bin_size</span> <span class="ow">in</span> <span class="n">ivy</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">bin_sizes_flat</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="c1"># BS x NS</span>
@@ -261,34 +261,12 @@
 
     <span class="c1"># BS x NSPR</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">radial_depths</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">radial_depths</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">ray_term_probs</span> <span class="o">=</span> <span class="n">ray_termination_probabilities</span><span class="p">(</span><span class="n">densities</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="n">ray_term_probs</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">ray_termination_probabilities</span><span class="p">(</span><span class="n">densities</span><span class="p">,</span> <span class="n">d</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">rendering</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">ray_term_probs</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">render_variance</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">rendering</span>
-    <span class="n">var</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="o">*</span><span class="p">(</span><span class="n">rendering</span> <span class="o">-</span> <span class="n">features</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="o">*</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">rendering</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">features</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">rendering</span><span class="p">,</span> <span class="n">var</span></div>
-
-
-<span class="c1"># noinspection PyUnresolvedReferences</span>
-<div class="viewcode-block" id="render_ray_variances_via_termination_probabilities"><a class="viewcode-back" href="../../implicit/render_ray_variances_via_termination_probabilities.html#ivy_vision.implicit.render_ray_variances_via_termination_probabilities">[docs]</a><span class="k">def</span> <span class="nf">render_ray_variances_via_termination_probabilities</span><span class="p">(</span><span class="n">radial_depths</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">densities</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Render features onto the image plane, given rays sampled at radial depths with readings of</span>
-<span class="sd">    feature values and densities at these sample points.</span>
-
-<span class="sd">    :param radial_depths: Radial depth values *[batch_shape,num_samples_per_ray+1]*</span>
-<span class="sd">    :type radial_depths: array</span>
-<span class="sd">    :param features: Feature values at the sample points *[batch_shape,num_samples_per_ray,feat_dim]*</span>
-<span class="sd">    :type features: array</span>
-<span class="sd">    :param densities: Volume density values at the sample points *[batch_shape,num_samples_per_ray]*</span>
-<span class="sd">    :type densities: array</span>
-<span class="sd">    :return: The feature renderings along the rays, computed via the termination probabilities *[batch_shape,feat_dim]*</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># BS x NSPR</span>
-    <span class="n">rendering</span> <span class="o">=</span> <span class="n">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">radial_depths</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">densities</span><span class="p">)</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">radial_depths</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">radial_depths</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">ray_term_probs</span> <span class="o">=</span> <span class="n">ray_termination_probabilities</span><span class="p">(</span><span class="n">densities</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">ray_term_probs</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span></div>
 
 
 <span class="c1"># noinspection PyUnresolvedReferences</span>

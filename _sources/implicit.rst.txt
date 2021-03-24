@@ -16,6 +16,5 @@ Implicit
    implicit/ray_termination_probabilities.rst
    implicit/stratified_sample.rst
    implicit/render_rays_via_termination_probabilities.rst
-   implicit/render_ray_variances_via_termination_probabilities.rst
    implicit/render_rays_via_quadrature_rule.rst
 
