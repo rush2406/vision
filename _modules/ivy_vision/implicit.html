@@ -227,16 +227,11 @@
     <span class="c1"># BS x NS</span>
     <span class="n">linspace_vals</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">starts</span><span class="p">,</span> <span class="n">ends</span> <span class="o">-</span> <span class="n">bin_sizes</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">)</span>
 
-    <span class="c1"># BS_flat</span>
-    <span class="n">bin_sizes_flat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">bin_sizes</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,))</span>
-
-    <span class="c1"># BS_flat x NS</span>
-    <span class="n">random_offsets_flat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">random_uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">),</span> <span class="n">dev_str</span><span class="o">=</span><span class="n">ivy</span><span class="o">.</span><span class="n">dev_str</span><span class="p">(</span><span class="n">starts</span><span class="p">))</span>
-         <span class="k">for</span> <span class="n">bin_size</span> <span class="ow">in</span> <span class="n">ivy</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">bin_sizes_flat</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># BS x NS</span>
+    <span class="n">random_uniform</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">random_uniform</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">num_samples</span><span class="p">],</span> <span class="n">dev_str</span><span class="o">=</span><span class="n">ivy</span><span class="o">.</span><span class="n">dev_str</span><span class="p">(</span><span class="n">starts</span><span class="p">))</span>
 
     <span class="c1"># BS x NS</span>
-    <span class="n">random_offsets</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">random_offsets_flat</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">num_samples</span><span class="p">])</span>
+    <span class="n">random_offsets</span> <span class="o">=</span> <span class="n">random_uniform</span> <span class="o">*</span> <span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">bin_sizes</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># BS x NS</span>
     <span class="k">return</span> <span class="n">linspace_vals</span> <span class="o">+</span> <span class="n">random_offsets</span></div>
