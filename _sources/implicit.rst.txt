@@ -12,6 +12,7 @@ Implicit
    :maxdepth: -1
    :caption: Implicit
 
+   implicit/sinusoid_positional_encoding.rst
    implicit/sampled_volume_density_to_occupancy_probability.rst
    implicit/ray_termination_probabilities.rst
    implicit/stratified_sample.rst
