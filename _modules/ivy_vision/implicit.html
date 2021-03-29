@@ -210,8 +210,7 @@
 
     <span class="c1"># BS x NSPR</span>
     <span class="n">occ_prob</span> <span class="o">=</span> <span class="n">sampled_volume_density_to_occupancy_probability</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">inter_sample_distance</span><span class="p">)</span>
-    <span class="n">cumprod_one_m_occ_prob</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">occ_prob</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">occ_prob</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">],</span> <span class="n">occ_prob</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">*</span> <span class="n">cumprod_one_m_occ_prob</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">occ_prob</span> <span class="o">*</span> <span class="n">ivy</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">occ_prob</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">exclusive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <span class="c1"># noinspection PyUnresolvedReferences</span>
@@ -255,25 +254,21 @@
 
 
 <span class="c1"># noinspection PyUnresolvedReferences</span>
-<div class="viewcode-block" id="render_rays_via_termination_probabilities"><a class="viewcode-back" href="../../implicit/render_rays_via_termination_probabilities.html#ivy_vision.implicit.render_rays_via_termination_probabilities">[docs]</a><span class="k">def</span> <span class="nf">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">radial_depths</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">densities</span><span class="p">,</span> <span class="n">render_variance</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="render_rays_via_termination_probabilities"><a class="viewcode-back" href="../../implicit/render_rays_via_termination_probabilities.html#ivy_vision.implicit.render_rays_via_termination_probabilities">[docs]</a><span class="k">def</span> <span class="nf">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">render_variance</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Render features onto the image plane, given rays sampled at radial depths with readings of</span>
 <span class="sd">    feature values and densities at these sample points.</span>
 
-<span class="sd">    :param radial_depths: Radial depth values *[batch_shape,num_samples_per_ray+1]*</span>
-<span class="sd">    :type radial_depths: array</span>
+<span class="sd">    :param ray_term_probs: The ray termination probabilities *[batch_shape,num_samples_per_ray]*</span>
+<span class="sd">    :type ray_term_probs: array</span>
 <span class="sd">    :param features: Feature values at the sample points *[batch_shape,num_samples_per_ray,feat_dim]*</span>
 <span class="sd">    :type features: array</span>
-<span class="sd">    :param densities: Volume density values at the sample points *[batch_shape,num_samples_per_ray]*</span>
-<span class="sd">    :type densities: array</span>
 <span class="sd">    :param render_variance: Whether to also render the feature variance. Default is False.</span>
 <span class="sd">    :type render_variance: bool, optional</span>
 <span class="sd">    :return: The feature renderings along the rays, computed via the termination probabilities *[batch_shape,feat_dim]*</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># BS x NSPR</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">radial_depths</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">radial_depths</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">ray_term_probs</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">ray_termination_probabilities</span><span class="p">(</span><span class="n">densities</span><span class="p">,</span> <span class="n">d</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">rendering</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">ray_term_probs</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">render_variance</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">rendering</span>
@@ -281,29 +276,47 @@
     <span class="k">return</span> <span class="n">rendering</span><span class="p">,</span> <span class="n">var</span></div>
 
 
-<span class="c1"># noinspection PyUnresolvedReferences</span>
-<div class="viewcode-block" id="render_rays_via_quadrature_rule"><a class="viewcode-back" href="../../implicit/render_rays_via_quadrature_rule.html#ivy_vision.implicit.render_rays_via_quadrature_rule">[docs]</a><span class="k">def</span> <span class="nf">render_rays_via_quadrature_rule</span><span class="p">(</span><span class="n">radial_depths</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">densities</span><span class="p">):</span>
+<div class="viewcode-block" id="render_implicit_features_and_depth"><a class="viewcode-back" href="../../implicit/render_implicit_features_and_depth.html#ivy_vision.implicit.render_implicit_features_and_depth">[docs]</a><span class="k">def</span> <span class="nf">render_implicit_features_and_depth</span><span class="p">(</span><span class="n">network_fn</span><span class="p">,</span> <span class="n">rays_o</span><span class="p">,</span> <span class="n">rays_d</span><span class="p">,</span> <span class="n">near</span><span class="p">,</span> <span class="n">far</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">,</span> <span class="n">render_variance</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                       <span class="n">v</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Render features onto the image plane, given rays sampled at radial depths with readings of</span>
-<span class="sd">    feature values and densities at these sample points.</span>
+<span class="sd">    Render an rgb-d image, given an implicit rgb and density function conditioned on xyz data.</span>
 
-<span class="sd">    :param radial_depths: Radial depth values *[batch_shape,num_samples_per_ray+1]*</span>
-<span class="sd">    :type radial_depths: array</span>
-<span class="sd">    :param features: Feature values at the sample points *[batch_shape,num_samples_per_ray,feat_dim]*</span>
-<span class="sd">    :type features: array</span>
-<span class="sd">    :param densities: Volume density values at the sample points *[batch_shape,num_samples_per_ray]*</span>
-<span class="sd">    :type densities: array</span>
-<span class="sd">    :return: The feature renderings along the rays, computed via the quadrature rule *[batch_shape,feat_dim]*</span>
+<span class="sd">    :param network_fn: the implicit function.</span>
+<span class="sd">    :type network_fn: callable</span>
+<span class="sd">    :param rays_o: The camera center *[batch_shape,feat]*</span>
+<span class="sd">    :type rays_o: array</span>
+<span class="sd">    :param rays_d: The rays in world space *[batch_shape,ray_batch_shape,feat]*</span>
+<span class="sd">    :type rays_d: array</span>
+<span class="sd">    :param near: The near clipping plane values *[batch_shape,ray_batch_shape]*</span>
+<span class="sd">    :type near: array</span>
+<span class="sd">    :param far: The far clipping plane values *[batch_shape,ray_batch_shape]*</span>
+<span class="sd">    :type far: array</span>
+<span class="sd">    :param num_samples: The number of stratified samples to use along each ray</span>
+<span class="sd">    :type num_samples: int</span>
+<span class="sd">    :param render_variance: Whether to also render the feature variance. Default is False.</span>
+<span class="sd">    :type render_variance: bool, optional</span>
+<span class="sd">    :param v: The container of trainable variables for the implicit model. default is to use internal variables.</span>
+<span class="sd">    :type v: ivy Container of variables</span>
+<span class="sd">    :return: The rendered feature *[batch_shape,ray_batch_shape,feat]* and depth *[batch_shape,ray_batch_shape,1]* values</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># BS x NSPR</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">radial_depths</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">radial_depths</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># Compute 3D query points</span>
+    <span class="n">z_vals</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">stratified_sample</span><span class="p">(</span><span class="n">near</span><span class="p">,</span> <span class="n">far</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">rays_d</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">rays_d</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">rays_o</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">rays_o</span><span class="p">,</span> <span class="n">rays_d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">rays_o</span> <span class="o">+</span> <span class="n">rays_d</span> <span class="o">*</span> <span class="n">z_vals</span>
 
-    <span class="c1"># BS x NSPR x 1</span>
-    <span class="n">T</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ivy</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">densities</span> <span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Run network</span>
+    <span class="n">feat</span><span class="p">,</span> <span class="n">densities</span> <span class="o">=</span> <span class="n">network_fn</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
 
-    <span class="c1"># BS x FD</span>
-    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">T</span> <span class="o">*</span> <span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ivy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">densities</span><span class="o">*</span><span class="n">d</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span></div>
+    <span class="n">z_vals_w_terminal</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">z_vals</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ivy</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">z_vals</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mf">1e10</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">depth_diffs</span> <span class="o">=</span> <span class="n">z_vals_w_terminal</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">z_vals_w_terminal</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ray_term_probs</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">ray_termination_probabilities</span><span class="p">(</span><span class="n">densities</span><span class="p">,</span> <span class="n">depth_diffs</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">feat</span> <span class="o">=</span> <span class="n">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="p">,</span> <span class="n">feat</span><span class="p">,</span> <span class="n">render_variance</span><span class="p">)</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="n">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="p">,</span> <span class="n">z_vals</span><span class="p">,</span> <span class="n">render_variance</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">render_variance</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">feat</span><span class="p">,</span> <span class="o">*</span><span class="n">depth</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">feat</span><span class="p">,</span> <span class="n">depth</span></div>
 </pre></div>
 
            </div>

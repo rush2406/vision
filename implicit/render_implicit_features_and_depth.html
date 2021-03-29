@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ray_termination_probabilities &mdash; Ivy Vision 1.0 documentation</title>
+  <title>render_implicit_features_and_depth &mdash; Ivy Vision 1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="stratified_sample" href="stratified_sample.html" />
-    <link rel="prev" title="sampled_volume_density_to_occupancy_probability" href="sampled_volume_density_to_occupancy_probability.html" /> 
+    <link rel="next" title="Optical flow" href="../optical_flow.html" />
+    <link rel="prev" title="render_rays_via_termination_probabilities" href="render_rays_via_termination_probabilities.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,10 +86,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../implicit.html">Implicit</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="sinusoid_positional_encoding.html">sinusoid_positional_encoding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sampled_volume_density_to_occupancy_probability.html">sampled_volume_density_to_occupancy_probability</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ray_termination_probabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ray_termination_probabilities.html">ray_termination_probabilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stratified_sample.html">stratified_sample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="render_rays_via_termination_probabilities.html">render_rays_via_termination_probabilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="render_implicit_features_and_depth.html">render_implicit_features_and_depth</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">render_implicit_features_and_depth</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../optical_flow.html">Optical flow</a></li>
@@ -156,13 +156,13 @@
         
           <li><a href="../implicit.html">Implicit</a> &raquo;</li>
         
-      <li>ray_termination_probabilities</li>
+      <li>render_implicit_features_and_depth</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/implicit/ray_termination_probabilities.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/implicit/render_implicit_features_and_depth.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -175,21 +175,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="ray-termination-probabilities">
-<h1>ray_termination_probabilities<a class="headerlink" href="#ray-termination-probabilities" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="render-implicit-features-and-depth">
+<h1>render_implicit_features_and_depth<a class="headerlink" href="#render-implicit-features-and-depth" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="ivy_vision.implicit.ray_termination_probabilities">
-<code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">ray_termination_probabilities</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">density</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inter_sample_distance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/implicit.html#ray_termination_probabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.ray_termination_probabilities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute probability of occupancy, given sampled volume densities and their associated inter-sample distances</p>
+<dt id="ivy_vision.implicit.render_implicit_features_and_depth">
+<code class="sig-prename descclassname"><span class="pre">ivy_vision.implicit.</span></code><code class="sig-name descname"><span class="pre">render_implicit_features_and_depth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">network_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rays_o</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rays_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">near</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">far</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render_variance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/implicit.html#render_implicit_features_and_depth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.implicit.render_implicit_features_and_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render an rgb-d image, given an implicit rgb and density function conditioned on xyz data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>density</strong> (<em>array</em>) – The sampled density values <em>[batch_shape,num_samples_per_ray]</em></p></li>
-<li><p><strong>inter_sample_distance</strong> (<em>array</em>) – The inter-sample distances <em>[batch_shape,num_samples_per_ray]</em></p></li>
+<li><p><strong>network_fn</strong> (<em>callable</em>) – the implicit function.</p></li>
+<li><p><strong>rays_o</strong> (<em>array</em>) – The camera center <em>[batch_shape,feat]</em></p></li>
+<li><p><strong>rays_d</strong> (<em>array</em>) – The rays in world space <em>[batch_shape,ray_batch_shape,feat]</em></p></li>
+<li><p><strong>near</strong> (<em>array</em>) – The near clipping plane values <em>[batch_shape,ray_batch_shape]</em></p></li>
+<li><p><strong>far</strong> (<em>array</em>) – The far clipping plane values <em>[batch_shape,ray_batch_shape]</em></p></li>
+<li><p><strong>num_samples</strong> (<em>int</em>) – The number of stratified samples to use along each ray</p></li>
+<li><p><strong>render_variance</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to also render the feature variance. Default is False.</p></li>
+<li><p><strong>v</strong> (<em>ivy Container of variables</em>) – The container of trainable variables for the implicit model. default is to use internal variables.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The occupancy probabilities <em>[batch_shape]</em></p>
+<dd class="field-even"><p>The rendered feature <em>[batch_shape,ray_batch_shape,feat]</em> and depth <em>[batch_shape,ray_batch_shape,1]</em> values</p>
 </dd>
 </dl>
 </dd></dl>
@@ -209,10 +215,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="stratified_sample.html" class="btn btn-neutral float-right" title="stratified_sample" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../optical_flow.html" class="btn btn-neutral float-right" title="Optical flow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="sampled_volume_density_to_occupancy_probability.html" class="btn btn-neutral float-left" title="sampled_volume_density_to_occupancy_probability" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="render_rays_via_termination_probabilities.html" class="btn btn-neutral float-left" title="render_rays_via_termination_probabilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
