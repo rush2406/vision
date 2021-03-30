@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>world_to_cam_coords &mdash; Ivy Vision 1.0 documentation</title>
+  <title>sphere_coords_to_world_ray_vectors &mdash; Ivy Vision 1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="cam_to_world_coords" href="cam_to_world_coords.html" />
-    <link rel="prev" title="pixel_to_cam_coords" href="pixel_to_cam_coords.html" /> 
+    <link rel="next" title="bilinearly_interpolate_image" href="bilinearly_interpolate_image.html" />
+    <link rel="prev" title="pixel_coords_to_world_ray_vectors" href="pixel_coords_to_world_ray_vectors.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -99,12 +99,12 @@
 <li class="toctree-l2"><a class="reference internal" href="depth_to_radial_depth.html">depth_to_radial_depth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cam_to_pixel_coords.html">cam_to_pixel_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pixel_to_cam_coords.html">pixel_to_cam_coords</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">world_to_cam_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="world_to_cam_coords.html">world_to_cam_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cam_to_world_coords.html">cam_to_world_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="world_to_pixel_coords.html">world_to_pixel_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pixel_to_world_coords.html">pixel_to_world_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pixel_coords_to_world_ray_vectors.html">pixel_coords_to_world_ray_vectors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sphere_coords_to_world_ray_vectors.html">sphere_coords_to_world_ray_vectors</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">sphere_coords_to_world_ray_vectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bilinearly_interpolate_image.html">bilinearly_interpolate_image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inv_ext_mat_to_camera_center.html">inv_ext_mat_to_camera_center</a></li>
 <li class="toctree-l2"><a class="reference internal" href="calib_and_ext_to_full_mat.html">calib_and_ext_to_full_mat</a></li>
@@ -179,13 +179,13 @@
         
           <li><a href="../single_view_geometry.html">Single view geometry</a> &raquo;</li>
         
-      <li>world_to_cam_coords</li>
+      <li>sphere_coords_to_world_ray_vectors</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/single_view_geometry/world_to_cam_coords.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/single_view_geometry/sphere_coords_to_world_ray_vectors.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -198,27 +198,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="world-to-cam-coords">
-<h1>world_to_cam_coords<a class="headerlink" href="#world-to-cam-coords" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="sphere-coords-to-world-ray-vectors">
+<h1>sphere_coords_to_world_ray_vectors<a class="headerlink" href="#sphere-coords-to-world-ray-vectors" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="ivy_vision.single_view_geometry.world_to_cam_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">world_to_cam_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_wrt_world</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#world_to_cam_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.world_to_cam_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get camera-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span> from world-centric
-homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{h×w×4}\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=174">[reference]</a>
-page 156, equation 6.6</p>
+<dt id="ivy_vision.single_view_geometry.sphere_coords_to_world_ray_vectors">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">sphere_coords_to_world_ray_vectors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sphere_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_rotation_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#sphere_coords_to_world_ray_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_coords_to_world_ray_vectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate world-centric ray vector image <span class="math notranslate nohighlight">\(\mathbf{RV}\in\mathbb{R}^{h×w×3}\)</span> from camera-centric ego-sphere
+polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span>. Each ray vector
+<span class="math notranslate nohighlight">\(\mathbf{rv}_{i,j}\in\mathbb{R}^{3}\)</span> is represented as a unit vector from the camera center
+<span class="math notranslate nohighlight">\(\overset{\sim}{\mathbf{C}}\in\mathbb{R}^{3×1}\)</span>, in the world frame. Co-ordinates
+<span class="math notranslate nohighlight">\(\mathbf{x}_{i,j}\in\mathbb{R}^{3}\)</span> along the world ray can then be parameterized as
+<span class="math notranslate nohighlight">\(\mathbf{x}_{i,j}=\overset{\sim}{\mathbf{C}} + λ\mathbf{rv}_{i,j}\)</span>, where <span class="math notranslate nohighlight">\(λ\)</span> is a scalar who’s
+magnitude dictates the position of the world co-ordinate along the world ray.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>coords_wrt_world</strong> (<em>array</em>) – World-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
-<li><p><strong>ext_mat</strong> (<em>array</em>) – Extrinsic matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>sphere_coords</strong> (<em>array</em>) – Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>inv_rotation_mat</strong> (<em>array</em>) – Inverse rotation matrix <em>[batch_shape,3,3]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
 <li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
+<dd class="field-even"><p>World ray vectors <em>[batch_shape,h,w,3]</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -238,10 +240,10 @@ page 156, equation 6.6</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cam_to_world_coords.html" class="btn btn-neutral float-right" title="cam_to_world_coords" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="bilinearly_interpolate_image.html" class="btn btn-neutral float-right" title="bilinearly_interpolate_image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pixel_to_cam_coords.html" class="btn btn-neutral float-left" title="pixel_to_cam_coords" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pixel_coords_to_world_ray_vectors.html" class="btn btn-neutral float-left" title="pixel_coords_to_world_ray_vectors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
