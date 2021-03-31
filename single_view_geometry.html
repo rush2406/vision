@@ -593,13 +593,16 @@ matrix inverse of page 156, equation 6.6</p>
 
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.cam_to_sphere_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">cam_to_sphere_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cam_coords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#cam_to_sphere_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.cam_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">cam_to_sphere_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cam_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forward_facing_z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#cam_to_sphere_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.cam_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert camera-centric homogeneous cartesian co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span> to
 camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span>.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>cam_coords</strong> (<em>array</em>) – Camera-centric homogeneous cartesian co-ordinates image <em>[batch_shape,h,w,4]</em></p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cam_coords</strong> (<em>array</em>) – Camera-centric homogeneous cartesian co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>forward_facing_z</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use reference frame so z is forward facing. Default is False.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p>
@@ -649,7 +652,7 @@ polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}
 
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.sphere_to_cam_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">sphere_to_cam_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sphere_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#sphere_to_cam_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_to_cam_coords" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">sphere_to_cam_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sphere_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forward_facing_z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#sphere_to_cam_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_to_cam_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span> to
 camera-centric homogeneous cartesian co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span>.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
@@ -657,6 +660,7 @@ camera-centric homogeneous cartesian co-ordinates image <span class="math notran
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sphere_coords</strong> (<em>array</em>) – Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>forward_facing_z</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use reference frame so z is forward facing. Default is False.</p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
 <li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
 <li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
