@@ -82,14 +82,16 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../implicit.html">Implicit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mesh.html">Mesh</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../optical_flow.html">Optical flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../padding.html">Padding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projective_geometry.html">Projective geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../rendering.html">Rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quantization.html">Quantization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sdf.html">Sdf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../single_view_geometry.html">Single view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smoothing.html">Smoothing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../voxel_grids.html">Voxel grids</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -270,8 +272,8 @@
     <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
 
     <span class="c1"># BS x H x W x 3</span>
-    <span class="n">projected_pixel_coords</span> <span class="o">=</span> <span class="n">_ivy_tvg</span><span class="o">.</span><span class="n">pixel_to_pixel_coords</span><span class="p">(</span><span class="n">pixel_coords1</span><span class="p">,</span> <span class="n">cam1to2_full_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span>
-                                                            <span class="n">image_dims</span><span class="p">)</span>
+    <span class="n">projected_pixel_coords</span> <span class="o">=</span> <span class="n">_ivy_tvg</span><span class="o">.</span><span class="n">ds_pixel_to_ds_pixel_coords</span><span class="p">(</span><span class="n">pixel_coords1</span><span class="p">,</span> <span class="n">cam1to2_full_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span>
+                                                                  <span class="n">image_dims</span><span class="p">)</span>
     <span class="n">projected_pixel_coords_normalized</span> <span class="o">=</span> <span class="n">projected_pixel_coords</span> <span class="o">/</span> <span class="p">(</span><span class="n">projected_pixel_coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
 
     <span class="c1"># BS x H x W x 3</span>
@@ -681,8 +683,8 @@
     <span class="c1"># co-ordinates to pixel co-ordinates</span>
 
     <span class="c1"># BS x H x W x 3</span>
-    <span class="n">pixel_coords_f1</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">cam_to_pixel_coords</span><span class="p">(</span><span class="n">cam_coords_f1</span><span class="p">,</span> <span class="n">calib_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
-    <span class="n">pixel_coords_trans_f2</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">cam_to_pixel_coords</span><span class="p">(</span><span class="n">cam_coords_trans_f2</span><span class="p">,</span> <span class="n">calib_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
+    <span class="n">pixel_coords_f1</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">cam_to_ds_pixel_coords</span><span class="p">(</span><span class="n">cam_coords_f1</span><span class="p">,</span> <span class="n">calib_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
+    <span class="n">pixel_coords_trans_f2</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">cam_to_ds_pixel_coords</span><span class="p">(</span><span class="n">cam_coords_trans_f2</span><span class="p">,</span> <span class="n">calib_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
 
     <span class="c1"># unscaled pixel coords</span>
     <span class="n">unscaled_pixel_coords_f1</span> <span class="o">=</span> <span class="n">pixel_coords_f1</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">pixel_coords_f1</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>

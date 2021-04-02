@@ -1,0 +1,17 @@
+Smoothing
+=========
+
+.. automodule:: ivy_vision.smoothing
+    :members:
+    :special-members: __init__
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+   :maxdepth: -1
+   :caption: Smoothing
+
+   smoothing/weighted_image_smooth.rst
+   smoothing/smooth_image_fom_var_image.rst
+

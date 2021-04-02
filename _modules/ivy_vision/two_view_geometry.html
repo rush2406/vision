@@ -82,14 +82,16 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../implicit.html">Implicit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mesh.html">Mesh</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../optical_flow.html">Optical flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../padding.html">Padding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projective_geometry.html">Projective geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../rendering.html">Rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quantization.html">Quantization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sdf.html">Sdf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../single_view_geometry.html">Single view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smoothing.html">Smoothing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../voxel_grids.html">Voxel grids</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -177,7 +179,7 @@
 <span class="n">MIN_DENOMINATOR</span> <span class="o">=</span> <span class="mf">1e-12</span>
 
 
-<div class="viewcode-block" id="pixel_to_pixel_coords"><a class="viewcode-back" href="../../two_view_geometry/pixel_to_pixel_coords.html#ivy_vision.two_view_geometry.pixel_to_pixel_coords">[docs]</a><span class="k">def</span> <span class="nf">pixel_to_pixel_coords</span><span class="p">(</span><span class="n">pixel_coords1</span><span class="p">,</span> <span class="n">cam1to2_full_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dev_str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ds_pixel_to_ds_pixel_coords"><a class="viewcode-back" href="../../two_view_geometry/ds_pixel_to_ds_pixel_coords.html#ivy_vision.two_view_geometry.ds_pixel_to_ds_pixel_coords">[docs]</a><span class="k">def</span> <span class="nf">ds_pixel_to_ds_pixel_coords</span><span class="p">(</span><span class="n">ds_pixel_coords1</span><span class="p">,</span> <span class="n">cam1to2_full_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dev_str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Transform depth scaled homogeneous pixel co-ordinates image in first camera frame</span>
 <span class="sd">    :math:`\mathbf{X}_{p1}\in\mathbb{R}^{h×w×3}` to depth scaled homogeneous pixel co-ordinates image in second camera</span>
@@ -185,8 +187,8 @@
 <span class="sd">    :math:`\mathbf{P}_{1→2}\in\mathbb{R}^{3×4}`.\n</span>
 <span class="sd">    `[reference] &lt;localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=174&gt;`_</span>
 
-<span class="sd">    :param pixel_coords1: Depth scaled homogeneous pixel co-ordinates image in frame 1 *[batch_shape,h,w,3]*</span>
-<span class="sd">    :type pixel_coords1: array</span>
+<span class="sd">    :param ds_pixel_coords1: Depth scaled homogeneous pixel co-ordinates image in frame 1 *[batch_shape,h,w,3]*</span>
+<span class="sd">    :type ds_pixel_coords1: array</span>
 <span class="sd">    :param cam1to2_full_mat: Camera1-to-camera2 full projection matrix *[batch_shape,3,4]*</span>
 <span class="sd">    :type cam1to2_full_mat: array</span>
 <span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
@@ -199,20 +201,20 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">pixel_coords1</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">ds_pixel_coords1</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">image_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">pixel_coords1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">ds_pixel_coords1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">dev_str</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">dev_str</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">dev_str</span><span class="p">(</span><span class="n">pixel_coords1</span><span class="p">)</span>
+        <span class="n">dev_str</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">dev_str</span><span class="p">(</span><span class="n">ds_pixel_coords1</span><span class="p">)</span>
 
     <span class="c1"># shapes as list</span>
     <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
     <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
 
     <span class="c1"># BS x H x W x 4</span>
-    <span class="n">pixel_coords_homo</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">pixel_coords1</span><span class="p">,</span>
+    <span class="n">pixel_coords_homo</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ds_pixel_coords1</span><span class="p">,</span>
                                           <span class="n">_ivy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="n">image_dims</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dev_str</span><span class="o">=</span><span class="n">dev_str</span><span class="p">)),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># BS x H x W x 3</span>
@@ -459,15 +461,15 @@
     <span class="k">return</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">world_coords</span><span class="p">,</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">image_dims</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dev_str</span><span class="o">=</span><span class="n">dev_str</span><span class="p">)),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">_triangulate_depth_by_closest_mutual_points</span><span class="p">(</span><span class="n">pixel_coords</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">,</span> <span class="n">inv_full_mats</span><span class="p">,</span> <span class="n">camera_centers</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span>
+<span class="k">def</span> <span class="nf">_triangulate_depth_by_closest_mutual_points</span><span class="p">(</span><span class="n">ds_pixel_coords</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">,</span> <span class="n">inv_full_mats</span><span class="p">,</span> <span class="n">camera_centers</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span>
                                                 <span class="n">image_dims</span><span class="p">):</span>
 
     <span class="c1"># single view geom batch shape</span>
     <span class="n">svg_batch_shape</span> <span class="o">=</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
     <span class="c1"># BS x 2 x H x W x 3</span>
-    <span class="n">world_rays_flat</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">pixel_coords_to_world_ray_vectors</span><span class="p">(</span><span class="n">pixel_coords</span><span class="p">,</span> <span class="n">inv_full_mats</span><span class="p">,</span> <span class="n">camera_centers</span><span class="p">,</span>
-                                                                 <span class="n">svg_batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
+    <span class="n">world_rays_flat</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">ds_pixel_coords_to_world_ray_vectors</span><span class="p">(</span><span class="n">ds_pixel_coords</span><span class="p">,</span> <span class="n">inv_full_mats</span><span class="p">,</span> <span class="n">camera_centers</span><span class="p">,</span>
+                                                                    <span class="n">svg_batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
 
     <span class="c1"># BS x 2 x H x W x 3</span>
     <span class="n">world_rays</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">world_rays_flat</span><span class="p">,</span> <span class="n">svg_batch_shape</span> <span class="o">+</span> <span class="n">image_dims</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
@@ -476,17 +478,17 @@
     <span class="n">world_points</span> <span class="o">=</span> <span class="n">closest_mutual_points_along_two_skew_rays</span><span class="p">(</span><span class="n">camera_centers</span><span class="p">,</span> <span class="n">world_rays</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
 
     <span class="c1"># BS x H x W x 3</span>
-    <span class="k">return</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">world_to_pixel_coords</span><span class="p">(</span><span class="n">world_points</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">full_mats</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span>
-                                          <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">world_to_ds_pixel_coords</span><span class="p">(</span><span class="n">world_points</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">full_mats</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span>
+                                             <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_triangulate_depth_by_homogeneous_dlt</span><span class="p">(</span><span class="n">pixel_coords</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_triangulate_depth_by_homogeneous_dlt</span><span class="p">(</span><span class="n">ds_pixel_coords</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">):</span>
 
     <span class="c1"># num batch dims</span>
     <span class="n">num_batch_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
 
     <span class="c1"># BS x 2 x H x W x 3</span>
-    <span class="n">pixel_coords_normalized</span> <span class="o">=</span> <span class="n">pixel_coords</span> <span class="o">/</span> <span class="p">(</span><span class="n">pixel_coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
+    <span class="n">pixel_coords_normalized</span> <span class="o">=</span> <span class="n">ds_pixel_coords</span> <span class="o">/</span> <span class="p">(</span><span class="n">ds_pixel_coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
 
     <span class="c1"># BS x 3 x 4</span>
     <span class="n">P</span> <span class="o">=</span> <span class="n">full_mats</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
@@ -524,21 +526,21 @@
     <span class="n">coords_wrt_world</span> <span class="o">=</span> <span class="n">coords_wrt_world_homo_unscaled</span> <span class="o">/</span> <span class="p">(</span><span class="n">coords_wrt_world_homo_unscaled</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
 
     <span class="c1"># BS x W x H x 3</span>
-    <span class="k">return</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">world_to_pixel_coords</span><span class="p">(</span><span class="n">coords_wrt_world</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">world_to_ds_pixel_coords</span><span class="p">(</span><span class="n">coords_wrt_world</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
 
 
 <span class="n">TRI_METHODS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cmp&#39;</span><span class="p">:</span> <span class="n">_triangulate_depth_by_closest_mutual_points</span><span class="p">,</span>
                <span class="s1">&#39;dlt&#39;</span><span class="p">:</span> <span class="n">_triangulate_depth_by_homogeneous_dlt</span><span class="p">}</span>
 
 
-<div class="viewcode-block" id="triangulate_depth"><a class="viewcode-back" href="../../two_view_geometry/triangulate_depth.html#ivy_vision.two_view_geometry.triangulate_depth">[docs]</a><span class="k">def</span> <span class="nf">triangulate_depth</span><span class="p">(</span><span class="n">pixel_coords</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">,</span> <span class="n">inv_full_mats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">camera_centers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cmp&#39;</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="triangulate_depth"><a class="viewcode-back" href="../../two_view_geometry/triangulate_depth.html#ivy_vision.two_view_geometry.triangulate_depth">[docs]</a><span class="k">def</span> <span class="nf">triangulate_depth</span><span class="p">(</span><span class="n">ds_pixel_coords</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">,</span> <span class="n">inv_full_mats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">camera_centers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cmp&#39;</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                       <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Triangulate depth in frame 1, returning depth scaled homogeneous pixel co-ordinate image</span>
 <span class="sd">    :math:`\mathbf{X}\in\mathbb{R}^{h×w×3}` in frame 1.\n</span>
 
-<span class="sd">    :param pixel_coords: Homogeneous pixel co-ordinate images: *[batch_shape,h,w,3]*</span>
-<span class="sd">    :type pixel_coords: array</span>
+<span class="sd">    :param ds_pixel_coords: Homogeneous pixel co-ordinate images: *[batch_shape,h,w,3]*</span>
+<span class="sd">    :type ds_pixel_coords: array</span>
 <span class="sd">    :param full_mats: Full projection matrices *[batch_shape,2,3,4]*</span>
 <span class="sd">    :type full_mats: array</span>
 <span class="sd">    :param inv_full_mats: Inverse full projection matrices, required for closest_mutual_points method *[batch_shape,2,3,4]*</span>
@@ -555,10 +557,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">pixel_coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">ds_pixel_coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">image_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">pixel_coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">ds_pixel_coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="c1"># shapes as list</span>
     <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
@@ -574,7 +576,7 @@
             <span class="n">camera_centers</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">inv_ext_mat_to_camera_center</span><span class="p">(</span><span class="n">inv_full_mats</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">TRI_METHODS</span><span class="p">[</span><span class="n">method</span><span class="p">](</span><span class="n">pixel_coords</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">,</span> <span class="n">inv_full_mats</span><span class="p">,</span> <span class="n">camera_centers</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">TRI_METHODS</span><span class="p">[</span><span class="n">method</span><span class="p">](</span><span class="n">ds_pixel_coords</span><span class="p">,</span> <span class="n">full_mats</span><span class="p">,</span> <span class="n">inv_full_mats</span><span class="p">,</span> <span class="n">camera_centers</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Triangulation method must be one of [cmp|dlt], but found </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="p">))</span></div>
 </pre></div>

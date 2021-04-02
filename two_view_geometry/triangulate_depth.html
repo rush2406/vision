@@ -85,13 +85,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../implicit.html">Implicit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mesh.html">Mesh</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optical_flow.html">Optical flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../padding.html">Padding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../projective_geometry.html">Projective geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rendering.html">Rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quantization.html">Quantization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sdf.html">Sdf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../single_view_geometry.html">Single view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../smoothing.html">Smoothing</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="pixel_to_pixel_coords.html">pixel_to_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ds_pixel_to_ds_pixel_coords.html">ds_pixel_to_ds_pixel_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cam_to_cam_coords.html">cam_to_cam_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sphere_to_sphere_coords.html">sphere_to_sphere_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angular_pixel_to_angular_pixel_coords.html">angular_pixel_to_angular_pixel_coords</a></li>
@@ -101,7 +104,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -181,13 +183,13 @@
 <h1>triangulate_depth<a class="headerlink" href="#triangulate-depth" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.two_view_geometry.triangulate_depth">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">triangulate_depth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_mats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_full_mats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera_centers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/two_view_geometry.html#triangulate_depth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.triangulate_depth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">triangulate_depth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds_pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_mats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_full_mats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera_centers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/two_view_geometry.html#triangulate_depth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.triangulate_depth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Triangulate depth in frame 1, returning depth scaled homogeneous pixel co-ordinate image
 <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{h×w×3}\)</span> in frame 1.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pixel_coords</strong> (<em>array</em>) – Homogeneous pixel co-ordinate images: <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Homogeneous pixel co-ordinate images: <em>[batch_shape,h,w,3]</em></p></li>
 <li><p><strong>full_mats</strong> (<em>array</em>) – Full projection matrices <em>[batch_shape,2,3,4]</em></p></li>
 <li><p><strong>inv_full_mats</strong> (<em>array</em><em>, </em><em>optional</em>) – Inverse full projection matrices, required for closest_mutual_points method <em>[batch_shape,2,3,4]</em></p></li>
 <li><p><strong>camera_centers</strong> (<em>array</em><em>, </em><em>optional</em>) – Camera centers, required for closest_mutual_points method <em>[batch_shape,2,3,1]</em></p></li>

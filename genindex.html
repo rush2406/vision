@@ -82,14 +82,16 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit.html">Implicit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mesh.html">Mesh</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optical_flow.html">Optical flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="padding.html">Padding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="projective_geometry.html">Projective geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rendering.html">Rendering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sdf.html">Sdf</a></li>
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry.html">Single view geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing.html">Smoothing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a></li>
-<li class="toctree-l1"><a class="reference internal" href="warping.html">Warping</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
@@ -269,7 +271,7 @@
 </li>
       <li><a href="two_view_geometry.html#ivy_vision.two_view_geometry.cam_to_cam_coords">cam_to_cam_coords() (in module ivy_vision.two_view_geometry)</a>, <a href="two_view_geometry/cam_to_cam_coords.html#ivy_vision.two_view_geometry.cam_to_cam_coords">[1]</a>
 </li>
-      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.cam_to_pixel_coords">cam_to_pixel_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/cam_to_pixel_coords.html#ivy_vision.single_view_geometry.cam_to_pixel_coords">[1]</a>
+      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.cam_to_ds_pixel_coords">cam_to_ds_pixel_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/cam_to_ds_pixel_coords.html#ivy_vision.single_view_geometry.cam_to_ds_pixel_coords">[1]</a>
 </li>
       <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.cam_to_sphere_coords">cam_to_sphere_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/cam_to_sphere_coords.html#ivy_vision.single_view_geometry.cam_to_sphere_coords">[1]</a>
 </li>
@@ -281,11 +283,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="two_view_geometry.html#ivy_vision.two_view_geometry.closest_mutual_points_along_two_skew_rays">closest_mutual_points_along_two_skew_rays() (in module ivy_vision.two_view_geometry)</a>, <a href="two_view_geometry/closest_mutual_points_along_two_skew_rays.html#ivy_vision.two_view_geometry.closest_mutual_points_along_two_skew_rays">[1]</a>
 </li>
-      <li><a href="rendering.html#ivy_vision.rendering.coord_image_to_trimesh">coord_image_to_trimesh() (in module ivy_vision.rendering)</a>, <a href="rendering/coord_image_to_trimesh.html#ivy_vision.rendering.coord_image_to_trimesh">[1]</a>
+      <li><a href="mesh.html#ivy_vision.mesh.coord_image_to_trimesh">coord_image_to_trimesh() (in module ivy_vision.mesh)</a>, <a href="mesh/coord_image_to_trimesh.html#ivy_vision.mesh.coord_image_to_trimesh">[1]</a>
 </li>
       <li><a href="voxel_grids.html#ivy_vision.voxel_grids.coords_to_voxel_grid">coords_to_voxel_grid() (in module ivy_vision.voxel_grids)</a>, <a href="voxel_grids/coords_to_voxel_grid.html#ivy_vision.voxel_grids.coords_to_voxel_grid">[1]</a>
 </li>
-      <li><a href="rendering.html#ivy_vision.rendering.create_trimesh_indices_for_image">create_trimesh_indices_for_image() (in module ivy_vision.rendering)</a>, <a href="rendering/create_trimesh_indices_for_image.html#ivy_vision.rendering.create_trimesh_indices_for_image">[1]</a>
+      <li><a href="mesh.html#ivy_vision.mesh.create_trimesh_indices_for_image">create_trimesh_indices_for_image() (in module ivy_vision.mesh)</a>, <a href="mesh/create_trimesh_indices_for_image.html#ivy_vision.mesh.create_trimesh_indices_for_image">[1]</a>
 </li>
       <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.create_uniform_pixel_coords_image">create_uniform_pixel_coords_image() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/create_uniform_pixel_coords_image.html#ivy_vision.single_view_geometry.create_uniform_pixel_coords_image">[1]</a>
 </li>
@@ -299,11 +301,21 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="optical_flow.html#ivy_vision.optical_flow.depth_from_flow_and_cam_mats">depth_from_flow_and_cam_mats() (in module ivy_vision.optical_flow)</a>, <a href="optical_flow/depth_from_flow_and_cam_mats.html#ivy_vision.optical_flow.depth_from_flow_and_cam_mats">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.depth_to_pixel_coords">depth_to_pixel_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/depth_to_pixel_coords.html#ivy_vision.single_view_geometry.depth_to_pixel_coords">[1]</a>
+      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.depth_to_ds_pixel_coords">depth_to_ds_pixel_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/depth_to_ds_pixel_coords.html#ivy_vision.single_view_geometry.depth_to_ds_pixel_coords">[1]</a>
 </li>
       <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.depth_to_radial_depth">depth_to_radial_depth() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/depth_to_radial_depth.html#ivy_vision.single_view_geometry.depth_to_radial_depth">[1]</a>
+</li>
+      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.ds_pixel_coords_to_world_ray_vectors">ds_pixel_coords_to_world_ray_vectors() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/ds_pixel_coords_to_world_ray_vectors.html#ivy_vision.single_view_geometry.ds_pixel_coords_to_world_ray_vectors">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.ds_pixel_to_cam_coords">ds_pixel_to_cam_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/ds_pixel_to_cam_coords.html#ivy_vision.single_view_geometry.ds_pixel_to_cam_coords">[1]</a>
+</li>
+      <li><a href="two_view_geometry.html#ivy_vision.two_view_geometry.ds_pixel_to_ds_pixel_coords">ds_pixel_to_ds_pixel_coords() (in module ivy_vision.two_view_geometry)</a>, <a href="two_view_geometry/ds_pixel_to_ds_pixel_coords.html#ivy_vision.two_view_geometry.ds_pixel_to_ds_pixel_coords">[1]</a>
+</li>
+      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.ds_pixel_to_sphere_coords">ds_pixel_to_sphere_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/ds_pixel_to_sphere_coords.html#ivy_vision.single_view_geometry.ds_pixel_to_sphere_coords">[1]</a>
+</li>
+      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.ds_pixel_to_world_coords">ds_pixel_to_world_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/ds_pixel_to_world_coords.html#ivy_vision.single_view_geometry.ds_pixel_to_world_coords">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -370,6 +382,13 @@
 </li>
       </ul></li>
       <li>
+    ivy_vision.mesh
+
+      <ul>
+        <li><a href="mesh.html#module-ivy_vision.mesh">module</a>
+</li>
+      </ul></li>
+      <li>
     ivy_vision.optical_flow
 
       <ul>
@@ -377,19 +396,26 @@
 </li>
       </ul></li>
       <li>
+    ivy_vision.padding
+
+      <ul>
+        <li><a href="padding.html#module-ivy_vision.padding">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
     ivy_vision.projective_geometry
 
       <ul>
         <li><a href="projective_geometry.html#module-ivy_vision.projective_geometry">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
-    ivy_vision.rendering
+    ivy_vision.quantization
 
       <ul>
-        <li><a href="rendering.html#module-ivy_vision.rendering">module</a>
+        <li><a href="quantization.html#module-ivy_vision.quantization">module</a>
 </li>
       </ul></li>
       <li>
@@ -407,6 +433,13 @@
 </li>
       </ul></li>
       <li>
+    ivy_vision.smoothing
+
+      <ul>
+        <li><a href="smoothing.html#module-ivy_vision.smoothing">module</a>
+</li>
+      </ul></li>
+      <li>
     ivy_vision.two_view_geometry
 
       <ul>
@@ -418,13 +451,6 @@
 
       <ul>
         <li><a href="voxel_grids.html#module-ivy_vision.voxel_grids">module</a>
-</li>
-      </ul></li>
-      <li>
-    ivy_vision.warping
-
-      <ul>
-        <li><a href="warping.html#module-ivy_vision.warping">module</a>
 </li>
       </ul></li>
   </ul></td>
@@ -441,21 +467,25 @@
 </li>
         <li><a href="implicit.html#module-ivy_vision.implicit">ivy_vision.implicit</a>
 </li>
+        <li><a href="mesh.html#module-ivy_vision.mesh">ivy_vision.mesh</a>
+</li>
         <li><a href="optical_flow.html#module-ivy_vision.optical_flow">ivy_vision.optical_flow</a>
+</li>
+        <li><a href="padding.html#module-ivy_vision.padding">ivy_vision.padding</a>
 </li>
         <li><a href="projective_geometry.html#module-ivy_vision.projective_geometry">ivy_vision.projective_geometry</a>
 </li>
-        <li><a href="rendering.html#module-ivy_vision.rendering">ivy_vision.rendering</a>
+        <li><a href="quantization.html#module-ivy_vision.quantization">ivy_vision.quantization</a>
 </li>
         <li><a href="sdf.html#module-ivy_vision.sdf">ivy_vision.sdf</a>
 </li>
         <li><a href="single_view_geometry.html#module-ivy_vision.single_view_geometry">ivy_vision.single_view_geometry</a>
 </li>
+        <li><a href="smoothing.html#module-ivy_vision.smoothing">ivy_vision.smoothing</a>
+</li>
         <li><a href="two_view_geometry.html#module-ivy_vision.two_view_geometry">ivy_vision.two_view_geometry</a>
 </li>
         <li><a href="voxel_grids.html#module-ivy_vision.voxel_grids">ivy_vision.voxel_grids</a>
-</li>
-        <li><a href="warping.html#module-ivy_vision.warping">ivy_vision.warping</a>
 </li>
       </ul></li>
   </ul></td>
@@ -464,26 +494,16 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="rendering.html#ivy_vision.rendering.pad_omni_image">pad_omni_image() (in module ivy_vision.rendering)</a>, <a href="rendering/pad_omni_image.html#ivy_vision.rendering.pad_omni_image">[1]</a>
+      <li><a href="padding.html#ivy_vision.padding.pad_omni_image">pad_omni_image() (in module ivy_vision.padding)</a>, <a href="padding/pad_omni_image.html#ivy_vision.padding.pad_omni_image">[1]</a>
 </li>
       <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.persp_angles_and_pp_offsets_to_intrinsics_object">persp_angles_and_pp_offsets_to_intrinsics_object() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/persp_angles_and_pp_offsets_to_intrinsics_object.html#ivy_vision.single_view_geometry.persp_angles_and_pp_offsets_to_intrinsics_object">[1]</a>
 </li>
       <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.persp_angles_to_focal_lengths">persp_angles_to_focal_lengths() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/persp_angles_to_focal_lengths.html#ivy_vision.single_view_geometry.persp_angles_to_focal_lengths">[1]</a>
 </li>
-      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.pixel_coords_to_world_ray_vectors">pixel_coords_to_world_ray_vectors() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/pixel_coords_to_world_ray_vectors.html#ivy_vision.single_view_geometry.pixel_coords_to_world_ray_vectors">[1]</a>
-</li>
       <li><a href="optical_flow.html#ivy_vision.optical_flow.pixel_cost_volume">pixel_cost_volume() (in module ivy_vision.optical_flow)</a>, <a href="optical_flow/pixel_cost_volume.html#ivy_vision.optical_flow.pixel_cost_volume">[1]</a>
-</li>
-      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.pixel_to_cam_coords">pixel_to_cam_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/pixel_to_cam_coords.html#ivy_vision.single_view_geometry.pixel_to_cam_coords">[1]</a>
-</li>
-      <li><a href="two_view_geometry.html#ivy_vision.two_view_geometry.pixel_to_pixel_coords">pixel_to_pixel_coords() (in module ivy_vision.two_view_geometry)</a>, <a href="two_view_geometry/pixel_to_pixel_coords.html#ivy_vision.two_view_geometry.pixel_to_pixel_coords">[1]</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.pixel_to_sphere_coords">pixel_to_sphere_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/pixel_to_sphere_coords.html#ivy_vision.single_view_geometry.pixel_to_sphere_coords">[1]</a>
-</li>
-      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.pixel_to_world_coords">pixel_to_world_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/pixel_to_world_coords.html#ivy_vision.single_view_geometry.pixel_to_world_coords">[1]</a>
-</li>
       <li><a href="containers.html#ivy_vision.containers.PrimitiveScene">PrimitiveScene (class in ivy_vision.containers)</a>, <a href="containers/PrimitiveScene.html#ivy_vision.containers.PrimitiveScene">[1]</a>
 </li>
       <li><a href="optical_flow.html#ivy_vision.optical_flow.project_cam_coords_with_object_transformations">project_cam_coords_with_object_transformations() (in module ivy_vision.optical_flow)</a>, <a href="optical_flow/project_cam_coords_with_object_transformations.html#ivy_vision.optical_flow.project_cam_coords_with_object_transformations">[1]</a>
@@ -500,7 +520,7 @@
 <h2 id="Q">Q</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="rendering.html#ivy_vision.rendering.quantize_pixel_coords">quantize_pixel_coords() (in module ivy_vision.rendering)</a>, <a href="rendering/quantize_pixel_coords.html#ivy_vision.rendering.quantize_pixel_coords">[1]</a>
+      <li><a href="quantization.html#ivy_vision.quantization.quantize_to_image">quantize_to_image() (in module ivy_vision.quantization)</a>, <a href="quantization/quantize_to_image.html#ivy_vision.quantization.quantize_to_image">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -508,7 +528,7 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="rendering.html#ivy_vision.rendering.rasterize_triangles">rasterize_triangles() (in module ivy_vision.rendering)</a>, <a href="rendering/rasterize_triangles.html#ivy_vision.rendering.rasterize_triangles">[1]</a>
+      <li><a href="mesh.html#ivy_vision.mesh.rasterize_triangles">rasterize_triangles() (in module ivy_vision.mesh)</a>, <a href="mesh/rasterize_triangles.html#ivy_vision.mesh.rasterize_triangles">[1]</a>
 </li>
       <li><a href="implicit.html#ivy_vision.implicit.ray_termination_probabilities">ray_termination_probabilities() (in module ivy_vision.implicit)</a>, <a href="implicit/ray_termination_probabilities.html#ivy_vision.implicit.ray_termination_probabilities">[1]</a>
 </li>
@@ -542,7 +562,7 @@
       </ul></li>
       <li><a href="implicit.html#ivy_vision.implicit.sinusoid_positional_encoding">sinusoid_positional_encoding() (in module ivy_vision.implicit)</a>, <a href="implicit/sinusoid_positional_encoding.html#ivy_vision.implicit.sinusoid_positional_encoding">[1]</a>
 </li>
-      <li><a href="rendering.html#ivy_vision.rendering.smooth_image_fom_var_image">smooth_image_fom_var_image() (in module ivy_vision.rendering)</a>, <a href="rendering/smooth_image_fom_var_image.html#ivy_vision.rendering.smooth_image_fom_var_image">[1]</a>
+      <li><a href="smoothing.html#ivy_vision.smoothing.smooth_image_fom_var_image">smooth_image_fom_var_image() (in module ivy_vision.smoothing)</a>, <a href="smoothing/smooth_image_fom_var_image.html#ivy_vision.smoothing.smooth_image_fom_var_image">[1]</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -556,7 +576,7 @@
 </li>
       <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.sphere_to_cam_coords">sphere_to_cam_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/sphere_to_cam_coords.html#ivy_vision.single_view_geometry.sphere_to_cam_coords">[1]</a>
 </li>
-      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.sphere_to_pixel_coords">sphere_to_pixel_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/sphere_to_pixel_coords.html#ivy_vision.single_view_geometry.sphere_to_pixel_coords">[1]</a>
+      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.sphere_to_ds_pixel_coords">sphere_to_ds_pixel_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/sphere_to_ds_pixel_coords.html#ivy_vision.single_view_geometry.sphere_to_ds_pixel_coords">[1]</a>
 </li>
       <li><a href="two_view_geometry.html#ivy_vision.two_view_geometry.sphere_to_sphere_coords">sphere_to_sphere_coords() (in module ivy_vision.two_view_geometry)</a>, <a href="two_view_geometry/sphere_to_sphere_coords.html#ivy_vision.two_view_geometry.sphere_to_sphere_coords">[1]</a>
 </li>
@@ -592,13 +612,13 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="rendering.html#ivy_vision.rendering.weighted_image_smooth">weighted_image_smooth() (in module ivy_vision.rendering)</a>, <a href="rendering/weighted_image_smooth.html#ivy_vision.rendering.weighted_image_smooth">[1]</a>
+      <li><a href="smoothing.html#ivy_vision.smoothing.weighted_image_smooth">weighted_image_smooth() (in module ivy_vision.smoothing)</a>, <a href="smoothing/weighted_image_smooth.html#ivy_vision.smoothing.weighted_image_smooth">[1]</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.world_to_cam_coords">world_to_cam_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/world_to_cam_coords.html#ivy_vision.single_view_geometry.world_to_cam_coords">[1]</a>
 </li>
-      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.world_to_pixel_coords">world_to_pixel_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/world_to_pixel_coords.html#ivy_vision.single_view_geometry.world_to_pixel_coords">[1]</a>
+      <li><a href="single_view_geometry.html#ivy_vision.single_view_geometry.world_to_ds_pixel_coords">world_to_ds_pixel_coords() (in module ivy_vision.single_view_geometry)</a>, <a href="single_view_geometry/world_to_ds_pixel_coords.html#ivy_vision.single_view_geometry.world_to_ds_pixel_coords">[1]</a>
 </li>
   </ul></td>
 </tr></table>

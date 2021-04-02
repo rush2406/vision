@@ -1,0 +1,16 @@
+Quantization
+============
+
+.. automodule:: ivy_vision.quantization
+    :members:
+    :special-members: __init__
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+   :maxdepth: -1
+   :caption: Quantization
+
+   quantization/quantize_to_image.rst
+

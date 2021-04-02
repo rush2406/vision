@@ -12,7 +12,7 @@ Two view geometry
    :maxdepth: -1
    :caption: Two view geometry
 
-   two_view_geometry/pixel_to_pixel_coords.rst
+   two_view_geometry/ds_pixel_to_ds_pixel_coords.rst
    two_view_geometry/cam_to_cam_coords.rst
    two_view_geometry/sphere_to_sphere_coords.rst
    two_view_geometry/angular_pixel_to_angular_pixel_coords.rst

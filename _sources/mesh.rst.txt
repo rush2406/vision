@@ -1,0 +1,18 @@
+Mesh
+====
+
+.. automodule:: ivy_vision.mesh
+    :members:
+    :special-members: __init__
+    :undoc-members:
+    :show-inheritance:
+
+
+.. toctree::
+   :maxdepth: -1
+   :caption: Mesh
+
+   mesh/rasterize_triangles.rst
+   mesh/create_trimesh_indices_for_image.rst
+   mesh/coord_image_to_trimesh.rst
+

@@ -17,24 +17,24 @@ Single view geometry
    single_view_geometry/focal_lengths_to_persp_angles.rst
    single_view_geometry/focal_lengths_and_pp_offsets_to_calib_mat.rst
    single_view_geometry/rot_mat_and_cam_center_to_ext_mat.rst
-   single_view_geometry/depth_to_pixel_coords.rst
+   single_view_geometry/depth_to_ds_pixel_coords.rst
    single_view_geometry/depth_to_radial_depth.rst
-   single_view_geometry/cam_to_pixel_coords.rst
-   single_view_geometry/pixel_to_cam_coords.rst
+   single_view_geometry/cam_to_ds_pixel_coords.rst
+   single_view_geometry/ds_pixel_to_cam_coords.rst
    single_view_geometry/world_to_cam_coords.rst
    single_view_geometry/cam_to_world_coords.rst
-   single_view_geometry/world_to_pixel_coords.rst
-   single_view_geometry/pixel_to_world_coords.rst
-   single_view_geometry/pixel_coords_to_world_ray_vectors.rst
+   single_view_geometry/world_to_ds_pixel_coords.rst
+   single_view_geometry/ds_pixel_to_world_coords.rst
+   single_view_geometry/ds_pixel_coords_to_world_ray_vectors.rst
    single_view_geometry/sphere_coords_to_world_ray_vectors.rst
    single_view_geometry/bilinearly_interpolate_image.rst
    single_view_geometry/inv_ext_mat_to_camera_center.rst
    single_view_geometry/calib_and_ext_to_full_mat.rst
    single_view_geometry/cam_to_sphere_coords.rst
-   single_view_geometry/pixel_to_sphere_coords.rst
+   single_view_geometry/ds_pixel_to_sphere_coords.rst
    single_view_geometry/angular_pixel_to_sphere_coords.rst
    single_view_geometry/sphere_to_cam_coords.rst
-   single_view_geometry/sphere_to_pixel_coords.rst
+   single_view_geometry/sphere_to_ds_pixel_coords.rst
    single_view_geometry/sphere_to_angular_pixel_coords.rst
    single_view_geometry/persp_angles_and_pp_offsets_to_intrinsics_object.rst
    single_view_geometry/focal_lengths_and_pp_offsets_to_intrinsics_object.rst
