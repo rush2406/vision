@@ -252,7 +252,8 @@
     <span class="c1"># uniform pixel coords</span>
     <span class="k">if</span> <span class="n">uniform_pixel_coords</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">uniform_pixel_coords</span> <span class="o">=</span>\
-            <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">create_uniform_pixel_coords_image</span><span class="p">(</span><span class="n">final_image_dims</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">dev_str</span><span class="o">=</span><span class="n">dev_str</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">create_uniform_pixel_coords_image</span><span class="p">(</span><span class="n">final_image_dims</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">dev_str</span><span class="o">=</span><span class="n">dev_str</span><span class="p">)</span>
+    <span class="n">uniform_pixel_coords</span> <span class="o">=</span> <span class="n">uniform_pixel_coords</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
 
     <span class="c1"># Extract Values #</span>
 
@@ -424,6 +425,17 @@
 
         <span class="c1"># BS x H x W x 1</span>
         <span class="n">quantized_depth_mean</span> <span class="o">=</span> <span class="n">quantized_mean_scaled</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="c1"># BS x 1 x 1 x 1</span>
+        <span class="n">mean_depth_min</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">mean_depth_min</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">mean_depth_range</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">mean_depth_range</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># BS x 1 x 1 x (1+D)</span>
+        <span class="n">pc_n_feat_wo_depth_min</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">pc_n_feat_wo_depth_min</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">pc_n_feat_wo_depth_range</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">pc_n_feat_wo_depth_range</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># BS x 1 x 1 x (2+D) x 2</span>
+        <span class="n">var_threshold</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">var_threshold</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>
 
         <span class="c1"># BS x H x W x (1+D)</span>
         <span class="n">quantized_mean_wo_depth_scaled</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">quantized_mean_scaled</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span>
