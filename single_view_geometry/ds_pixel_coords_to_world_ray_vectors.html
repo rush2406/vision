@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>ds_pixel_coords_to_world_ray_vectors &mdash; Ivy Vision 1.0 documentation</title>
@@ -82,7 +81,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../implicit.html">Implicit</a></li>
@@ -127,7 +126,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mech"">Ivy Mech</a></li>
@@ -201,11 +200,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="ds-pixel-coords-to-world-ray-vectors">
+  <div class="section" id="ds-pixel-coords-to-world-ray-vectors">
 <h1>ds_pixel_coords_to_world_ray_vectors<a class="headerlink" href="#ds-pixel-coords-to-world-ray-vectors" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.ds_pixel_coords_to_world_ray_vectors">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">ds_pixel_coords_to_world_ray_vectors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds_pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_full_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera_center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#ds_pixel_coords_to_world_ray_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_coords_to_world_ray_vectors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_coords_to_world_ray_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_full_mat</span></em>, <em class="sig-param"><span class="n">camera_center</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#ds_pixel_coords_to_world_ray_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_coords_to_world_ray_vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate world-centric ray vector image <span class="math notranslate nohighlight">\(\mathbf{RV}\in\mathbb{R}^{h×w×3}\)</span> from homogeneous pixel co-ordinate
 image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span>. Each ray vector <span class="math notranslate nohighlight">\(\mathbf{rv}_{i,j}\in\mathbb{R}^{3}\)</span> is
 represented as a unit vector from the camera center <span class="math notranslate nohighlight">\(\overset{\sim}{\mathbf{C}}\in\mathbb{R}^{3×1}\)</span>, in the
@@ -233,7 +232,7 @@ magnitude dictates the position of the world co-ordinate along the world ray.</p
 <div class="line"><strong>Supported Frameworks:</strong></div>
 </div>
 <p><a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://jax.readthedocs.io"><img alt="jax_logo" src="../_images/jax_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://www.tensorflow.org"><img alt="tf_logo" src="../_images/tensorflow_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://pytorch.org"><img alt="pytorch_logo" src="../_images/pytorch_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://mxnet.apache.org"><img alt="mxnet_logo" src="../_images/mxnet_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://numpy.org"><img alt="numpy_logo" src="../_images/numpy_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a></p>
-</section>
+</div>
 
 
            </div>

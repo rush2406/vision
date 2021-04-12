@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Voxel grids &mdash; Ivy Vision 1.0 documentation</title>
@@ -82,7 +81,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit.html">Implicit</a></li>
@@ -100,7 +99,7 @@
 </ul>
 </li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mech"">Ivy Mech</a></li>
@@ -172,12 +171,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="module-ivy_vision.voxel_grids">
+  <div class="section" id="module-ivy_vision.voxel_grids">
 <span id="voxel-grids"></span><h1>Voxel grids<a class="headerlink" href="#module-ivy_vision.voxel_grids" title="Permalink to this headline">¶</a></h1>
 <p>Collection of Voxel-Grid Functions</p>
 <dl class="py function">
 <dt id="ivy_vision.voxel_grids.coords_to_voxel_grid">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">coords_to_voxel_grid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voxel_shape_spec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'DIMS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coord_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/voxel_grids.html#coords_to_voxel_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.voxel_grids.coords_to_voxel_grid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">coords_to_voxel_grid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">voxel_shape_spec</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'DIMS'</span></em>, <em class="sig-param"><span class="n">coord_bounds</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">features</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/voxel_grids.html#coords_to_voxel_grid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.voxel_grids.coords_to_voxel_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create voxel grid <span class="math notranslate nohighlight">\(\mathbf{X}_v\in\mathbb{R}^{x×y×z×(3+N+1)}\)</span> from homogeneous co-ordinates
 <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{num\_coords×4}\)</span>. Each voxel contains 3+N+1 values: the mean normalized
 co-ordinate inside the voxel for the projected pixels with <span class="math notranslate nohighlight">\(0 &lt; x, y, z &lt; 1\)</span>, N coordinte features (optional),
@@ -209,12 +208,12 @@ Features mapping to the same voxel are averaged.</p></li>
 </dd></dl>
 
 <div class="toctree-wrapper compound">
-<p><span class="caption-text">Voxel grids</span></p>
+<p class="caption"><span class="caption-text">Voxel grids</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="voxel_grids/coords_to_voxel_grid.html">coords_to_voxel_grid</a></li>
 </ul>
 </div>
-</section>
+</div>
 
 
            </div>

@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>angular_pixel_to_angular_pixel_coords &mdash; Ivy Vision 1.0 documentation</title>
@@ -82,7 +81,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../implicit.html">Implicit</a></li>
@@ -106,7 +105,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mech"">Ivy Mech</a></li>
@@ -180,11 +179,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="angular-pixel-to-angular-pixel-coords">
+  <div class="section" id="angular-pixel-to-angular-pixel-coords">
 <h1>angular_pixel_to_angular_pixel_coords<a class="headerlink" href="#angular-pixel-to-angular-pixel-coords" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.two_view_geometry.angular_pixel_to_angular_pixel_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">angular_pixel_to_angular_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angular_pixel_coords1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam1to2_ext_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixels_per_degree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/two_view_geometry.html#angular_pixel_to_angular_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.angular_pixel_to_angular_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">angular_pixel_to_angular_pixel_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">angular_pixel_coords1</span></em>, <em class="sig-param"><span class="n">cam1to2_ext_mat</span></em>, <em class="sig-param"><span class="n">pixels_per_degree</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/two_view_geometry.html#angular_pixel_to_angular_pixel_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.angular_pixel_to_angular_pixel_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert angular pixel co-ordinates image in frame 1 <span class="math notranslate nohighlight">\(\mathbf{A}_{p1}\in\mathbb{R}^{h×w×3}\)</span> to angular pixel
 co-ordinates image in frame 2 <span class="math notranslate nohighlight">\(\mathbf{A}_{p2}\in\mathbb{R}^{h×w×3}\)</span>.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
@@ -209,7 +208,7 @@ co-ordinates image in frame 2 <span class="math notranslate nohighlight">\(\math
 <div class="line"><strong>Supported Frameworks:</strong></div>
 </div>
 <p><a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://jax.readthedocs.io"><img alt="jax_logo" src="../_images/jax_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://www.tensorflow.org"><img alt="tf_logo" src="../_images/tensorflow_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://pytorch.org"><img alt="pytorch_logo" src="../_images/pytorch_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://mxnet.apache.org"><img alt="mxnet_logo" src="../_images/mxnet_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://numpy.org"><img alt="numpy_logo" src="../_images/numpy_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a></p>
-</section>
+</div>
 
 
            </div>

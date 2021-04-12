@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>CameraGeometry &mdash; Ivy Vision 1.0 documentation</title>
@@ -25,6 +24,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -81,7 +81,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../containers.html">Containers</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="PrimitiveScene.html">PrimitiveScene</a></li>
@@ -102,7 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mech"">Ivy Mech</a></li>
@@ -176,15 +176,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="camerageometry">
+  <div class="section" id="camerageometry">
 <h1>CameraGeometry<a class="headerlink" href="#camerageometry" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="ivy_vision.containers.CameraGeometry">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ivy_vision.containers.</span></code><code class="sig-name descname"><span class="pre">CameraGeometry</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intrinsics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrinsics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_mats_homo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_full_mats_homo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">ivy_vision.containers.</code><code class="sig-name descname">CameraGeometry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">intrinsics</span></em>, <em class="sig-param"><span class="n">extrinsics</span></em>, <em class="sig-param"><span class="n">full_mats_homo</span></em>, <em class="sig-param"><span class="n">inv_full_mats_homo</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ivy.core.container.Container</span></code></p>
 <dl class="py method">
 <dt id="ivy_vision.containers.CameraGeometry.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intrinsics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extrinsics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_mats_homo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_full_mats_homo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">intrinsics</span></em>, <em class="sig-param"><span class="n">extrinsics</span></em>, <em class="sig-param"><span class="n">full_mats_homo</span></em>, <em class="sig-param"><span class="n">inv_full_mats_homo</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize camera geometry container.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -199,8 +199,22 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="ivy_vision.containers.CameraGeometry.as_identity">
+<em class="property">static </em><code class="sig-name descname">as_identity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_shape</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry.as_identity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.as_identity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return camera geometry object with array attributes as either zeros or identity matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>New camera geometry object, with each entry as either zeros or identity matrices.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="ivy_vision.containers.CameraGeometry.as_keras_inputs">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_keras_inputs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry.as_keras_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.as_keras_inputs" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">as_keras_inputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_shape</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry.as_keras_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.as_keras_inputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return camera geometry object with array attributes as keras.Input objects. Only applicable for tensorflow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -214,7 +228,7 @@
 
 <dl class="py method">
 <dt id="ivy_vision.containers.CameraGeometry.as_tensor_spec">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_tensor_spec</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry.as_tensor_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.as_tensor_spec" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">as_tensor_spec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prefix</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry.as_tensor_spec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.as_tensor_spec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return camera geometry object with array attributes as tf.TensorSpec objects. Only applicable for tensorflow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -227,22 +241,14 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="ivy_vision.containers.CameraGeometry.as_identity">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">as_identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry.as_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.as_identity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return camera geometry object with array attributes as either zeros or identity matrices.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>New camera geometry object, with each entry as either zeros or identity matrices.</p>
-</dd>
-</dl>
+<dt id="ivy_vision.containers.CameraGeometry.batch_shape">
+<em class="property">property </em><code class="sig-name descname">batch_shape</code><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.batch_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Batch shape of each element in container</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="ivy_vision.containers.CameraGeometry.set_slice">
-<code class="sig-name descname"><span class="pre">set_slice</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slice_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam_geom</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry.set_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.set_slice" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_slice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_obj</span></em>, <em class="sig-param"><span class="n">cam_geom</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#CameraGeometry.set_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.set_slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set slice of camera geometry object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -257,12 +263,6 @@
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="ivy_vision.containers.CameraGeometry.batch_shape">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">batch_shape</span></code><a class="headerlink" href="#ivy_vision.containers.CameraGeometry.batch_shape" title="Permalink to this definition">¶</a></dt>
-<dd><p>Batch shape of each element in container</p>
-</dd></dl>
-
 </dd></dl>
 
 <div class="line-block">
@@ -270,7 +270,7 @@
 <div class="line"><strong>Supported Frameworks:</strong></div>
 </div>
 <p><a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://jax.readthedocs.io"><img alt="jax_logo" src="../_images/jax_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://www.tensorflow.org"><img alt="tf_logo" src="../_images/tensorflow_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://pytorch.org"><img alt="pytorch_logo" src="../_images/pytorch_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://mxnet.apache.org"><img alt="mxnet_logo" src="../_images/mxnet_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://numpy.org"><img alt="numpy_logo" src="../_images/numpy_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a></p>
-</section>
+</div>
 
 
            </div>

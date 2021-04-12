@@ -24,6 +24,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -78,7 +79,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../implicit.html">Implicit</a></li>
@@ -93,7 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../mech"">Ivy Mech</a></li>
@@ -168,9 +169,9 @@
 <span class="kn">import</span> <span class="nn">ivy</span> <span class="k">as</span> <span class="nn">_ivy</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">_tf</span>
-<span class="k">except</span> <span class="p">(</span><span class="n">ModuleNotFoundError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">):</span>
+<span class="k">except</span> <span class="p">(</span><span class="ne">ModuleNotFoundError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">):</span>
     <span class="n">_tf</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="kn">from</span> <span class="nn">ivy.core.container</span> <span class="k">import</span> <span class="n">Container</span> <span class="k">as</span> <span class="n">_Container</span>
+<span class="kn">from</span> <span class="nn">ivy.core.container</span> <span class="kn">import</span> <span class="n">Container</span> <span class="k">as</span> <span class="n">_Container</span>
 
 <span class="c1"># local</span>
 <span class="kn">import</span> <span class="nn">ivy_vision.sdf</span> <span class="k">as</span> <span class="nn">ivy_sdf</span>
@@ -179,7 +180,7 @@
 <span class="c1"># noinspection PyMissingConstructor</span>
 <div class="viewcode-block" id="PrimitiveScene"><a class="viewcode-back" href="../../containers/PrimitiveScene.html#ivy_vision.containers.PrimitiveScene">[docs]</a><span class="k">class</span> <span class="nc">PrimitiveScene</span><span class="p">(</span><span class="n">_Container</span><span class="p">):</span>
 
-<div class="viewcode-block" id="PrimitiveScene.__init__"><a class="viewcode-back" href="../../containers/PrimitiveScene.html#ivy_vision.containers.PrimitiveScene.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="PrimitiveScene.__init__"><a class="viewcode-back" href="../../containers/PrimitiveScene.html#ivy_vision.containers.PrimitiveScene.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">sphere_positions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">sphere_radii</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">cuboid_ext_mats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -312,7 +313,7 @@
 <span class="c1"># noinspection PyMissingConstructor</span>
 <div class="viewcode-block" id="Intrinsics"><a class="viewcode-back" href="../../containers/Intrinsics.html#ivy_vision.containers.Intrinsics">[docs]</a><span class="k">class</span> <span class="nc">Intrinsics</span><span class="p">(</span><span class="n">_Container</span><span class="p">):</span>
 
-<div class="viewcode-block" id="Intrinsics.__init__"><a class="viewcode-back" href="../../containers/Intrinsics.html#ivy_vision.containers.Intrinsics.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="Intrinsics.__init__"><a class="viewcode-back" href="../../containers/Intrinsics.html#ivy_vision.containers.Intrinsics.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">focal_lengths</span><span class="p">,</span>
                  <span class="n">persp_angles</span><span class="p">,</span>
                  <span class="n">pp_offsets</span><span class="p">,</span>
@@ -430,7 +431,7 @@
 <span class="c1"># noinspection PyMissingConstructor</span>
 <div class="viewcode-block" id="Extrinsics"><a class="viewcode-back" href="../../containers/Extrinsics.html#ivy_vision.containers.Extrinsics">[docs]</a><span class="k">class</span> <span class="nc">Extrinsics</span><span class="p">(</span><span class="n">_Container</span><span class="p">):</span>
 
-<div class="viewcode-block" id="Extrinsics.__init__"><a class="viewcode-back" href="../../containers/Extrinsics.html#ivy_vision.containers.Extrinsics.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="Extrinsics.__init__"><a class="viewcode-back" href="../../containers/Extrinsics.html#ivy_vision.containers.Extrinsics.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">cam_centers</span><span class="p">,</span>
                  <span class="n">Rs</span><span class="p">,</span>
                  <span class="n">inv_Rs</span><span class="p">,</span>
@@ -548,7 +549,7 @@
 <span class="c1"># noinspection PyMissingConstructor</span>
 <div class="viewcode-block" id="CameraGeometry"><a class="viewcode-back" href="../../containers/CameraGeometry.html#ivy_vision.containers.CameraGeometry">[docs]</a><span class="k">class</span> <span class="nc">CameraGeometry</span><span class="p">(</span><span class="n">_Container</span><span class="p">):</span>
 
-<div class="viewcode-block" id="CameraGeometry.__init__"><a class="viewcode-back" href="../../containers/CameraGeometry.html#ivy_vision.containers.CameraGeometry.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="CameraGeometry.__init__"><a class="viewcode-back" href="../../containers/CameraGeometry.html#ivy_vision.containers.CameraGeometry.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">intrinsics</span><span class="p">,</span>
                  <span class="n">extrinsics</span><span class="p">,</span>
                  <span class="n">full_mats_homo</span><span class="p">,</span>

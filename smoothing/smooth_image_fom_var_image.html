@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>smooth_image_fom_var_image &mdash; Ivy Vision 1.0 documentation</title>
@@ -25,6 +24,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -81,7 +81,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../implicit.html">Implicit</a></li>
@@ -100,7 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mech"">Ivy Mech</a></li>
@@ -174,11 +174,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="smooth-image-fom-var-image">
+  <div class="section" id="smooth-image-fom-var-image">
 <h1>smooth_image_fom_var_image<a class="headerlink" href="#smooth-image-fom-var-image" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.smoothing.smooth_image_fom_var_image">
-<code class="sig-prename descclassname"><span class="pre">ivy_vision.smoothing.</span></code><code class="sig-name descname"><span class="pre">smooth_image_fom_var_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/smoothing.html#smooth_image_fom_var_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.smoothing.smooth_image_fom_var_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.smoothing.</code><code class="sig-name descname">smooth_image_fom_var_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mean</span></em>, <em class="sig-param"><span class="n">var</span></em>, <em class="sig-param"><span class="n">kernel_dim</span></em>, <em class="sig-param"><span class="n">kernel_scale</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/smoothing.html#smooth_image_fom_var_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.smoothing.smooth_image_fom_var_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Smooth an image using variance values from a variance image of the same size, and a spatial smoothing kernel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -201,7 +201,7 @@
 <div class="line"><strong>Supported Frameworks:</strong></div>
 </div>
 <p><a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://jax.readthedocs.io"><img alt="jax_logo" src="../_images/jax_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://www.tensorflow.org"><img alt="tf_logo" src="../_images/tensorflow_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://pytorch.org"><img alt="pytorch_logo" src="../_images/pytorch_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://mxnet.apache.org"><img alt="mxnet_logo" src="../_images/mxnet_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://numpy.org"><img alt="numpy_logo" src="../_images/numpy_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a></p>
-</section>
+</div>
 
 
            </div>

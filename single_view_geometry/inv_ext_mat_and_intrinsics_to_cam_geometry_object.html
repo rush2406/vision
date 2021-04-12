@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>inv_ext_mat_and_intrinsics_to_cam_geometry_object &mdash; Ivy Vision 1.0 documentation</title>
@@ -82,7 +81,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../implicit.html">Implicit</a></li>
@@ -127,7 +126,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mech"">Ivy Mech</a></li>
@@ -201,11 +200,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="inv-ext-mat-and-intrinsics-to-cam-geometry-object">
+  <div class="section" id="inv-ext-mat-and-intrinsics-to-cam-geometry-object">
 <h1>inv_ext_mat_and_intrinsics_to_cam_geometry_object<a class="headerlink" href="#inv-ext-mat-and-intrinsics-to-cam-geometry-object" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.inv_ext_mat_and_intrinsics_to_cam_geometry_object">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">inv_ext_mat_and_intrinsics_to_cam_geometry_object</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inv_ext_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intrinsics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#inv_ext_mat_and_intrinsics_to_cam_geometry_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.inv_ext_mat_and_intrinsics_to_cam_geometry_object" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">inv_ext_mat_and_intrinsics_to_cam_geometry_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inv_ext_mat</span></em>, <em class="sig-param"><span class="n">intrinsics</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#inv_ext_mat_and_intrinsics_to_cam_geometry_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.inv_ext_mat_and_intrinsics_to_cam_geometry_object" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create camera geometry object from inverse extrinsic matrix <span class="math notranslate nohighlight">\(\mathbf{E}^{-1}\in\mathbb{R}^{3×4}\)</span>, and camera
 intrinsics object.</p>
 <dl class="field-list simple">
@@ -228,7 +227,7 @@ intrinsics object.</p>
 <div class="line"><strong>Supported Frameworks:</strong></div>
 </div>
 <p><a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://jax.readthedocs.io"><img alt="jax_logo" src="../_images/jax_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://www.tensorflow.org"><img alt="tf_logo" src="../_images/tensorflow_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://pytorch.org"><img alt="pytorch_logo" src="../_images/pytorch_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://mxnet.apache.org"><img alt="mxnet_logo" src="../_images/mxnet_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://numpy.org"><img alt="numpy_logo" src="../_images/numpy_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a></p>
-</section>
+</div>
 
 
            </div>

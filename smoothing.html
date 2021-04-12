@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Smoothing &mdash; Ivy Vision 1.0 documentation</title>
@@ -25,6 +24,7 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -81,7 +81,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit.html">Implicit</a></li>
@@ -100,7 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mech"">Ivy Mech</a></li>
@@ -172,30 +172,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="module-ivy_vision.smoothing">
+  <div class="section" id="module-ivy_vision.smoothing">
 <span id="smoothing"></span><h1>Smoothing<a class="headerlink" href="#module-ivy_vision.smoothing" title="Permalink to this headline">¶</a></h1>
 <p>Collection of Smoothing Functions</p>
 <dl class="py function">
-<dt id="ivy_vision.smoothing.weighted_image_smooth">
-<code class="sig-prename descclassname"><span class="pre">ivy_vision.smoothing.</span></code><code class="sig-name descname"><span class="pre">weighted_image_smooth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/smoothing.html#weighted_image_smooth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.smoothing.weighted_image_smooth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Smooth an image using weight values from a weight image of the same size.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>mean</strong> (<em>array</em>) – Image to smooth <em>[batch_shape,h,w,d]</em></p></li>
-<li><p><strong>weights</strong> (<em>array</em>) – Variance image, with the variance values of each pixel in the image <em>[batch_shape,h,w,d]</em></p></li>
-<li><p><strong>kernel_dim</strong> (<em>int</em>) – The dimension of the kernel</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Image smoothed based on variance image and smoothing kernel.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt id="ivy_vision.smoothing.smooth_image_fom_var_image">
-<code class="sig-prename descclassname"><span class="pre">ivy_vision.smoothing.</span></code><code class="sig-name descname"><span class="pre">smooth_image_fom_var_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/smoothing.html#smooth_image_fom_var_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.smoothing.smooth_image_fom_var_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.smoothing.</code><code class="sig-name descname">smooth_image_fom_var_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mean</span></em>, <em class="sig-param"><span class="n">var</span></em>, <em class="sig-param"><span class="n">kernel_dim</span></em>, <em class="sig-param"><span class="n">kernel_scale</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/smoothing.html#smooth_image_fom_var_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.smoothing.smooth_image_fom_var_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Smooth an image using variance values from a variance image of the same size, and a spatial smoothing kernel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -213,14 +195,32 @@
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt id="ivy_vision.smoothing.weighted_image_smooth">
+<code class="sig-prename descclassname">ivy_vision.smoothing.</code><code class="sig-name descname">weighted_image_smooth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mean</span></em>, <em class="sig-param"><span class="n">weights</span></em>, <em class="sig-param"><span class="n">kernel_dim</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/smoothing.html#weighted_image_smooth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.smoothing.weighted_image_smooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smooth an image using weight values from a weight image of the same size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mean</strong> (<em>array</em>) – Image to smooth <em>[batch_shape,h,w,d]</em></p></li>
+<li><p><strong>weights</strong> (<em>array</em>) – Variance image, with the variance values of each pixel in the image <em>[batch_shape,h,w,d]</em></p></li>
+<li><p><strong>kernel_dim</strong> (<em>int</em>) – The dimension of the kernel</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Image smoothed based on variance image and smoothing kernel.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <div class="toctree-wrapper compound">
-<p><span class="caption-text">Smoothing</span></p>
+<p class="caption"><span class="caption-text">Smoothing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="smoothing/weighted_image_smooth.html">weighted_image_smooth</a></li>
 <li class="toctree-l1"><a class="reference internal" href="smoothing/smooth_image_fom_var_image.html">smooth_image_fom_var_image</a></li>
 </ul>
 </div>
-</section>
+</div>
 
 
            </div>

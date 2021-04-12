@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>quantize_to_image &mdash; Ivy Vision 1.0 documentation</title>
@@ -82,7 +81,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../implicit.html">Implicit</a></li>
@@ -100,7 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mech"">Ivy Mech</a></li>
@@ -174,11 +173,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="quantize-to-image">
+  <div class="section" id="quantize-to-image">
 <h1>quantize_to_image<a class="headerlink" href="#quantize-to-image" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.quantization.quantize_to_image">
-<code class="sig-prename descclassname"><span class="pre">ivy_vision.quantization.</span></code><code class="sig-name descname"><span class="pre">quantize_to_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_coords_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_coords_prior_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_prior_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.001,</span> <span class="pre">1000000000000.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_pixel_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/quantization.html#quantize_to_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.quantization.quantize_to_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.quantization.</code><code class="sig-name descname">quantize_to_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pixel_coords</span></em>, <em class="sig-param"><span class="n">final_image_dims</span></em>, <em class="sig-param"><span class="n">feat</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">feat_prior</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">with_db</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pixel_coords_var</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">feat_var</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">pixel_coords_prior_var</span><span class="o">=</span><span class="default_value">1000000000000.0</span></em>, <em class="sig-param"><span class="n">feat_prior_var</span><span class="o">=</span><span class="default_value">1000000000000.0</span></em>, <em class="sig-param"><span class="n">var_threshold</span><span class="o">=</span><span class="default_value">(0.001, 1000000000000.0)</span></em>, <em class="sig-param"><span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/quantization.html#quantize_to_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.quantization.quantize_to_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quantize pixel co-ordinates with d feature channels (for depth, rgb, normals etc.), from
 images <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{input\_images\_shape×(2+d)}\)</span>, which may have been reprojected from a host of
 different cameras (leading to non-integer pixel values), to a new quantized pixel co-ordinate image with the same
@@ -216,7 +215,7 @@ maybe the quantized variance, <em>[batch_shape,h,w,2+d]</em>, and scatter counte
 <div class="line"><strong>Supported Frameworks:</strong></div>
 </div>
 <p><a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://jax.readthedocs.io"><img alt="jax_logo" src="../_images/jax_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://www.tensorflow.org"><img alt="tf_logo" src="../_images/tensorflow_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://pytorch.org"><img alt="pytorch_logo" src="../_images/pytorch_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://mxnet.apache.org"><img alt="mxnet_logo" src="../_images/mxnet_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a> <a class="reference external" href="https://numpy.org"><img alt="numpy_logo" src="../_images/numpy_logo.png" style="width: 14%;" /></a> <a class="reference internal" href="../_images/empty.png"><img alt="empty" src="../_images/empty.png" style="width: 4%;" /></a></p>
-</section>
+</div>
 
 
            </div>

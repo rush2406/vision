@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Mesh &mdash; Ivy Vision 1.0 documentation</title>
@@ -25,6 +24,7 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -81,7 +81,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit.html">Implicit</a></li>
@@ -101,7 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mech"">Ivy Mech</a></li>
@@ -173,12 +173,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="module-ivy_vision.mesh">
+  <div class="section" id="module-ivy_vision.mesh">
 <span id="mesh"></span><h1>Mesh<a class="headerlink" href="#module-ivy_vision.mesh" title="Permalink to this headline">¶</a></h1>
 <p>Collection of Mesh Functions</p>
 <dl class="py function">
+<dt id="ivy_vision.mesh.coord_image_to_trimesh">
+<code class="sig-prename descclassname">ivy_vision.mesh.</code><code class="sig-name descname">coord_image_to_trimesh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coord_img</span></em>, <em class="sig-param"><span class="n">validity_mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/mesh.html#coord_image_to_trimesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.mesh.coord_image_to_trimesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create trimesh, with vertices and triangle indices, from co-ordinate image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coord_img</strong> (<em>array</em>) – Image of co-ordinates <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>validity_mask</strong> (<em>array</em><em>, </em><em>optional</em>) – Boolean mask of where the coord image contains valid values <em>[batch_shape,h,w,1]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Vertices <em>[batch_shape,(hxw),3]</em> amd Trimesh indices <em>[batch_shape,n,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.mesh.create_trimesh_indices_for_image">
+<code class="sig-prename descclassname">ivy_vision.mesh.</code><code class="sig-name descname">create_trimesh_indices_for_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_shape</span></em>, <em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">'cpu:0'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/mesh.html#create_trimesh_indices_for_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.mesh.create_trimesh_indices_for_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create triangle mesh for image with given image dimensions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Shape of batch.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Triangle mesh indices for image <em>[batch_shape,h*w*some_other_stuff,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="ivy_vision.mesh.rasterize_triangles">
-<code class="sig-prename descclassname"><span class="pre">ivy_vision.mesh.</span></code><code class="sig-name descname"><span class="pre">rasterize_triangles</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixel_coords_triangles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/mesh.html#rasterize_triangles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.mesh.rasterize_triangles" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.mesh.</code><code class="sig-name descname">rasterize_triangles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pixel_coords_triangles</span></em>, <em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/mesh.html#rasterize_triangles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.mesh.rasterize_triangles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rasterize image-projected triangles
 based on: <a class="reference external" href="https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-stage">https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-stage</a>
 and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-practical-implementation">https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-practical-implementation</a></p>
@@ -198,53 +236,15 @@ and: <a class="reference external" href="https://www.scratchapixel.com/lessons/3
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt id="ivy_vision.mesh.create_trimesh_indices_for_image">
-<code class="sig-prename descclassname"><span class="pre">ivy_vision.mesh.</span></code><code class="sig-name descname"><span class="pre">create_trimesh_indices_for_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cpu:0'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/mesh.html#create_trimesh_indices_for_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.mesh.create_trimesh_indices_for_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create triangle mesh for image with given image dimensions</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Shape of batch.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Triangle mesh indices for image <em>[batch_shape,h*w*some_other_stuff,3]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.mesh.coord_image_to_trimesh">
-<code class="sig-prename descclassname"><span class="pre">ivy_vision.mesh.</span></code><code class="sig-name descname"><span class="pre">coord_image_to_trimesh</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validity_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/mesh.html#coord_image_to_trimesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.mesh.coord_image_to_trimesh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create trimesh, with vertices and triangle indices, from co-ordinate image.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>coord_img</strong> (<em>array</em>) – Image of co-ordinates <em>[batch_shape,h,w,3]</em></p></li>
-<li><p><strong>validity_mask</strong> (<em>array</em><em>, </em><em>optional</em>) – Boolean mask of where the coord image contains valid values <em>[batch_shape,h,w,1]</em></p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Vertices <em>[batch_shape,(hxw),3]</em> amd Trimesh indices <em>[batch_shape,n,3]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
 <div class="toctree-wrapper compound">
-<p><span class="caption-text">Mesh</span></p>
+<p class="caption"><span class="caption-text">Mesh</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="mesh/rasterize_triangles.html">rasterize_triangles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mesh/create_trimesh_indices_for_image.html">create_trimesh_indices_for_image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mesh/coord_image_to_trimesh.html">coord_image_to_trimesh</a></li>
 </ul>
 </div>
-</section>
+</div>
 
 
            </div>

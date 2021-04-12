@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Contents &mdash; Ivy Vision 1.0 documentation</title>
@@ -25,6 +24,7 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -80,7 +80,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit.html">Implicit</a></li>
@@ -95,7 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mech"">Ivy Mech</a></li>
@@ -206,7 +206,7 @@
     <a href="https://numpy.org">
         <img width="12%" style="float: left;" src="https://raw.githubusercontent.com/ivy-dl/ivy-dl.github.io/master/img/externally_linked/logos/supported/numpy_logo.png">
     </a>
-</div><section id="contents">
+</div><div class="section" id="contents">
 <h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="#overview">Overview</a></p></li>
@@ -214,8 +214,8 @@
 <li><p><a class="reference internal" href="#interactive-demos">Interactive Demos</a></p></li>
 <li><p><a class="reference internal" href="#get-involed">Get Involed</a></p></li>
 </ul>
-</section>
-<section id="overview">
+</div>
+<div class="section" id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
 <p><strong>What is Ivy Vision?</strong></p>
 <p>Ivy vision focuses predominantly on 3D vision, with functions for camera geometry, image projections,
@@ -259,8 +259,8 @@ we suggest you start by running the script <code class="docutils literal notrans
 and read the “Run Through” section below which explains this script.</p>
 <p>For more interactive demos, we suggest you run either
 <code class="docutils literal notranslate"><span class="pre">coords_to_voxel_grid.py</span></code> or <code class="docutils literal notranslate"><span class="pre">render_image.py</span></code> in the <a class="reference external" href="https://github.com/ivy-dl/vision/tree/master/demos/interactive">interactive</a> demos folder.</p>
-</section>
-<section id="run-through">
+</div>
+<div class="section" id="run-through">
 <h1>Run Through<a class="headerlink" href="#run-through" title="Permalink to this headline">¶</a></h1>
 <p>We run through some of the different parts of the library via a simple ongoing example script.
 The full script is available in the <a class="reference external" href="https://github.com/ivy-dl/vision/tree/master/demos">demos</a> folder, as file <code class="docutils literal notranslate"><span class="pre">run_through.py</span></code>.
@@ -436,12 +436,12 @@ and again render the new color image in target frame 1.</p>
 <span class="c1"># without depth buffer</span>
 <span class="n">f1_forward_warp_no_db</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">quantize_to_image</span><span class="p">(</span>
     <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ds_pixel_coords1_proj</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">img_dims</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">features_to_render</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
-    <span class="n">ivy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">features_to_render</span><span class="p">),</span> <span class="n">with_db</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">features_to_render</span><span class="p">),</span> <span class="n">with_db</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># with depth buffer</span>
 <span class="n">f1_forward_warp_w_db</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ivy_vision</span><span class="o">.</span><span class="n">quantize_to_image</span><span class="p">(</span>
     <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ds_pixel_coords1_proj</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">img_dims</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">features_to_render</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
-    <span class="n">ivy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">features_to_render</span><span class="p">),</span> <span class="n">with_db</span><span class="o">=</span><span class="bp">False</span> <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">get_framework</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;mxnd&#39;</span> <span class="k">else</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">features_to_render</span><span class="p">),</span> <span class="n">with_db</span><span class="o">=</span><span class="kc">False</span> <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">get_framework</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;mxnd&#39;</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Again, visualizations of these images are given below.
@@ -449,29 +449,35 @@ The images show the forward warping of both depth and color from frame 2 to fram
 which are shown with and without depth buffers in the right-hand and central columns respectively.</p>
 <p align="center">
     <img width="100%" style="display: block;" src='_images/forward_warped.png'>
-</p></section>
-<section id="interactive-demos">
+</p></div>
+<div class="section" id="interactive-demos">
 <h1>Interactive Demos<a class="headerlink" href="#interactive-demos" title="Permalink to this headline">¶</a></h1>
 <p>In addition to the examples above, we provide two further demo scripts,
 which are more visual and interactive, and are each built around a particular function.</p>
 <p>Rather than presenting the code here, we show visualizations of the demos.
 The scripts for these demos can be found in the <a class="reference external" href="https://github.com/ivy-dl/vision/tree/master/demos/interactive">interactive</a> demos folder.</p>
-<p><strong>Co-ordinates to Voxel Grid</strong></p>
-<p>The first demo captures depth and color images from a set of cameras,
+<p><strong>Neural Rendering</strong></p>
+<p>The first demo uses methods <code class="docutils literal notranslate"><span class="pre">ivy_vision.sinusoid_positional_encoding</span></code>, and <code class="docutils literal notranslate"><span class="pre">ivy_vision.render_implicit_features_and_depth</span></code>
+to train a Neural Radiance Field (NeRF) model to encode a lego digger. The NeRF model can then be queried at new camera
+poses to render new images from poses unseen during training.</p>
+<p align="center">
+    <img width="75%" style="display: block;" src='https://github.com/ivy-dl/ivy-dl.github.io/blob/master/img/externally_linked/ivy_vision/nerf_demo.gif?raw=true'>
+</p><p><strong>Co-ordinates to Voxel Grid</strong></p>
+<p>The second demo captures depth and color images from a set of cameras,
 converts the depth to world-centric co-ordinartes,
 and uses the method <code class="docutils literal notranslate"><span class="pre">ivy_vision.coords_to_voxel_grid</span></code> to
 voxelize the depth and color values into a grid, as shown below:</p>
 <p align="center">
-    <img width="75%" style="display: block;" src='https://github.com/ivy-dl/ivy-dl.github.io/blob/master/img/externally_linked/ivy_vision/demo_a.gif?raw=true'>
-</p><p><strong>Image Rendering</strong></p>
-<p>The second demo again captures depth and color images from a set of cameras,
-but this time uses the method <code class="docutils literal notranslate"><span class="pre">ivy_vision.render_pixel_coords</span></code> to
-dynamically forward warp and render the images into a new target frame, as shown below.
-The acquiring cameras all remain static, while the target frame for rendering moves freely.</p>
+    <img width="75%" style="display: block;" src='https://github.com/ivy-dl/ivy-dl.github.io/blob/master/img/externally_linked/ivy_vision/voxel_grid_demo.gif?raw=true'>
+</p><p><strong>Point Rendering</strong></p>
+<p>The final demo again captures depth and color images from a set of cameras,
+but this time uses the method <code class="docutils literal notranslate"><span class="pre">ivy_vision.quantize_to_image</span></code> to
+dynamically forward warp and point render the images into a new target frame, as shown below.
+The acquiring cameras all remain static, while the target frame for point rendering moves freely.</p>
 <p align="center">
-    <img width="75%" style="display: block;" src='https://github.com/ivy-dl/ivy-dl.github.io/blob/master/img/externally_linked/ivy_vision/demo_b.gif?raw=true'>
-</p></section>
-<section id="get-involed">
+    <img width="75%" style="display: block;" src='https://github.com/ivy-dl/ivy-dl.github.io/blob/master/img/externally_linked/ivy_vision/point_render_demo.gif?raw=true'>
+</p></div>
+<div class="section" id="get-involed">
 <h1>Get Involed<a class="headerlink" href="#get-involed" title="Permalink to this headline">¶</a></h1>
 <p>We hope the functions in this library are useful to a wide range of deep learning developers.
 However, there are many more areas of 3D vision which could be covered by this library.</p>
@@ -479,8 +485,8 @@ However, there are many more areas of 3D vision which could be covered by this l
 and your needs are not met by the functions currently on offer,
 then we are very happy to accept pull requests!</p>
 <p>We look forward to working with the community on expanding and improving the Ivy vision library.</p>
-</section>
-<section id="citation">
+</div>
+<div class="section" id="citation">
 <h1>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@article</span><span class="p">{</span><span class="n">lenton2021ivy</span><span class="p">,</span>
   <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="n">Ivy</span><span class="p">:</span> <span class="n">Templated</span> <span class="n">Deep</span> <span class="n">Learning</span> <span class="k">for</span> <span class="n">Inter</span><span class="o">-</span><span class="n">Framework</span> <span class="n">Portability</span><span class="p">},</span>
@@ -490,11 +496,11 @@ then we are very happy to accept pull requests!</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="documentation-tree">
+</div>
+<div class="section" id="documentation-tree">
 <h1>Documentation Tree<a class="headerlink" href="#documentation-tree" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-<p><span class="caption-text">Modules</span></p>
+<p class="caption"><span class="caption-text">Modules</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="containers/PrimitiveScene.html">PrimitiveScene</a></li>
@@ -602,7 +608,7 @@ then we are very happy to accept pull requests!</p>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mech"">Ivy Mech</a></li>
@@ -612,7 +618,7 @@ then we are very happy to accept pull requests!</p>
 <li class="toctree-l1"><a class="reference internal" href="../gym"">Ivy Gym</a></li>
 </ul>
 </div>
-</section>
+</div>
 
 
            </div>

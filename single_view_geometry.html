@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Single view geometry &mdash; Ivy Vision 1.0 documentation</title>
@@ -82,7 +81,7 @@
               
             
             
-              <p><span class="caption-text">Modules</span></p>
+              <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit.html">Implicit</a></li>
@@ -127,7 +126,7 @@
 <li class="toctree-l1"><a class="reference internal" href="two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p><span class="caption-text">Docs</span></p>
+<p class="caption"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mech"">Ivy Mech</a></li>
@@ -199,12 +198,134 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="module-ivy_vision.single_view_geometry">
+  <div class="section" id="module-ivy_vision.single_view_geometry">
 <span id="single-view-geometry"></span><h1>Single view geometry<a class="headerlink" href="#module-ivy_vision.single_view_geometry" title="Permalink to this headline">¶</a></h1>
 <p>Collection of Single-View-Geometry Functions</p>
 <dl class="py function">
+<dt id="ivy_vision.single_view_geometry.angular_pixel_to_sphere_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">angular_pixel_to_sphere_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">angular_pixel_coords</span></em>, <em class="sig-param"><span class="n">pixels_per_degree</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#angular_pixel_to_sphere_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.angular_pixel_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert angular pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{A}_p\in\mathbb{R}^{h×w×3}\)</span> to camera-centric ego-sphere
+polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span>.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>angular_pixel_coords</strong> (<em>array</em>) – Angular pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>pixels_per_degree</strong> (<em>float</em>) – Number of pixels per angular degree</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.bilinearly_interpolate_image">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">bilinearly_interpolate_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">sampling_pixel_coords</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#bilinearly_interpolate_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.bilinearly_interpolate_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bilinearly interpolate image <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{h×w×d}\)</span> at sampling pixel locations
+<span class="math notranslate nohighlight">\(\mathbf{S}\in\mathbb{R}^{h×w×2}\)</span>, to return interpolated image <span class="math notranslate nohighlight">\(\mathbf{X}_I\in\mathbb{R}^{h×w×d}\)</span>.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Bilinear_interpolation">[reference]</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>array</em>) – Image to be interpolated <em>[batch_shape,h,w,d]</em></p></li>
+<li><p><strong>sampling_pixel_coords</strong> (<em>array</em>) – Pixel co-ordinates to sample the image at <em>[batch_shape,h,w,2]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Interpolated image <em>[batch_shape,h,w,d]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.calib_and_ext_to_full_mat">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">calib_and_ext_to_full_mat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">calib_mat</span></em>, <em class="sig-param"><span class="n">ext_mat</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#calib_and_ext_to_full_mat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.calib_and_ext_to_full_mat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute full projection matrix <span class="math notranslate nohighlight">\(\mathbf{P}\in\mathbb{R}^{3×4}\)</span> from calibration
+<span class="math notranslate nohighlight">\(\mathbf{K}\in\mathbb{R}^{3×3}\)</span> and extrinsic matrix <span class="math notranslate nohighlight">\(\mathbf{E}\in\mathbb{R}^{3×4}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>calib_mat</strong> (<em>array</em>) – Calibration matrix <em>[batch_shape,3,3]</em></p></li>
+<li><p><strong>ext_mat</strong> (<em>array</em>) – Extrinsic matrix <em>[batch_shape,3,4]</em></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Full projection matrix <em>[batch_shape,3,4]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.cam_to_ds_pixel_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">cam_to_ds_pixel_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords_wrt_cam</span></em>, <em class="sig-param"><span class="n">calib_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#cam_to_ds_pixel_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.cam_to_ds_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span> from camera-centric
+homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
+page 155, equation 6.3</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coords_wrt_cam</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>calib_mat</strong> (<em>array</em>) – Calibration matrix <em>[batch_shape,3,3]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.cam_to_sphere_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">cam_to_sphere_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cam_coords</span></em>, <em class="sig-param"><span class="n">forward_facing_z</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#cam_to_sphere_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.cam_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert camera-centric homogeneous cartesian co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span> to
+camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span>.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cam_coords</strong> (<em>array</em>) – Camera-centric homogeneous cartesian co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>forward_facing_z</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use reference frame so z is forward facing. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.cam_to_world_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">cam_to_world_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords_wrt_cam</span></em>, <em class="sig-param"><span class="n">inv_ext_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#cam_to_world_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.cam_to_world_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get world-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{h×w×4}\)</span> from camera-centric
+homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=174">[reference]</a>
+matrix inverse of page 156, equation 6.6</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coords_wrt_cam</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>inv_ext_mat</strong> (<em>array</em>) – Inverse extrinsic matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>World-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="ivy_vision.single_view_geometry.create_uniform_pixel_coords_image">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">create_uniform_pixel_coords_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#create_uniform_pixel_coords_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.create_uniform_pixel_coords_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">create_uniform_pixel_coords_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#create_uniform_pixel_coords_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.create_uniform_pixel_coords_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create image of homogeneous integer <span class="math notranslate nohighlight">\(xy\)</span> pixel co-ordinates <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{Z}^{h×w×3}\)</span>, stored
 as floating point values. The origin is at the top-left corner of the image, with <span class="math notranslate nohighlight">\(+x\)</span> rightwards, and
 <span class="math notranslate nohighlight">\(+y\)</span> downwards. The final homogeneous dimension are all ones. In subsequent use of this image, the depth of
@@ -229,91 +350,8 @@ deduction from top of page 154, section 6.1, equation 6.1</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ivy_vision.single_view_geometry.persp_angles_to_focal_lengths">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">persp_angles_to_focal_lengths</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">persp_angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#persp_angles_to_focal_lengths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.persp_angles_to_focal_lengths" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute focal lengths <span class="math notranslate nohighlight">\(f_x, f_y\)</span> from perspective angles <span class="math notranslate nohighlight">\(θ_x, θ_y\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=172">[reference]</a>
-deduction from page 154, section 6.1, figure 6.1</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>persp_angles</strong> (<em>array</em>) – Perspective angles <em>[batch_shape,2]</em></p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Focal lengths <em>[batch_shape,2]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.focal_lengths_to_persp_angles">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">focal_lengths_to_persp_angles</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">focal_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#focal_lengths_to_persp_angles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.focal_lengths_to_persp_angles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute perspective angles <span class="math notranslate nohighlight">\(θ_x, θ_y\)</span> from focal lengths <span class="math notranslate nohighlight">\(f_x, f_y\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=172">[reference]</a>
-deduction from page 154, section 6.1, figure 6.1</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>focal_lengths</strong> (<em>array</em>) – <em>[batch_shape,2]</em></p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Perspective angles <em>[batch_shape,2]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.focal_lengths_and_pp_offsets_to_calib_mat">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">focal_lengths_and_pp_offsets_to_calib_mat</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">focal_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pp_offsets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#focal_lengths_and_pp_offsets_to_calib_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.focal_lengths_and_pp_offsets_to_calib_mat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute calibration matrix <span class="math notranslate nohighlight">\(\mathbf{K}\in\mathbb{R}^{3×3}\)</span> from focal lengths <span class="math notranslate nohighlight">\(f_x, f_y\)</span> and
-principal-point offsets <span class="math notranslate nohighlight">\(p_x, p_y\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
-page 155, section 6.1, equation 6.4</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>focal_lengths</strong> (<em>array</em>) – Focal lengths <em>[batch_shape,2]</em></p></li>
-<li><p><strong>pp_offsets</strong> (<em>array</em>) – Principal-point offsets <em>[batch_shape,2]</em></p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Calibration matrix <em>[batch_shape,3,3]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.rot_mat_and_cam_center_to_ext_mat">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">rot_mat_and_cam_center_to_ext_mat</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera_center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#rot_mat_and_cam_center_to_ext_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.rot_mat_and_cam_center_to_ext_mat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get extrinsic matrix <span class="math notranslate nohighlight">\(\mathbf{E}\in\mathbb{R}^{3×4}\)</span> from rotation matrix
-<span class="math notranslate nohighlight">\(\mathbf{R}\in\mathbb{R}^{3×3}\)</span> and camera centers <span class="math notranslate nohighlight">\(\overset{\sim}{\mathbf{C}}\in\mathbb{R}^{3×1}\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=175">[reference]</a>
-page 157, section 6.1, equation 6.11</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>rotation_mat</strong> (<em>array</em>) – Rotation matrix <em>[batch_shape,3,3]</em></p></li>
-<li><p><strong>camera_center</strong> (<em>array</em>) – Camera center <em>[batch_shape,3,1]</em></p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Extrinsic matrix <em>[batch_shape,3,4]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt id="ivy_vision.single_view_geometry.depth_to_ds_pixel_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">depth_to_ds_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_pixel_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#depth_to_ds_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.depth_to_ds_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">depth_to_ds_pixel_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#depth_to_ds_pixel_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.depth_to_ds_pixel_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span> from depth image
 <span class="math notranslate nohighlight">\(\mathbf{X}_d\in\mathbb{R}^{h×w×1}\)</span>.</p>
 <dl class="field-list simple">
@@ -333,7 +371,7 @@ page 157, section 6.1, equation 6.11</p>
 
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.depth_to_radial_depth">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">depth_to_radial_depth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_calib_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniform_pixel_coords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#depth_to_radial_depth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.depth_to_radial_depth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">depth_to_radial_depth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">inv_calib_mat</span></em>, <em class="sig-param"><span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#depth_to_radial_depth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.depth_to_radial_depth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get radial depth image <span class="math notranslate nohighlight">\(\mathbf{X}_{rd}\in\mathbb{R}^{h×w×1}\)</span> from depth image
 <span class="math notranslate nohighlight">\(\mathbf{X}_d\in\mathbb{R}^{h×w×1}\)</span>.</p>
 <dl class="field-list simple">
@@ -353,144 +391,8 @@ page 157, section 6.1, equation 6.11</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ivy_vision.single_view_geometry.cam_to_ds_pixel_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">cam_to_ds_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_wrt_cam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calib_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#cam_to_ds_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.cam_to_ds_pixel_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span> from camera-centric
-homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
-page 155, equation 6.3</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>coords_wrt_cam</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
-<li><p><strong>calib_mat</strong> (<em>array</em>) – Calibration matrix <em>[batch_shape,3,3]</em></p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.ds_pixel_to_cam_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">ds_pixel_to_cam_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds_pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_calib_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_to_cam_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_to_cam_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get camera-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span> from
-depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
-page 155, matrix inverse of equation 6.3</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
-<li><p><strong>inv_calib_mat</strong> (<em>array</em>) – Inverse calibration matrix <em>[batch_shape,3,3]</em></p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.world_to_cam_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">world_to_cam_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_wrt_world</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#world_to_cam_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.world_to_cam_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get camera-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span> from world-centric
-homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{h×w×4}\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=174">[reference]</a>
-page 156, equation 6.6</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>coords_wrt_world</strong> (<em>array</em>) – World-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
-<li><p><strong>ext_mat</strong> (<em>array</em>) – Extrinsic matrix <em>[batch_shape,3,4]</em></p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.cam_to_world_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">cam_to_world_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_wrt_cam</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_ext_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#cam_to_world_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.cam_to_world_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get world-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{h×w×4}\)</span> from camera-centric
-homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=174">[reference]</a>
-matrix inverse of page 156, equation 6.6</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>coords_wrt_cam</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
-<li><p><strong>inv_ext_mat</strong> (<em>array</em>) – Inverse extrinsic matrix <em>[batch_shape,3,4]</em></p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>World-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.world_to_ds_pixel_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">world_to_ds_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_wrt_world</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#world_to_ds_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.world_to_ds_pixel_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span> from world-centric
-homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{h×w×4}\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
-combination of page 156, equation 6.6, and page 155, equation 6.3</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>coords_wrt_world</strong> (<em>array</em>) – World-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
-<li><p><strong>full_mat</strong> (<em>array</em>) – Full projection matrix <em>[batch_shape,3,4]</em></p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.ds_pixel_to_world_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">ds_pixel_to_world_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds_pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_full_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_to_world_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_to_world_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get world-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{h×w×4}\)</span> from depth scaled
-homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
-combination of page 155, matrix inverse of equation 6.3, and matrix inverse of page 156, equation 6.6</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Depth scaled homogeneous pixel co-ordinates image: <em>[batch_shape,h,w,3]</em></p></li>
-<li><p><strong>inv_full_mat</strong> (<em>array</em>) – Inverse full projection matrix <em>[batch_shape,3,4]</em></p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>World-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt id="ivy_vision.single_view_geometry.ds_pixel_coords_to_world_ray_vectors">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">ds_pixel_coords_to_world_ray_vectors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds_pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_full_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera_center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_coords_to_world_ray_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_coords_to_world_ray_vectors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_coords_to_world_ray_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_full_mat</span></em>, <em class="sig-param"><span class="n">camera_center</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_coords_to_world_ray_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_coords_to_world_ray_vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate world-centric ray vector image <span class="math notranslate nohighlight">\(\mathbf{RV}\in\mathbb{R}^{h×w×3}\)</span> from homogeneous pixel co-ordinate
 image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span>. Each ray vector <span class="math notranslate nohighlight">\(\mathbf{rv}_{i,j}\in\mathbb{R}^{3}\)</span> is
 represented as a unit vector from the camera center <span class="math notranslate nohighlight">\(\overset{\sim}{\mathbf{C}}\in\mathbb{R}^{3×1}\)</span>, in the
@@ -514,8 +416,255 @@ magnitude dictates the position of the world co-ordinate along the world ray.</p
 </dd></dl>
 
 <dl class="py function">
+<dt id="ivy_vision.single_view_geometry.ds_pixel_to_cam_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_to_cam_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_calib_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_to_cam_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_to_cam_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get camera-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span> from
+depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
+page 155, matrix inverse of equation 6.3</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>inv_calib_mat</strong> (<em>array</em>) – Inverse calibration matrix <em>[batch_shape,3,3]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.ds_pixel_to_sphere_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_to_sphere_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_calib_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_to_sphere_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span> to
+camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span>.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>inv_calib_mat</strong> (<em>array</em>) – Inverse calibration matrix <em>[batch_shape,3,3]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.ds_pixel_to_world_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_to_world_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_full_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_to_world_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_to_world_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get world-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{h×w×4}\)</span> from depth scaled
+homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
+combination of page 155, matrix inverse of equation 6.3, and matrix inverse of page 156, equation 6.6</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Depth scaled homogeneous pixel co-ordinates image: <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>inv_full_mat</strong> (<em>array</em>) – Inverse full projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>World-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.ext_mat_and_intrinsics_to_cam_geometry_object">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ext_mat_and_intrinsics_to_cam_geometry_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ext_mat</span></em>, <em class="sig-param"><span class="n">intrinsics</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ext_mat_and_intrinsics_to_cam_geometry_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ext_mat_and_intrinsics_to_cam_geometry_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create camera geometry object from extrinsic matrix <span class="math notranslate nohighlight">\(\mathbf{E}\in\mathbb{R}^{3×4}\)</span>, and camera intrinsics
+object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ext_mat</strong> (<em>array</em>) – Extrinsic matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>intrinsics</strong> (<em>camera_intrinsics</em>) – camera intrinsics object</p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Camera geometry object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.focal_lengths_and_pp_offsets_to_calib_mat">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">focal_lengths_and_pp_offsets_to_calib_mat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">focal_lengths</span></em>, <em class="sig-param"><span class="n">pp_offsets</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#focal_lengths_and_pp_offsets_to_calib_mat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.focal_lengths_and_pp_offsets_to_calib_mat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute calibration matrix <span class="math notranslate nohighlight">\(\mathbf{K}\in\mathbb{R}^{3×3}\)</span> from focal lengths <span class="math notranslate nohighlight">\(f_x, f_y\)</span> and
+principal-point offsets <span class="math notranslate nohighlight">\(p_x, p_y\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
+page 155, section 6.1, equation 6.4</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>focal_lengths</strong> (<em>array</em>) – Focal lengths <em>[batch_shape,2]</em></p></li>
+<li><p><strong>pp_offsets</strong> (<em>array</em>) – Principal-point offsets <em>[batch_shape,2]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Calibration matrix <em>[batch_shape,3,3]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.focal_lengths_and_pp_offsets_to_intrinsics_object">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">focal_lengths_and_pp_offsets_to_intrinsics_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">focal_lengths</span></em>, <em class="sig-param"><span class="n">pp_offsets</span></em>, <em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#focal_lengths_and_pp_offsets_to_intrinsics_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.focal_lengths_and_pp_offsets_to_intrinsics_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create camera intrinsics object from focal lengths <span class="math notranslate nohighlight">\(f_x, f_y\)</span>, principal-point offsets <span class="math notranslate nohighlight">\(p_x, p_y\)</span>, and
+image dimensions [height, width].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>focal_lengths</strong> (<em>array</em>) – Focal lengths <em>[batch_shape,2]</em></p></li>
+<li><p><strong>pp_offsets</strong> (<em>array</em>) – Principal-point offsets <em>[batch_shape,2]</em></p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Camera intrinsics object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.focal_lengths_to_persp_angles">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">focal_lengths_to_persp_angles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">focal_lengths</span></em>, <em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#focal_lengths_to_persp_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.focal_lengths_to_persp_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute perspective angles <span class="math notranslate nohighlight">\(θ_x, θ_y\)</span> from focal lengths <span class="math notranslate nohighlight">\(f_x, f_y\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=172">[reference]</a>
+deduction from page 154, section 6.1, figure 6.1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>focal_lengths</strong> (<em>array</em>) – <em>[batch_shape,2]</em></p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Perspective angles <em>[batch_shape,2]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.inv_ext_mat_and_intrinsics_to_cam_geometry_object">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">inv_ext_mat_and_intrinsics_to_cam_geometry_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inv_ext_mat</span></em>, <em class="sig-param"><span class="n">intrinsics</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#inv_ext_mat_and_intrinsics_to_cam_geometry_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.inv_ext_mat_and_intrinsics_to_cam_geometry_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create camera geometry object from inverse extrinsic matrix <span class="math notranslate nohighlight">\(\mathbf{E}^{-1}\in\mathbb{R}^{3×4}\)</span>, and camera
+intrinsics object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inv_ext_mat</strong> (<em>array</em>) – Inverse extrinsic matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>intrinsics</strong> (<em>camera_intrinsics</em>) – camera intrinsics object</p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Camera geometry object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.inv_ext_mat_to_camera_center">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">inv_ext_mat_to_camera_center</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inv_ext_mat</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#inv_ext_mat_to_camera_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.inv_ext_mat_to_camera_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute camera center <span class="math notranslate nohighlight">\(\overset{\sim}{\mathbf{C}}\in\mathbb{R}^{3×1}\)</span> from camera extrinsic matrix
+<span class="math notranslate nohighlight">\(\mathbf{E}\in\mathbb{R}^{3×4}\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=174">[reference]</a>
+matrix inverse of page 156, equation 6.6</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>inv_ext_mat</strong> (<em>array</em>) – Inverse extrinsic matrix <em>[batch_shape,3,4]</em></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Camera center <em>[batch_shape,3,1]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.persp_angles_and_pp_offsets_to_intrinsics_object">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">persp_angles_and_pp_offsets_to_intrinsics_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">persp_angles</span></em>, <em class="sig-param"><span class="n">pp_offsets</span></em>, <em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#persp_angles_and_pp_offsets_to_intrinsics_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.persp_angles_and_pp_offsets_to_intrinsics_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create camera intrinsics object from perspective angles <span class="math notranslate nohighlight">\(θ_x, θ_y\)</span>, principal-point offsets <span class="math notranslate nohighlight">\(p_x, p_y\)</span>
+and image dimensions [height, width].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>persp_angles</strong> (<em>array</em>) – Perspective angles <em>[batch_shape,2]</em></p></li>
+<li><p><strong>pp_offsets</strong> (<em>array</em>) – Principal-point offsets <em>[batch_shape,2]</em></p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions.</p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Camera intrinsics object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.persp_angles_to_focal_lengths">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">persp_angles_to_focal_lengths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">persp_angles</span></em>, <em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#persp_angles_to_focal_lengths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.persp_angles_to_focal_lengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute focal lengths <span class="math notranslate nohighlight">\(f_x, f_y\)</span> from perspective angles <span class="math notranslate nohighlight">\(θ_x, θ_y\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=172">[reference]</a>
+deduction from page 154, section 6.1, figure 6.1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>persp_angles</strong> (<em>array</em>) – Perspective angles <em>[batch_shape,2]</em></p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Focal lengths <em>[batch_shape,2]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ivy_vision.single_view_geometry.rot_mat_and_cam_center_to_ext_mat">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">rot_mat_and_cam_center_to_ext_mat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rotation_mat</span></em>, <em class="sig-param"><span class="n">camera_center</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#rot_mat_and_cam_center_to_ext_mat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.rot_mat_and_cam_center_to_ext_mat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get extrinsic matrix <span class="math notranslate nohighlight">\(\mathbf{E}\in\mathbb{R}^{3×4}\)</span> from rotation matrix
+<span class="math notranslate nohighlight">\(\mathbf{R}\in\mathbb{R}^{3×3}\)</span> and camera centers <span class="math notranslate nohighlight">\(\overset{\sim}{\mathbf{C}}\in\mathbb{R}^{3×1}\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=175">[reference]</a>
+page 157, section 6.1, equation 6.11</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rotation_mat</strong> (<em>array</em>) – Rotation matrix <em>[batch_shape,3,3]</em></p></li>
+<li><p><strong>camera_center</strong> (<em>array</em>) – Camera center <em>[batch_shape,3,1]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Extrinsic matrix <em>[batch_shape,3,4]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="ivy_vision.single_view_geometry.sphere_coords_to_world_ray_vectors">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">sphere_coords_to_world_ray_vectors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sphere_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_rotation_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#sphere_coords_to_world_ray_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_coords_to_world_ray_vectors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sphere_coords_to_world_ray_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sphere_coords</span></em>, <em class="sig-param"><span class="n">inv_rotation_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#sphere_coords_to_world_ray_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_coords_to_world_ray_vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate world-centric ray vector image <span class="math notranslate nohighlight">\(\mathbf{RV}\in\mathbb{R}^{h×w×3}\)</span> from camera-centric ego-sphere
 polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span>. Each ray vector
 <span class="math notranslate nohighlight">\(\mathbf{rv}_{i,j}\in\mathbb{R}^{3}\)</span> is represented as a unit vector from the camera center
@@ -539,123 +688,27 @@ magnitude dictates the position of the world co-ordinate along the world ray.</p
 </dd></dl>
 
 <dl class="py function">
-<dt id="ivy_vision.single_view_geometry.bilinearly_interpolate_image">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">bilinearly_interpolate_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#bilinearly_interpolate_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.bilinearly_interpolate_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bilinearly interpolate image <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{R}^{h×w×d}\)</span> at sampling pixel locations
-<span class="math notranslate nohighlight">\(\mathbf{S}\in\mathbb{R}^{h×w×2}\)</span>, to return interpolated image <span class="math notranslate nohighlight">\(\mathbf{X}_I\in\mathbb{R}^{h×w×d}\)</span>.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Bilinear_interpolation">[reference]</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>image</strong> (<em>array</em>) – Image to be interpolated <em>[batch_shape,h,w,d]</em></p></li>
-<li><p><strong>sampling_pixel_coords</strong> (<em>array</em>) – Pixel co-ordinates to sample the image at <em>[batch_shape,h,w,2]</em></p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Interpolated image <em>[batch_shape,h,w,d]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.inv_ext_mat_to_camera_center">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">inv_ext_mat_to_camera_center</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inv_ext_mat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#inv_ext_mat_to_camera_center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.inv_ext_mat_to_camera_center" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute camera center <span class="math notranslate nohighlight">\(\overset{\sim}{\mathbf{C}}\in\mathbb{R}^{3×1}\)</span> from camera extrinsic matrix
-<span class="math notranslate nohighlight">\(\mathbf{E}\in\mathbb{R}^{3×4}\)</span>.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=174">[reference]</a>
-matrix inverse of page 156, equation 6.6</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>inv_ext_mat</strong> (<em>array</em>) – Inverse extrinsic matrix <em>[batch_shape,3,4]</em></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera center <em>[batch_shape,3,1]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.calib_and_ext_to_full_mat">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">calib_and_ext_to_full_mat</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calib_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext_mat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#calib_and_ext_to_full_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.calib_and_ext_to_full_mat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute full projection matrix <span class="math notranslate nohighlight">\(\mathbf{P}\in\mathbb{R}^{3×4}\)</span> from calibration
-<span class="math notranslate nohighlight">\(\mathbf{K}\in\mathbb{R}^{3×3}\)</span> and extrinsic matrix <span class="math notranslate nohighlight">\(\mathbf{E}\in\mathbb{R}^{3×4}\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>calib_mat</strong> (<em>array</em>) – Calibration matrix <em>[batch_shape,3,3]</em></p></li>
-<li><p><strong>ext_mat</strong> (<em>array</em>) – Extrinsic matrix <em>[batch_shape,3,4]</em></p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Full projection matrix <em>[batch_shape,3,4]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.cam_to_sphere_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">cam_to_sphere_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cam_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forward_facing_z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#cam_to_sphere_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.cam_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert camera-centric homogeneous cartesian co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span> to
-camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span>.</p>
+<dt id="ivy_vision.single_view_geometry.sphere_to_angular_pixel_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sphere_to_angular_pixel_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sphere_coords</span></em>, <em class="sig-param"><span class="n">pixels_per_degree</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#sphere_to_angular_pixel_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_to_angular_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span> to angular
+pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{A}_p\in\mathbb{R}^{h×w×3}\)</span>.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cam_coords</strong> (<em>array</em>) – Camera-centric homogeneous cartesian co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
-<li><p><strong>forward_facing_z</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use reference frame so z is forward facing. Default is False.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.ds_pixel_to_sphere_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">ds_pixel_to_sphere_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds_pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inv_calib_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_to_sphere_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span> to
-camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span>.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
-<li><p><strong>inv_calib_mat</strong> (<em>array</em>) – Inverse calibration matrix <em>[batch_shape,3,3]</em></p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.angular_pixel_to_sphere_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">angular_pixel_to_sphere_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angular_pixel_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixels_per_degree</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#angular_pixel_to_sphere_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.angular_pixel_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert angular pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{A}_p\in\mathbb{R}^{h×w×3}\)</span> to camera-centric ego-sphere
-polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span>.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>angular_pixel_coords</strong> (<em>array</em>) – Angular pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>sphere_coords</strong> (<em>array</em>) – Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
 <li><p><strong>pixels_per_degree</strong> (<em>float</em>) – Number of pixels per angular degree</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p>
+<dd class="field-even"><p>Angular pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.sphere_to_cam_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">sphere_to_cam_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sphere_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forward_facing_z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#sphere_to_cam_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_to_cam_coords" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sphere_to_cam_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sphere_coords</span></em>, <em class="sig-param"><span class="n">forward_facing_z</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#sphere_to_cam_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_to_cam_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span> to
 camera-centric homogeneous cartesian co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span>.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
@@ -677,7 +730,7 @@ camera-centric homogeneous cartesian co-ordinates image <span class="math notran
 
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.sphere_to_ds_pixel_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">sphere_to_ds_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sphere_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calib_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#sphere_to_ds_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_to_ds_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sphere_to_ds_pixel_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sphere_coords</span></em>, <em class="sig-param"><span class="n">calib_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#sphere_to_ds_pixel_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_to_ds_pixel_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span> to depth scaled
 homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span>.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
@@ -697,106 +750,52 @@ homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">
 </dd></dl>
 
 <dl class="py function">
-<dt id="ivy_vision.single_view_geometry.sphere_to_angular_pixel_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">sphere_to_angular_pixel_coords</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sphere_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixels_per_degree</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#sphere_to_angular_pixel_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_to_angular_pixel_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span> to angular
-pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{A}_p\in\mathbb{R}^{h×w×3}\)</span>.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
+<dt id="ivy_vision.single_view_geometry.world_to_cam_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">world_to_cam_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords_wrt_world</span></em>, <em class="sig-param"><span class="n">ext_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#world_to_cam_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.world_to_cam_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get camera-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span> from world-centric
+homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{h×w×4}\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=174">[reference]</a>
+page 156, equation 6.6</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sphere_coords</strong> (<em>array</em>) – Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
-<li><p><strong>pixels_per_degree</strong> (<em>float</em>) – Number of pixels per angular degree</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Angular pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.persp_angles_and_pp_offsets_to_intrinsics_object">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">persp_angles_and_pp_offsets_to_intrinsics_object</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">persp_angles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pp_offsets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#persp_angles_and_pp_offsets_to_intrinsics_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.persp_angles_and_pp_offsets_to_intrinsics_object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create camera intrinsics object from perspective angles <span class="math notranslate nohighlight">\(θ_x, θ_y\)</span>, principal-point offsets <span class="math notranslate nohighlight">\(p_x, p_y\)</span>
-and image dimensions [height, width].</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>persp_angles</strong> (<em>array</em>) – Perspective angles <em>[batch_shape,2]</em></p></li>
-<li><p><strong>pp_offsets</strong> (<em>array</em>) – Principal-point offsets <em>[batch_shape,2]</em></p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions.</p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera intrinsics object.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.focal_lengths_and_pp_offsets_to_intrinsics_object">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">focal_lengths_and_pp_offsets_to_intrinsics_object</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">focal_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pp_offsets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#focal_lengths_and_pp_offsets_to_intrinsics_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.focal_lengths_and_pp_offsets_to_intrinsics_object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create camera intrinsics object from focal lengths <span class="math notranslate nohighlight">\(f_x, f_y\)</span>, principal-point offsets <span class="math notranslate nohighlight">\(p_x, p_y\)</span>, and
-image dimensions [height, width].</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>focal_lengths</strong> (<em>array</em>) – Focal lengths <em>[batch_shape,2]</em></p></li>
-<li><p><strong>pp_offsets</strong> (<em>array</em>) – Principal-point offsets <em>[batch_shape,2]</em></p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera intrinsics object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.single_view_geometry.ext_mat_and_intrinsics_to_cam_geometry_object">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">ext_mat_and_intrinsics_to_cam_geometry_object</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intrinsics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ext_mat_and_intrinsics_to_cam_geometry_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ext_mat_and_intrinsics_to_cam_geometry_object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create camera geometry object from extrinsic matrix <span class="math notranslate nohighlight">\(\mathbf{E}\in\mathbb{R}^{3×4}\)</span>, and camera intrinsics
-object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
+<li><p><strong>coords_wrt_world</strong> (<em>array</em>) – World-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
 <li><p><strong>ext_mat</strong> (<em>array</em>) – Extrinsic matrix <em>[batch_shape,3,4]</em></p></li>
-<li><p><strong>intrinsics</strong> (<em>camera_intrinsics</em>) – camera intrinsics object</p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
 <li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera geometry object</p>
+<dd class="field-even"><p>Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ivy_vision.single_view_geometry.inv_ext_mat_and_intrinsics_to_cam_geometry_object">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname"><span class="pre">inv_ext_mat_and_intrinsics_to_cam_geometry_object</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inv_ext_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intrinsics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dev_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#inv_ext_mat_and_intrinsics_to_cam_geometry_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.inv_ext_mat_and_intrinsics_to_cam_geometry_object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create camera geometry object from inverse extrinsic matrix <span class="math notranslate nohighlight">\(\mathbf{E}^{-1}\in\mathbb{R}^{3×4}\)</span>, and camera
-intrinsics object.</p>
+<dt id="ivy_vision.single_view_geometry.world_to_ds_pixel_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">world_to_ds_pixel_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords_wrt_world</span></em>, <em class="sig-param"><span class="n">full_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#world_to_ds_pixel_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.world_to_ds_pixel_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span> from world-centric
+homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{h×w×4}\)</span>.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
+combination of page 156, equation 6.6, and page 155, equation 6.3</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>inv_ext_mat</strong> (<em>array</em>) – Inverse extrinsic matrix <em>[batch_shape,3,4]</em></p></li>
-<li><p><strong>intrinsics</strong> (<em>camera_intrinsics</em>) – camera intrinsics object</p></li>
+<li><p><strong>coords_wrt_world</strong> (<em>array</em>) – World-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>full_mat</strong> (<em>array</em>) – Full projection matrix <em>[batch_shape,3,4]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera geometry object</p>
+<dd class="field-even"><p>Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <div class="toctree-wrapper compound">
-<p><span class="caption-text">Single view geometry</span></p>
+<p class="caption"><span class="caption-text">Single view geometry</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry/create_uniform_pixel_coords_image.html">create_uniform_pixel_coords_image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry/persp_angles_to_focal_lengths.html">persp_angles_to_focal_lengths</a></li>
@@ -828,7 +827,7 @@ intrinsics object.</p>
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry/inv_ext_mat_and_intrinsics_to_cam_geometry_object.html">inv_ext_mat_and_intrinsics_to_cam_geometry_object</a></li>
 </ul>
 </div>
-</section>
+</div>
 
 
            </div>
