@@ -38,6 +38,7 @@ Single view geometry
    single_view_geometry/sphere_to_angular_pixel_coords.rst
    single_view_geometry/persp_angles_and_pp_offsets_to_intrinsics_object.rst
    single_view_geometry/focal_lengths_and_pp_offsets_to_intrinsics_object.rst
+   single_view_geometry/calib_mat_to_intrinsics_object.rst
    single_view_geometry/ext_mat_and_intrinsics_to_cam_geometry_object.rst
    single_view_geometry/inv_ext_mat_and_intrinsics_to_cam_geometry_object.rst
 

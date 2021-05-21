@@ -1109,6 +1109,43 @@
     <span class="k">return</span> <span class="n">intrinsics</span></div>
 
 
+<div class="viewcode-block" id="calib_mat_to_intrinsics_object"><a class="viewcode-back" href="../../single_view_geometry/calib_mat_to_intrinsics_object.html#ivy_vision.single_view_geometry.calib_mat_to_intrinsics_object">[docs]</a><span class="k">def</span> <span class="nf">calib_mat_to_intrinsics_object</span><span class="p">(</span><span class="n">calib_mat</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create camera intrinsics object from calibration matrix.</span>
+
+<span class="sd">    :param calib_mat: Calibration matrices *[batch_shape,3,3]*</span>
+<span class="sd">    :type calib_mat: array</span>
+<span class="sd">    :param image_dims: Image dimensions. Inferred from inputs in None.</span>
+<span class="sd">    :type image_dims: sequence of ints</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :return: Camera intrinsics object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">calib_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="c1"># shapes as list</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="c1"># BS x 2</span>
+    <span class="n">focal_lengths</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">calib_mat</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">],</span> <span class="n">calib_mat</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># BS x 2</span>
+    <span class="n">persp_angles</span> <span class="o">=</span> <span class="n">focal_lengths_to_persp_angles</span><span class="p">(</span><span class="n">focal_lengths</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="c1"># BS x 2</span>
+    <span class="n">pp_offsets</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">calib_mat</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">calib_mat</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># BS x 3 x 3</span>
+    <span class="n">inv_calib_mat</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">calib_mat</span><span class="p">)</span>
+
+    <span class="c1"># intrinsics object</span>
+    <span class="n">intrinsics</span> <span class="o">=</span> <span class="n">_Intrinsics</span><span class="p">(</span><span class="n">focal_lengths</span><span class="p">,</span> <span class="n">persp_angles</span><span class="p">,</span> <span class="n">pp_offsets</span><span class="p">,</span> <span class="n">calib_mat</span><span class="p">,</span> <span class="n">inv_calib_mat</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">intrinsics</span></div>
+
+
 <div class="viewcode-block" id="ext_mat_and_intrinsics_to_cam_geometry_object"><a class="viewcode-back" href="../../single_view_geometry/ext_mat_and_intrinsics_to_cam_geometry_object.html#ivy_vision.single_view_geometry.ext_mat_and_intrinsics_to_cam_geometry_object">[docs]</a><span class="k">def</span> <span class="nf">ext_mat_and_intrinsics_to_cam_geometry_object</span><span class="p">(</span><span class="n">ext_mat</span><span class="p">,</span> <span class="n">intrinsics</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dev_str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create camera geometry object from extrinsic matrix :math:`\mathbf{E}\in\mathbb{R}^{3×4}`, and camera intrinsics</span>
