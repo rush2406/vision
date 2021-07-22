@@ -321,7 +321,7 @@
 
     <span class="c1"># BS x 1 x 3</span>
     <span class="n">rays_d</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">rays_d</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">rays_o</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">rays_o</span><span class="p">,</span> <span class="n">rays_d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">rays_o</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">rays_o</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">rays_d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
     <span class="c1"># BS x SPR x 3</span>
     <span class="n">pts</span> <span class="o">=</span> <span class="n">rays_o</span> <span class="o">+</span> <span class="n">rays_d</span> <span class="o">*</span> <span class="n">z_vals</span>
