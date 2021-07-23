@@ -415,9 +415,9 @@ deduction from top of page 154, section 6.1, equation 6.1</p>
 
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.ds_pixel_coords_to_world_ray_vectors">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_coords_to_world_ray_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_full_mat</span></em>, <em class="sig-param"><span class="n">camera_center</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_coords_to_world_ray_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_coords_to_world_ray_vectors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate world-centric ray vector image <span class="math notranslate nohighlight">\(\mathbf{RV}\in\mathbb{R}^{h×w×3}\)</span> from homogeneous pixel co-ordinate
-image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span>. Each ray vector <span class="math notranslate nohighlight">\(\mathbf{rv}_{i,j}\in\mathbb{R}^{3}\)</span> is
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_coords_to_world_ray_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_full_mat</span></em>, <em class="sig-param"><span class="n">camera_center</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_coords_to_world_ray_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_coords_to_world_ray_vectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate world-centric ray vector image <span class="math notranslate nohighlight">\(\mathbf{RV}\in\mathbb{R}^{is×3}\)</span> from homogeneous pixel co-ordinate
+image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{is×3}\)</span>. Each ray vector <span class="math notranslate nohighlight">\(\mathbf{rv}_{i,j}\in\mathbb{R}^{3}\)</span> is
 represented as a unit vector from the camera center <span class="math notranslate nohighlight">\(\overset{\sim}{\mathbf{C}}\in\mathbb{R}^{3×1}\)</span>, in the
 world frame. Co-ordinates <span class="math notranslate nohighlight">\(\mathbf{x}_{i,j}\in\mathbb{R}^{3}\)</span> along the world ray can then be parameterized as
 <span class="math notranslate nohighlight">\(\mathbf{x}_{i,j}=\overset{\sim}{\mathbf{C}} + λ\mathbf{rv}_{i,j}\)</span>, where <span class="math notranslate nohighlight">\(λ\)</span> is a scalar who’s
@@ -425,15 +425,15 @@ magnitude dictates the position of the world co-ordinate along the world ray.</p
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Homogeneous pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Homogeneous pixel co-ordinates image <em>[batch_shape,image_shape,3]</em></p></li>
 <li><p><strong>inv_full_mat</strong> (<em>array</em>) – Inverse full projection matrix <em>[batch_shape,3,4]</em></p></li>
 <li><p><strong>camera_center</strong> (<em>array</em><em>, </em><em>optional</em>) – Camera centers, inferred from inv_full_mat if None <em>[batch_shape,3,1]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>image_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image shape. Inferred from inputs in None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>World ray vectors <em>[batch_shape,h,w,3]</em></p>
+<dd class="field-even"><p>World ray vectors <em>[batch_shape,image_shape,3]</em></p>
 </dd>
 </dl>
 </dd></dl>
