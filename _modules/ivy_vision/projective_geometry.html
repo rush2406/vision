@@ -171,9 +171,11 @@
 
 <span class="c1"># global</span>
 <span class="kn">import</span> <span class="nn">ivy</span> <span class="k">as</span> <span class="nn">_ivy</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">mul</span> <span class="k">as</span> <span class="n">_mul</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span> <span class="k">as</span> <span class="n">_reduce</span>
 
 
-<div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../projective_geometry/transform.html#ivy_vision.projective_geometry.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../projective_geometry/transform.html#ivy_vision.projective_geometry.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Transform image of :math:`n`-dimensional co-ordinates :math:`\mathbf{x}\in\mathbb{R}^{h×w×n}` by</span>
 <span class="sd">    transformation matrix :math:`\mathbf{f}\in\mathbb{R}^{m×n}`, to produce image of transformed co-ordinates</span>
@@ -186,39 +188,37 @@
 <span class="sd">    :type trans: array</span>
 <span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
 <span class="sd">    :type batch_shape: sequence of ints, optional</span>
-<span class="sd">    :param image_dims: Image dimensions. Inferred from inputs if None.</span>
-<span class="sd">    :type image_dims: sequence of ints</span>
+<span class="sd">    :param image_shape: Image shape. Inferred from inputs if None.</span>
+<span class="sd">    :type image_shape: sequence of ints</span>
 <span class="sd">    :return: Transformed co-ordinate image *[batch_shape,height,width,m]*</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">num_batch_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">image_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">image_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">image_shape</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">num_batch_dims</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">image_shape_flat</span> <span class="o">=</span> <span class="n">_reduce</span><span class="p">(</span><span class="n">_mul</span><span class="p">,</span> <span class="n">image_shape</span><span class="p">)</span>
 
     <span class="c1"># shapes as list</span>
     <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
-    <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
+    <span class="n">image_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_shape</span><span class="p">)</span>
 
-    <span class="c1"># transpose idxs</span>
-    <span class="n">num_batch_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
-    <span class="n">transpose_idxs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_batch_dims</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="n">num_batch_dims</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_batch_dims</span><span class="p">]</span>
+    <span class="c1"># BS x ISF x N</span>
+    <span class="n">coords_flattened</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">image_shape_flat</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
-    <span class="c1"># BS x (HxW) x N</span>
-    <span class="n">coords_flattened</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">image_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">image_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># BS x N x ISF</span>
+    <span class="n">coords_reshaped</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">coords_flattened</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
 
-    <span class="c1"># BS x N x (HxW)</span>
-    <span class="n">coords_reshaped</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">coords_flattened</span><span class="p">,</span> <span class="n">transpose_idxs</span><span class="p">)</span>
-
-    <span class="c1"># BS x M x (HxW)</span>
+    <span class="c1"># BS x M x ISF</span>
     <span class="n">transformed_coords_vector</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">trans</span><span class="p">,</span> <span class="n">coords_reshaped</span><span class="p">)</span>
 
-    <span class="c1"># BS x (HxW) x M</span>
-    <span class="n">transformed_coords_vector_transposed</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">transformed_coords_vector</span><span class="p">,</span> <span class="n">transpose_idxs</span><span class="p">)</span>
+    <span class="c1"># BS x ISF x M</span>
+    <span class="n">transformed_coords_vector_transposed</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">transformed_coords_vector</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
 
-    <span class="c1"># BS x H x W x M</span>
-    <span class="k">return</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">transformed_coords_vector_transposed</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="n">image_dims</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
+    <span class="c1"># BS x IS x M</span>
+    <span class="k">return</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">transformed_coords_vector_transposed</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="n">image_shape</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="projection_matrix_pseudo_inverse"><a class="viewcode-back" href="../../projective_geometry/projection_matrix_pseudo_inverse.html#ivy_vision.projective_geometry.projection_matrix_pseudo_inverse">[docs]</a><span class="k">def</span> <span class="nf">projection_matrix_pseudo_inverse</span><span class="p">(</span><span class="n">proj_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>

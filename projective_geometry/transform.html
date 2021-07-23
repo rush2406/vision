@@ -180,7 +180,7 @@
 <h1>transform<a class="headerlink" href="#transform" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.projective_geometry.transform">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">trans</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/projective_geometry.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.projective_geometry.transform" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">trans</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/projective_geometry.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.projective_geometry.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform image of <span class="math notranslate nohighlight">\(n\)</span>-dimensional co-ordinates <span class="math notranslate nohighlight">\(\mathbf{x}\in\mathbb{R}^{h×w×n}\)</span> by
 transformation matrix <span class="math notranslate nohighlight">\(\mathbf{f}\in\mathbb{R}^{m×n}\)</span>, to produce image of transformed co-ordinates
 <span class="math notranslate nohighlight">\(\mathbf{x}_{trans}\in\mathbb{R}^{h×w×m}\)</span>.</p>
@@ -191,7 +191,7 @@ transformation matrix <span class="math notranslate nohighlight">\(\mathbf{f}\in
 <li><p><strong>coords</strong> (<em>array</em>) – Co-ordinate image <em>[batch_shape,height,width,n]</em></p></li>
 <li><p><strong>trans</strong> (<em>array</em>) – Transformation matrix <em>[batch_shape,m,n]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em>) – Image dimensions. Inferred from inputs if None.</p></li>
+<li><p><strong>image_shape</strong> (<em>sequence of ints</em>) – Image shape. Inferred from inputs if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
