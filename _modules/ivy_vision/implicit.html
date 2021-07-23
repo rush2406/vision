@@ -471,7 +471,7 @@
 <span class="sd">    :type inter_feat_fn: callable, optional</span>
 <span class="sd">    :param v: The container of trainable variables for the implicit model. default is to use internal variables.</span>
 <span class="sd">    :type v: ivy Container of variables</span>
-<span class="sd">    :return: The rendered feature *[batch_shape,ray_batch_shape,feat]* and depth *[batch_shape,ray_batch_shape,1]* values</span>
+<span class="sd">    :return: The rendered feature *[batch_shape,ray_batch_shape,feat]* and radial depth *[batch_shape,ray_batch_shape,1]*</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># shapes</span>
@@ -534,12 +534,12 @@
     <span class="n">feat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="p">,</span> <span class="n">feat</span><span class="p">,</span> <span class="n">render_variance</span><span class="p">),</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
 
     <span class="c1"># BS x 1</span>
-    <span class="n">depth</span> <span class="o">=</span> <span class="n">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="p">,</span> <span class="n">z_vals</span><span class="p">,</span> <span class="n">render_variance</span><span class="p">)</span>
+    <span class="n">radial_depth</span> <span class="o">=</span> <span class="n">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="p">,</span> <span class="n">z_vals</span><span class="p">,</span> <span class="n">render_variance</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">render_variance</span><span class="p">:</span>
         <span class="c1"># BS x OF, BS x OF, BS x 1, BS x 1</span>
-        <span class="k">return</span> <span class="n">feat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">feat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">depth</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">depth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">feat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">feat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">radial_depth</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">radial_depth</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="c1"># BS x OF, BS x 1</span>
-    <span class="k">return</span> <span class="n">feat</span><span class="p">,</span> <span class="n">depth</span></div>
+    <span class="k">return</span> <span class="n">feat</span><span class="p">,</span> <span class="n">radial_depth</span></div>
 </pre></div>
 
            </div>

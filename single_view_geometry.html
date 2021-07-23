@@ -98,7 +98,7 @@
 <li class="toctree-l2"><a class="reference internal" href="single_view_geometry/focal_lengths_and_pp_offsets_to_calib_mat.html">focal_lengths_and_pp_offsets_to_calib_mat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="single_view_geometry/rot_mat_and_cam_center_to_ext_mat.html">rot_mat_and_cam_center_to_ext_mat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="single_view_geometry/depth_to_ds_pixel_coords.html">depth_to_ds_pixel_coords</a></li>
-<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/depth_to_radial_depth.html">depth_to_radial_depth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_view_geometry/ds_pixel_coords_to_radial_depth.html">ds_pixel_coords_to_radial_depth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="single_view_geometry/cam_to_ds_pixel_coords.html">cam_to_ds_pixel_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="single_view_geometry/ds_pixel_to_cam_coords.html">ds_pixel_to_cam_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="single_view_geometry/world_to_cam_coords.html">world_to_cam_coords</a></li>
@@ -393,22 +393,21 @@ deduction from top of page 154, section 6.1, equation 6.1</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ivy_vision.single_view_geometry.depth_to_radial_depth">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">depth_to_radial_depth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">inv_calib_mat</span></em>, <em class="sig-param"><span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#depth_to_radial_depth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.depth_to_radial_depth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get radial depth image <span class="math notranslate nohighlight">\(\mathbf{X}_{rd}\in\mathbb{R}^{h×w×1}\)</span> from depth image
-<span class="math notranslate nohighlight">\(\mathbf{X}_d\in\mathbb{R}^{h×w×1}\)</span>.</p>
+<dt id="ivy_vision.single_view_geometry.ds_pixel_coords_to_radial_depth">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_coords_to_radial_depth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_calib_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_coords_to_radial_depth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_coords_to_radial_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get radial depth image <span class="math notranslate nohighlight">\(\mathbf{X}_{rd}\in\mathbb{R}^{img_shape×1}\)</span> from depth scaled homogeneous pixel
+co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{img_shape×3}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>depth</strong> (<em>array</em>) – Depth image <em>[batch_shape,h,w,1]</em></p></li>
+<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,image_shape,1]</em></p></li>
 <li><p><strong>inv_calib_mat</strong> (<em>array</em>) – Inverse calibration matrix <em>[batch_shape,3,3]</em></p></li>
-<li><p><strong>uniform_pixel_coords</strong> (<em>array</em><em>, </em><em>optional</em>) – Image of homogeneous pixel co-ordinates. Created if None. <em>[batch_shape,h,w,3]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>image_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image shape. Inferred from inputs in None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Radial depth image <em>[batch_shape,h,w,1]</em></p>
+<dd class="field-even"><p>Radial depth image <em>[batch_shape,image_shape,1]</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -440,23 +439,23 @@ magnitude dictates the position of the world co-ordinate along the world ray.</p
 
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.ds_pixel_to_cam_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_to_cam_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_calib_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_to_cam_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_to_cam_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get camera-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span> from
-depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{h×w×3}\)</span>.</p>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_to_cam_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_calib_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_to_cam_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_to_cam_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get camera-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{img_shape×4}\)</span> from
+depth scaled homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{img_shape×3}\)</span>.</p>
 <p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
 page 155, matrix inverse of equation 6.3</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>ds_pixel_coords</strong> (<em>array</em>) – Depth scaled homogeneous pixel co-ordinates image <em>[batch_shape,image_shap,3]</em></p></li>
 <li><p><strong>inv_calib_mat</strong> (<em>array</em>) – Inverse calibration matrix <em>[batch_shape,3,3]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>image_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
 <li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
+<dd class="field-even"><p>Camera-centric homogeneous co-ordinates image <em>[batch_shape,image_shape,4]</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -825,7 +824,7 @@ combination of page 156, equation 6.6, and page 155, equation 6.3</p>
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry/focal_lengths_and_pp_offsets_to_calib_mat.html">focal_lengths_and_pp_offsets_to_calib_mat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry/rot_mat_and_cam_center_to_ext_mat.html">rot_mat_and_cam_center_to_ext_mat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry/depth_to_ds_pixel_coords.html">depth_to_ds_pixel_coords</a></li>
-<li class="toctree-l1"><a class="reference internal" href="single_view_geometry/depth_to_radial_depth.html">depth_to_radial_depth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="single_view_geometry/ds_pixel_coords_to_radial_depth.html">ds_pixel_coords_to_radial_depth</a></li>
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry/cam_to_ds_pixel_coords.html">cam_to_ds_pixel_coords</a></li>
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry/ds_pixel_to_cam_coords.html">ds_pixel_to_cam_coords</a></li>
 <li class="toctree-l1"><a class="reference internal" href="single_view_geometry/world_to_cam_coords.html">world_to_cam_coords</a></li>
