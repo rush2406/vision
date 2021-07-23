@@ -170,6 +170,54 @@
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="c1"># local</span>
+<span class="kn">from</span> <span class="nn">ivy_vision</span> <span class="kn">import</span> <span class="n">single_view_geometry</span> <span class="k">as</span> <span class="n">_ivy_svg</span>
+
+
+<span class="n">MIN_DENOMINATOR</span> <span class="o">=</span> <span class="mf">1e-12</span>
+
+
+<div class="viewcode-block" id="create_sampled_pixel_coords_image"><a class="viewcode-back" href="../../implicit/create_sampled_pixel_coords_image.html#ivy_vision.implicit.create_sampled_pixel_coords_image">[docs]</a><span class="k">def</span> <span class="nf">create_sampled_pixel_coords_image</span><span class="p">(</span><span class="n">image_dims</span><span class="p">,</span> <span class="n">samples_per_dim</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                      <span class="n">dev_str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create image of randomly sampled homogeneous integer :math:`xy` pixel co-ordinates :math:`\mathbf{X}\in\mathbb{Z}^{h×w×3}`,</span>
+<span class="sd">    stored as floating point values. The origin is at the top-left corner of the image, with :math:`+x` rightwards, and</span>
+<span class="sd">    :math:`+y` downwards. The final homogeneous dimension are all ones. In subsequent use of this image, the depth of</span>
+<span class="sd">    each pixel can be represented using this same homogeneous representation, by simply scaling each 3-vector by the</span>
+<span class="sd">    depth value. The final dimension therefore always holds the depth value, while the former two dimensions hold depth</span>
+<span class="sd">    scaled pixel co-ordinates.\n</span>
+<span class="sd">    `[reference] &lt;localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=172&gt;`_</span>
+<span class="sd">    deduction from top of page 154, section 6.1, equation 6.1</span>
+
+<span class="sd">    :param image_dims: Image dimensions.</span>
+<span class="sd">    :type image_dims: sequence of ints.</span>
+<span class="sd">    :param samples_per_dim: The number of samples to perform per image dimension.</span>
+<span class="sd">    :type samples_per_dim: sequence of ints.</span>
+<span class="sd">    :param batch_shape: Shape of batch. Assumed no batch dimensions if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param normalized: Whether to normalize x-y pixel co-ordinates to the range 0-1. Default is False.</span>
+<span class="sd">    :type normalized: bool, optional</span>
+<span class="sd">    :param randomize: Whether to randomize the sampled co-ordiantes within their window. Default is True.</span>
+<span class="sd">    :type randomize: bool, optional</span>
+<span class="sd">    :param dev_str: device on which to create the array &#39;cuda:0&#39;, &#39;cuda:1&#39;, &#39;cpu&#39; etc.</span>
+<span class="sd">    :type dev_str: str, optional</span>
+<span class="sd">    :return: Image of homogeneous pixel co-ordinates *[batch_shape,height,width,3]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">low_res_pix_coords</span> <span class="o">=</span> <span class="n">_ivy_svg</span><span class="o">.</span><span class="n">create_uniform_pixel_coords_image</span><span class="p">(</span>
+        <span class="n">samples_per_dim</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">dev_str</span><span class="o">=</span><span class="n">dev_str</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">window_size</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">img_dim</span><span class="o">/</span><span class="n">sam_per_dim</span> <span class="k">for</span> <span class="n">img_dim</span><span class="p">,</span> <span class="n">sam_per_dim</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">image_dims</span><span class="p">,</span> <span class="n">samples_per_dim</span><span class="p">)])</span>
+    <span class="n">downsam_pix_coords</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">low_res_pix_coords</span> <span class="o">*</span> <span class="n">window_size</span> <span class="o">+</span> <span class="n">window_size</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">randomize</span><span class="p">:</span>
+        <span class="n">rand_x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">random_uniform</span><span class="p">(</span>
+            <span class="o">-</span><span class="n">window_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">window_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">downsam_pix_coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">rand_y</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">random_uniform</span><span class="p">(</span>
+            <span class="o">-</span><span class="n">window_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">window_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">downsam_pix_coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">rand_offsets</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">rand_x</span><span class="p">,</span> <span class="n">rand_y</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">randomize</span> <span class="o">+=</span> <span class="n">rand_offsets</span>
+    <span class="k">if</span> <span class="n">normalized</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">downsam_pix_coords</span> <span class="o">/</span> <span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">image_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">image_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">dtype_str</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">MIN_DENOMINATOR</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">downsam_pix_coords</span></div>
+
 
 <div class="viewcode-block" id="sinusoid_positional_encoding"><a class="viewcode-back" href="../../implicit/sinusoid_positional_encoding.html#ivy_vision.implicit.sinusoid_positional_encoding">[docs]</a><span class="k">def</span> <span class="nf">sinusoid_positional_encoding</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">embedding_length</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>

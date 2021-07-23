@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>stratified_sample &mdash; Ivy Vision 1.0 documentation</title>
+  <title>create_sampled_pixel_coords_image &mdash; Ivy Vision 1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="render_rays_via_termination_probabilities" href="render_rays_via_termination_probabilities.html" />
-    <link rel="prev" title="ray_termination_probabilities" href="ray_termination_probabilities.html" /> 
+    <link rel="next" title="sinusoid_positional_encoding" href="sinusoid_positional_encoding.html" />
+    <link rel="prev" title="Implicit" href="../implicit.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,11 +85,11 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../containers.html">Containers</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../implicit.html">Implicit</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="create_sampled_pixel_coords_image.html">create_sampled_pixel_coords_image</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">create_sampled_pixel_coords_image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sinusoid_positional_encoding.html">sinusoid_positional_encoding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sampled_volume_density_to_occupancy_probability.html">sampled_volume_density_to_occupancy_probability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ray_termination_probabilities.html">ray_termination_probabilities</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">stratified_sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stratified_sample.html">stratified_sample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="render_rays_via_termination_probabilities.html">render_rays_via_termination_probabilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="render_implicit_features_and_depth.html">render_implicit_features_and_depth</a></li>
 </ul>
@@ -160,13 +160,13 @@
         
           <li><a href="../implicit.html">Implicit</a> &raquo;</li>
         
-      <li>stratified_sample</li>
+      <li>create_sampled_pixel_coords_image</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/implicit/stratified_sample.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/implicit/create_sampled_pixel_coords_image.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -179,24 +179,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="stratified-sample">
-<h1>stratified_sample<a class="headerlink" href="#stratified-sample" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="create-sampled-pixel-coords-image">
+<h1>create_sampled_pixel_coords_image<a class="headerlink" href="#create-sampled-pixel-coords-image" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="ivy_vision.implicit.stratified_sample">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">stratified_sample</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">starts</span></em>, <em class="sig-param"><span class="n">ends</span></em>, <em class="sig-param"><span class="n">num_samples</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/implicit.html#stratified_sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.stratified_sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform stratified sampling, between start and end arrays. This operation divides the range into equidistant bins,
-and uniformly samples value within the ranges for each of these bins.</p>
+<dt id="ivy_vision.implicit.create_sampled_pixel_coords_image">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">create_sampled_pixel_coords_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">samples_per_dim</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">randomize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/implicit.html#create_sampled_pixel_coords_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.create_sampled_pixel_coords_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create image of randomly sampled homogeneous integer <span class="math notranslate nohighlight">\(xy\)</span> pixel co-ordinates <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{Z}^{h×w×3}\)</span>,
+stored as floating point values. The origin is at the top-left corner of the image, with <span class="math notranslate nohighlight">\(+x\)</span> rightwards, and
+<span class="math notranslate nohighlight">\(+y\)</span> downwards. The final homogeneous dimension are all ones. In subsequent use of this image, the depth of
+each pixel can be represented using this same homogeneous representation, by simply scaling each 3-vector by the
+depth value. The final dimension therefore always holds the depth value, while the former two dimensions hold depth
+scaled pixel co-ordinates.</p>
+<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=172">[reference]</a>
+deduction from top of page 154, section 6.1, equation 6.1</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>starts</strong> (<em>array</em>) – Start values <em>[batch_shape]</em></p></li>
-<li><p><strong>ends</strong> (<em>array</em>) – End values <em>[batch_shape]</em></p></li>
-<li><p><strong>num_samples</strong> (<em>int</em>) – The number of samples to generate between starts and ends</p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch, Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints.</em>) – Image dimensions.</p></li>
+<li><p><strong>samples_per_dim</strong> (<em>sequence of ints.</em>) – The number of samples to perform per image dimension.</p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Assumed no batch dimensions if None.</p></li>
+<li><p><strong>normalized</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to normalize x-y pixel co-ordinates to the range 0-1. Default is False.</p></li>
+<li><p><strong>randomize</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to randomize the sampled co-ordiantes within their window. Default is True.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The stratified samples, with each randomly placed in uniformly spaced bins <em>[batch_shape,num_samples]</em></p>
+<dd class="field-even"><p>Image of homogeneous pixel co-ordinates <em>[batch_shape,height,width,3]</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -216,10 +224,10 @@ and uniformly samples value within the ranges for each of these bins.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="render_rays_via_termination_probabilities.html" class="btn btn-neutral float-right" title="render_rays_via_termination_probabilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="sinusoid_positional_encoding.html" class="btn btn-neutral float-right" title="sinusoid_positional_encoding" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ray_termination_probabilities.html" class="btn btn-neutral float-left" title="ray_termination_probabilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../implicit.html" class="btn btn-neutral float-left" title="Implicit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
