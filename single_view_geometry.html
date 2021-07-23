@@ -344,7 +344,7 @@ matrix inverse of page 156, equation 6.6</p>
 
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.create_uniform_pixel_coords_image">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">create_uniform_pixel_coords_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#create_uniform_pixel_coords_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.create_uniform_pixel_coords_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">create_uniform_pixel_coords_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">homogeneous</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#create_uniform_pixel_coords_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.create_uniform_pixel_coords_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create image of homogeneous integer <span class="math notranslate nohighlight">\(xy\)</span> pixel co-ordinates <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{Z}^{h×w×3}\)</span>, stored
 as floating point values. The origin is at the top-left corner of the image, with <span class="math notranslate nohighlight">\(+x\)</span> rightwards, and
 <span class="math notranslate nohighlight">\(+y\)</span> downwards. The final homogeneous dimension are all ones. In subsequent use of this image, the depth of
@@ -359,11 +359,15 @@ deduction from top of page 154, section 6.1, equation 6.1</p>
 <li><p><strong>image_dims</strong> (<em>sequence of ints.</em>) – Image dimensions.</p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Assumed no batch dimensions if None.</p></li>
 <li><p><strong>normalized</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to normalize x-y pixel co-ordinates to the range 0-1. Default is False.</p></li>
+<li><p><strong>homogeneous</strong> – Whether the pixel co-ordinates should be 3D homogeneous or just 2D. Default is True.</p></li>
 <li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Image of homogeneous pixel co-ordinates <em>[batch_shape,height,width,3]</em></p>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>homogeneous: bool, optional</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Image of homogeneous pixel co-ordinates <em>[batch_shape,height,width,3]</em></p>
 </dd>
 </dl>
 </dd></dl>

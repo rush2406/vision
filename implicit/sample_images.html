@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>render_rays_via_termination_probabilities &mdash; Ivy Vision 1.0 documentation</title>
+  <title>sample_images &mdash; Ivy Vision 1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="render_implicit_features_and_depth" href="render_implicit_features_and_depth.html" />
-    <link rel="prev" title="stratified_sample" href="stratified_sample.html" /> 
+    <link rel="next" title="sinusoid_positional_encoding" href="sinusoid_positional_encoding.html" />
+    <link rel="prev" title="create_sampled_pixel_coords_image" href="create_sampled_pixel_coords_image.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,12 +87,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../implicit.html">Implicit</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="downsampled_image_dims_from_desired_num_pixels.html">downsampled_image_dims_from_desired_num_pixels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="create_sampled_pixel_coords_image.html">create_sampled_pixel_coords_image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sample_images.html">sample_images</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">sample_images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sinusoid_positional_encoding.html">sinusoid_positional_encoding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sampled_volume_density_to_occupancy_probability.html">sampled_volume_density_to_occupancy_probability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ray_termination_probabilities.html">ray_termination_probabilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stratified_sample.html">stratified_sample</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">render_rays_via_termination_probabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="render_rays_via_termination_probabilities.html">render_rays_via_termination_probabilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="render_implicit_features_and_depth.html">render_implicit_features_and_depth</a></li>
 </ul>
 </li>
@@ -162,13 +162,13 @@
         
           <li><a href="../implicit.html">Implicit</a> &raquo;</li>
         
-      <li>render_rays_via_termination_probabilities</li>
+      <li>sample_images</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/implicit/render_rays_via_termination_probabilities.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/implicit/sample_images.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -181,23 +181,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="render-rays-via-termination-probabilities">
-<h1>render_rays_via_termination_probabilities<a class="headerlink" href="#render-rays-via-termination-probabilities" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="sample-images">
+<h1>sample_images<a class="headerlink" href="#sample-images" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="ivy_vision.implicit.render_rays_via_termination_probabilities">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">render_rays_via_termination_probabilities</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ray_term_probs</span></em>, <em class="sig-param"><span class="n">features</span></em>, <em class="sig-param"><span class="n">render_variance</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/implicit.html#render_rays_via_termination_probabilities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.render_rays_via_termination_probabilities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Render features onto the image plane, given rays sampled at radial depths with readings of
-feature values and densities at these sample points.</p>
+<dt id="ivy_vision.implicit.sample_images">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sample_images</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_of_images</span></em>, <em class="sig-param"><span class="n">num_pixels</span></em>, <em class="sig-param"><span class="n">batch_shape</span></em>, <em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/implicit.html#sample_images"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.sample_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Samples each image in a list of aligned images at num_pixels random pixel co-ordinates, within a unifrom grid
+over the image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ray_term_probs</strong> (<em>array</em>) – The ray termination probabilities <em>[batch_shape,num_samples_per_ray]</em></p></li>
-<li><p><strong>features</strong> (<em>array</em>) – Feature values at the sample points <em>[batch_shape,num_samples_per_ray,feat_dim]</em></p></li>
-<li><p><strong>render_variance</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to also render the feature variance. Default is False.</p></li>
+<li><p><strong>list_of_images</strong> (<em>sequence of arrays.</em>) – List of images to sample from.</p></li>
+<li><p><strong>num_pixels</strong> (<em>int</em>) – The number of pixels to sample from each image.</p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as images if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The feature renderings along the rays, computed via the termination probabilities <em>[batch_shape,feat_dim]</em></p>
+<dd class="field-even"><p></p>
 </dd>
 </dl>
 </dd></dl>
@@ -217,10 +219,10 @@ feature values and densities at these sample points.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="render_implicit_features_and_depth.html" class="btn btn-neutral float-right" title="render_implicit_features_and_depth" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="sinusoid_positional_encoding.html" class="btn btn-neutral float-right" title="sinusoid_positional_encoding" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="stratified_sample.html" class="btn btn-neutral float-left" title="stratified_sample" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="create_sampled_pixel_coords_image.html" class="btn btn-neutral float-left" title="create_sampled_pixel_coords_image" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
