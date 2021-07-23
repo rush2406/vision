@@ -480,7 +480,7 @@ camera-centric ego-sphere polar co-ordinates image <span class="math notranslate
 
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.ds_pixel_to_world_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_to_world_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_full_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_to_world_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_to_world_coords" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ds_pixel_to_world_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds_pixel_coords</span></em>, <em class="sig-param"><span class="n">inv_full_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/single_view_geometry.html#ds_pixel_to_world_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.ds_pixel_to_world_coords" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get world-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{is×4}\)</span> from depth scaled
 homogeneous pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{is×3}\)</span>.</p>
 <p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=173">[reference]</a>
@@ -492,7 +492,6 @@ combination of page 155, matrix inverse of equation 6.3, and matrix inverse of p
 <li><p><strong>inv_full_mat</strong> (<em>array</em>) – Inverse full projection matrix <em>[batch_shape,3,4]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
 <li><p><strong>image_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image shape. Inferred from inputs in None.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
