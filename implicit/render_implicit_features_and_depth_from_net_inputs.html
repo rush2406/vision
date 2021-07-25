@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>stratified_sample &mdash; Ivy Vision 1.0 documentation</title>
+  <title>render_implicit_features_and_depth_from_net_inputs &mdash; Ivy Vision 1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="render_rays_via_termination_probabilities" href="render_rays_via_termination_probabilities.html" />
-    <link rel="prev" title="ray_termination_probabilities" href="ray_termination_probabilities.html" /> 
+    <link rel="next" title="render_implicit_features_and_depth" href="render_implicit_features_and_depth.html" />
+    <link rel="prev" title="render_rays_via_termination_probabilities" href="render_rays_via_termination_probabilities.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,9 +91,9 @@
 <li class="toctree-l2"><a class="reference internal" href="sinusoid_positional_encoding.html">sinusoid_positional_encoding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sampled_volume_density_to_occupancy_probability.html">sampled_volume_density_to_occupancy_probability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ray_termination_probabilities.html">ray_termination_probabilities</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">stratified_sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stratified_sample.html">stratified_sample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="render_rays_via_termination_probabilities.html">render_rays_via_termination_probabilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="render_implicit_features_and_depth_from_net_inputs.html">render_implicit_features_and_depth_from_net_inputs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">render_implicit_features_and_depth_from_net_inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="render_implicit_features_and_depth.html">render_implicit_features_and_depth</a></li>
 </ul>
 </li>
@@ -163,13 +163,13 @@
         
           <li><a href="../implicit.html">Implicit</a> &raquo;</li>
         
-      <li>stratified_sample</li>
+      <li>render_implicit_features_and_depth_from_net_inputs</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/implicit/stratified_sample.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/implicit/render_implicit_features_and_depth_from_net_inputs.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -182,24 +182,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="stratified-sample">
-<h1>stratified_sample<a class="headerlink" href="#stratified-sample" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="render-implicit-features-and-depth-from-net-inputs">
+<h1>render_implicit_features_and_depth_from_net_inputs<a class="headerlink" href="#render-implicit-features-and-depth-from-net-inputs" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="ivy_vision.implicit.stratified_sample">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">stratified_sample</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">starts</span></em>, <em class="sig-param"><span class="n">ends</span></em>, <em class="sig-param"><span class="n">num_samples</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/implicit.html#stratified_sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.stratified_sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform stratified sampling, between start and end arrays. This operation divides the range into equidistant bins,
-and uniformly samples value within the ranges for each of these bins.</p>
+<dt id="ivy_vision.implicit.render_implicit_features_and_depth_from_net_inputs">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">render_implicit_features_and_depth_from_net_inputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">network_fn</span></em>, <em class="sig-param"><span class="n">query_points</span></em>, <em class="sig-param"><span class="n">samples_per_ray</span></em>, <em class="sig-param"><span class="n">z_vals</span></em>, <em class="sig-param"><span class="n">input_features</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">render_depth</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">render_feats</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">render_variance</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">v</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/implicit.html#render_implicit_features_and_depth_from_net_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.render_implicit_features_and_depth_from_net_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render an rgb-d image, given an implicit rgb and density function conditioned on xyz data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>starts</strong> (<em>array</em>) – Start values <em>[batch_shape]</em></p></li>
-<li><p><strong>ends</strong> (<em>array</em>) – End values <em>[batch_shape]</em></p></li>
-<li><p><strong>num_samples</strong> (<em>int</em>) – The number of samples to generate between starts and ends</p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch, Inferred from inputs if None.</p></li>
+<li><p><strong>network_fn</strong> (<em>callable</em>) – the implicit function.</p></li>
+<li><p><strong>query_points</strong> (<em>array</em>) – The points at which to query the implicit network.</p></li>
+<li><p><strong>input_features</strong> (<em>array</em><em>, </em><em>optional</em>) – The features passed as input to the implicit function. Default is None.</p></li>
+<li><p><strong>samples_per_ray</strong> (<em>int</em>) – The number of stratified samples to use along each ray</p></li>
+<li><p><strong>z_vals</strong> (<em>array</em>) – The depth values associated with each of the sampled points.</p></li>
+<li><p><strong>render_depth</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the depth. Default is True.</p></li>
+<li><p><strong>render_feats</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the features. Default is True.</p></li>
+<li><p><strong>render_variance</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to also render the feature variance. Default is False.</p></li>
+<li><p><strong>v</strong> (<em>ivy Container of variables</em>) – The container of trainable variables for the implicit model. default is to use internal variables.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The stratified samples, with each randomly placed in uniformly spaced bins <em>[batch_shape,num_samples]</em></p>
+<dd class="field-even"><p>The rendered feature <em>[batch_shape,ray_batch_shape,feat]</em> and radial depth <em>[batch_shape,ray_batch_shape,1]</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -219,10 +223,10 @@ and uniformly samples value within the ranges for each of these bins.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="render_rays_via_termination_probabilities.html" class="btn btn-neutral float-right" title="render_rays_via_termination_probabilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="render_implicit_features_and_depth.html" class="btn btn-neutral float-right" title="render_implicit_features_and_depth" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ray_termination_probabilities.html" class="btn btn-neutral float-left" title="ray_termination_probabilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="render_rays_via_termination_probabilities.html" class="btn btn-neutral float-left" title="render_rays_via_termination_probabilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

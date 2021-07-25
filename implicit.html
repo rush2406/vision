@@ -93,6 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="implicit/ray_termination_probabilities.html">ray_termination_probabilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/stratified_sample.html">stratified_sample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/render_rays_via_termination_probabilities.html">render_rays_via_termination_probabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implicit/render_implicit_features_and_depth_from_net_inputs.html">render_implicit_features_and_depth_from_net_inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/render_implicit_features_and_depth.html">render_implicit_features_and_depth</a></li>
 </ul>
 </li>
@@ -278,6 +279,30 @@ but will best balance aspect ratio preservation and total number of pixels.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="ivy_vision.implicit.render_implicit_features_and_depth_from_net_inputs">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">render_implicit_features_and_depth_from_net_inputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">network_fn</span></em>, <em class="sig-param"><span class="n">query_points</span></em>, <em class="sig-param"><span class="n">samples_per_ray</span></em>, <em class="sig-param"><span class="n">z_vals</span></em>, <em class="sig-param"><span class="n">input_features</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">render_depth</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">render_feats</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">render_variance</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">v</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#render_implicit_features_and_depth_from_net_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.render_implicit_features_and_depth_from_net_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render an rgb-d image, given an implicit rgb and density function conditioned on xyz data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>network_fn</strong> (<em>callable</em>) – the implicit function.</p></li>
+<li><p><strong>query_points</strong> (<em>array</em>) – The points at which to query the implicit network.</p></li>
+<li><p><strong>input_features</strong> (<em>array</em><em>, </em><em>optional</em>) – The features passed as input to the implicit function. Default is None.</p></li>
+<li><p><strong>samples_per_ray</strong> (<em>int</em>) – The number of stratified samples to use along each ray</p></li>
+<li><p><strong>z_vals</strong> (<em>array</em>) – The depth values associated with each of the sampled points.</p></li>
+<li><p><strong>render_depth</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the depth. Default is True.</p></li>
+<li><p><strong>render_feats</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the features. Default is True.</p></li>
+<li><p><strong>render_variance</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to also render the feature variance. Default is False.</p></li>
+<li><p><strong>v</strong> (<em>ivy Container of variables</em>) – The container of trainable variables for the implicit model. default is to use internal variables.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rendered feature <em>[batch_shape,ray_batch_shape,feat]</em> and radial depth <em>[batch_shape,ray_batch_shape,1]</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="ivy_vision.implicit.render_rays_via_termination_probabilities">
 <code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">render_rays_via_termination_probabilities</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ray_term_probs</span></em>, <em class="sig-param"><span class="n">features</span></em>, <em class="sig-param"><span class="n">render_variance</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#render_rays_via_termination_probabilities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.render_rays_via_termination_probabilities" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render features onto the image plane, given rays sampled at radial depths with readings of
@@ -382,6 +407,7 @@ and uniformly samples value within the ranges for each of these bins.</p>
 <li class="toctree-l1"><a class="reference internal" href="implicit/ray_termination_probabilities.html">ray_termination_probabilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/stratified_sample.html">stratified_sample</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/render_rays_via_termination_probabilities.html">render_rays_via_termination_probabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implicit/render_implicit_features_and_depth_from_net_inputs.html">render_implicit_features_and_depth_from_net_inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/render_implicit_features_and_depth.html">render_implicit_features_and_depth</a></li>
 </ul>
 </div>

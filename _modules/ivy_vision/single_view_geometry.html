@@ -740,6 +740,9 @@
     <span class="n">num_batch_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">image_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pixel_coords</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;if pixel_coords is not specified, image_shape must be specified when calling&#39;</span>
+                            <span class="s1">&#39;pixel_coords_to_world_ray_vectors&#39;</span><span class="p">)</span>
         <span class="n">image_shape</span> <span class="o">=</span> <span class="n">pixel_coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">num_batch_dims</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">num_image_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">image_shape</span><span class="p">)</span>
 
@@ -751,7 +754,7 @@
         <span class="n">camera_center</span> <span class="o">=</span> <span class="n">inv_ext_mat_to_camera_center</span><span class="p">(</span><span class="n">inv_full_mat</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">pixel_coords</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">pixel_coords</span> <span class="o">=</span> <span class="n">create_uniform_pixel_coords_image</span><span class="p">(</span><span class="n">image_dims</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">)</span>
+        <span class="n">pixel_coords</span> <span class="o">=</span> <span class="n">create_uniform_pixel_coords_image</span><span class="p">(</span><span class="n">image_shape</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">dev_str</span><span class="o">=</span><span class="n">_ivy</span><span class="o">.</span><span class="n">dev_str</span><span class="p">(</span><span class="n">inv_full_mat</span><span class="p">))</span>
 
     <span class="c1"># BS x [1]xNID x 3</span>
     <span class="n">camera_centers_reshaped</span> <span class="o">=</span> <span class="n">_ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">camera_center</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">num_image_dims</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>

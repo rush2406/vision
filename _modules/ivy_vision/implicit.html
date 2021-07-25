@@ -446,6 +446,93 @@
     <span class="k">return</span> <span class="n">rendering</span><span class="p">,</span> <span class="n">var</span></div>
 
 
+<div class="viewcode-block" id="render_implicit_features_and_depth_from_net_inputs"><a class="viewcode-back" href="../../implicit/render_implicit_features_and_depth_from_net_inputs.html#ivy_vision.implicit.render_implicit_features_and_depth_from_net_inputs">[docs]</a><span class="k">def</span> <span class="nf">render_implicit_features_and_depth_from_net_inputs</span><span class="p">(</span>
+        <span class="n">network_fn</span><span class="p">,</span> <span class="n">query_points</span><span class="p">,</span> <span class="n">samples_per_ray</span><span class="p">,</span> <span class="n">z_vals</span><span class="p">,</span> <span class="n">input_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">render_depth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">render_feats</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">render_variance</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Render an rgb-d image, given an implicit rgb and density function conditioned on xyz data.</span>
+
+<span class="sd">    :param network_fn: the implicit function.</span>
+<span class="sd">    :type network_fn: callable</span>
+<span class="sd">    :param query_points: The points at which to query the implicit network.</span>
+<span class="sd">    :type query_points: array</span>
+<span class="sd">    :param input_features: The features passed as input to the implicit function. Default is None.</span>
+<span class="sd">    :type input_features: array, optional</span>
+<span class="sd">    :param samples_per_ray: The number of stratified samples to use along each ray</span>
+<span class="sd">    :type samples_per_ray: int</span>
+<span class="sd">    :param z_vals: The depth values associated with each of the sampled points.</span>
+<span class="sd">    :type z_vals: array</span>
+<span class="sd">    :param render_depth: Whether to render the depth. Default is True.</span>
+<span class="sd">    :type render_depth: bool, optional</span>
+<span class="sd">    :param render_feats: Whether to render the features. Default is True.</span>
+<span class="sd">    :type render_feats: bool, optional</span>
+<span class="sd">    :param render_variance: Whether to also render the feature variance. Default is False.</span>
+<span class="sd">    :type render_variance: bool, optional</span>
+<span class="sd">    :param v: The container of trainable variables for the implicit model. default is to use internal variables.</span>
+<span class="sd">    :type v: ivy Container of variables</span>
+<span class="sd">    :return: The rendered feature *[batch_shape,ray_batch_shape,feat]* and radial depth *[batch_shape,ray_batch_shape,1]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># shapes</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">query_points</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">num_batch_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">ray_batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">query_points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">num_batch_dims</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">num_ray_batch_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ray_batch_shape</span><span class="p">)</span>
+    <span class="n">total_batch_shape</span> <span class="o">=</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="n">ray_batch_shape</span>
+    <span class="n">flat_total_batch_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">total_batch_shape</span><span class="p">)</span>
+
+    <span class="c1"># flatten</span>
+
+    <span class="c1"># (BSxRBSxSPR) x 3</span>
+    <span class="n">pts_flat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">query_points</span><span class="p">,</span> <span class="p">(</span><span class="n">flat_total_batch_size</span><span class="o">*</span><span class="n">samples_per_ray</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+    <span class="c1"># (BSxRBSxSPR) x IF</span>
+    <span class="k">if</span> <span class="n">input_features</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">input_features</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">input_features</span><span class="p">,</span> <span class="p">(</span><span class="n">flat_total_batch_size</span><span class="o">*</span><span class="n">samples_per_ray</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># Run network</span>
+
+    <span class="c1"># BSPQ x OF,    BSPQ</span>
+    <span class="n">feat</span><span class="p">,</span> <span class="n">densities</span> <span class="o">=</span> <span class="n">network_fn</span><span class="p">(</span><span class="n">query_points</span><span class="p">,</span> <span class="n">input_features</span><span class="p">)</span>
+
+    <span class="c1"># BS x RBS x SPR</span>
+    <span class="n">densities</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">densities</span><span class="p">,</span> <span class="n">total_batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">samples_per_ray</span><span class="p">])</span>
+
+    <span class="c1"># BS x RBS x (SPR+1)</span>
+    <span class="n">z_vals_w_terminal</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">z_vals</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ivy</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">z_vals</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mf">1e10</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># BS x RBS x SPR</span>
+    <span class="n">depth_diffs</span> <span class="o">=</span> <span class="n">z_vals_w_terminal</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">z_vals_w_terminal</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ray_term_probs</span> <span class="o">=</span> <span class="n">ray_termination_probabilities</span><span class="p">(</span><span class="n">densities</span><span class="p">,</span> <span class="n">depth_diffs</span><span class="p">)</span>
+
+    <span class="c1"># return values</span>
+    <span class="n">ret_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">render_feats</span><span class="p">:</span>
+
+        <span class="c1"># BS x RBS x SPR x OF</span>
+        <span class="n">feat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">feat</span><span class="p">,</span> <span class="n">total_batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">samples_per_ray</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># BS x RBS x OF</span>
+        <span class="n">feat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="p">,</span> <span class="n">feat</span><span class="p">,</span> <span class="n">render_variance</span><span class="p">),</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">render_variance</span><span class="p">:</span>
+            <span class="n">ret_vals</span> <span class="o">+=</span> <span class="n">feat</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ret_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">render_depth</span><span class="p">:</span>
+
+        <span class="c1"># BS x RBS x 1</span>
+        <span class="n">radial_depth</span> <span class="o">=</span> <span class="n">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="p">,</span> <span class="n">z_vals</span><span class="p">,</span> <span class="n">render_variance</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">render_variance</span><span class="p">:</span>
+            <span class="n">ret_vals</span> <span class="o">+=</span> <span class="n">radial_depth</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ret_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">radial_depth</span><span class="p">)</span>
+
+    <span class="c1"># up to BS x RBS x OF, BS x RBS x OF, BS x RBS x 1, BS x RBS x 1</span>
+    <span class="k">return</span> <span class="n">ret_vals</span></div>
+
+
 <div class="viewcode-block" id="render_implicit_features_and_depth"><a class="viewcode-back" href="../../implicit/render_implicit_features_and_depth.html#ivy_vision.implicit.render_implicit_features_and_depth">[docs]</a><span class="k">def</span> <span class="nf">render_implicit_features_and_depth</span><span class="p">(</span><span class="n">network_fn</span><span class="p">,</span> <span class="n">rays_o</span><span class="p">,</span> <span class="n">rays_d</span><span class="p">,</span> <span class="n">near</span><span class="p">,</span> <span class="n">far</span><span class="p">,</span> <span class="n">samples_per_ray</span><span class="p">,</span> <span class="n">render_depth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                        <span class="n">render_feats</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">render_variance</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">batch_size_per_query</span><span class="o">=</span><span class="mi">512</span> <span class="o">*</span> <span class="mi">64</span><span class="p">,</span>
                                        <span class="n">inter_feat_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -500,63 +587,23 @@
     <span class="c1"># BS x RBS x SPR x 3</span>
     <span class="n">pts</span> <span class="o">=</span> <span class="n">rays_o</span> <span class="o">+</span> <span class="n">rays_d</span> <span class="o">*</span> <span class="n">z_vals</span>
 
-    <span class="c1"># (BSxRBSxSPR) x 3</span>
-    <span class="n">pts_flat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="p">(</span><span class="n">flat_total_batch_size</span><span class="o">*</span><span class="n">samples_per_ray</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="n">network_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">pts_flat</span><span class="p">]</span>
+    <span class="c1"># prepare for batched render</span>
 
-    <span class="c1"># batch</span>
-
-    <span class="c1"># num_sections size list of BSPQ x 3</span>
-    <span class="c1"># pts_split = ivy.split(pts_flat, batch_size_per_query, 0, True)</span>
+    <span class="n">network_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">z_vals</span><span class="p">,</span> <span class="n">pts</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">inter_feat_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># (BSxRBSxSPR) x IF</span>
-        <span class="n">features</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">inter_feat_fn</span><span class="p">(</span><span class="n">pts</span><span class="p">),</span> <span class="p">(</span><span class="n">flat_total_batch_size</span><span class="o">*</span><span class="n">samples_per_ray</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">inter_feat_fn</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
         <span class="n">network_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-        <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">pt</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">network_fn</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">render_implicit_features_and_depth_from_net_inputs</span><span class="p">(</span>
+            <span class="n">network_fn</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="n">samples_per_ray</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">render_depth</span><span class="p">,</span> <span class="n">render_feats</span><span class="p">,</span> <span class="n">render_variance</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">pt</span><span class="p">:</span> <span class="n">network_fn</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">,</span> <span class="n">pt</span><span class="p">:</span> <span class="n">render_implicit_features_and_depth_from_net_inputs</span><span class="p">(</span>
+            <span class="n">network_fn</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="n">samples_per_ray</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">render_depth</span><span class="o">=</span><span class="n">render_depth</span><span class="p">,</span> <span class="n">render_feats</span><span class="o">=</span><span class="n">render_feats</span><span class="p">,</span>
+            <span class="n">render_variance</span><span class="o">=</span><span class="n">render_variance</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
 
-    <span class="c1"># Run network</span>
-
-    <span class="c1"># BSPQ x OF,    BSPQ</span>
-    <span class="n">feat</span><span class="p">,</span> <span class="n">densities</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">split_func_call</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">network_inputs</span><span class="p">,</span> <span class="n">batch_size_per_query</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-
-    <span class="c1"># BS x RBS x SPR</span>
-    <span class="n">densities</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">densities</span><span class="p">,</span> <span class="n">total_batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">samples_per_ray</span><span class="p">])</span>
-
-    <span class="c1"># BS x RBS x (SPR+1)</span>
-    <span class="n">z_vals_w_terminal</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">z_vals</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ivy</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">z_vals</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mf">1e10</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="c1"># BS x RBS x SPR</span>
-    <span class="n">depth_diffs</span> <span class="o">=</span> <span class="n">z_vals_w_terminal</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">z_vals_w_terminal</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">ray_term_probs</span> <span class="o">=</span> <span class="n">ray_termination_probabilities</span><span class="p">(</span><span class="n">densities</span><span class="p">,</span> <span class="n">depth_diffs</span><span class="p">)</span>
-
-    <span class="c1"># return values</span>
-    <span class="n">ret_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">render_feats</span><span class="p">:</span>
-
-        <span class="c1"># BS x RBS x SPR x OF</span>
-        <span class="n">feat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">feat</span><span class="p">,</span> <span class="n">total_batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">samples_per_ray</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-
-        <span class="c1"># BS x RBS x OF</span>
-        <span class="n">feat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="p">,</span> <span class="n">feat</span><span class="p">,</span> <span class="n">render_variance</span><span class="p">),</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">render_variance</span><span class="p">:</span>
-            <span class="n">ret_vals</span> <span class="o">+=</span> <span class="n">feat</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">ret_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">render_depth</span><span class="p">:</span>
-
-        <span class="c1"># BS x RBS x 1</span>
-        <span class="n">radial_depth</span> <span class="o">=</span> <span class="n">render_rays_via_termination_probabilities</span><span class="p">(</span><span class="n">ray_term_probs</span><span class="p">,</span> <span class="n">z_vals</span><span class="p">,</span> <span class="n">render_variance</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">render_variance</span><span class="p">:</span>
-            <span class="n">ret_vals</span> <span class="o">+=</span> <span class="n">radial_depth</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">ret_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">radial_depth</span><span class="p">)</span>
+    <span class="c1"># batched render</span>
 
     <span class="c1"># up to BS x RBS x OF, BS x RBS x OF, BS x RBS x 1, BS x RBS x 1</span>
-    <span class="k">return</span> <span class="n">ret_vals</span></div>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">split_func_call</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">network_inputs</span><span class="p">,</span> <span class="n">batch_size_per_query</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

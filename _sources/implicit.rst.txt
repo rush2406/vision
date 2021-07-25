@@ -20,5 +20,6 @@ Implicit
    implicit/ray_termination_probabilities.rst
    implicit/stratified_sample.rst
    implicit/render_rays_via_termination_probabilities.rst
+   implicit/render_implicit_features_and_depth_from_net_inputs.rst
    implicit/render_implicit_features_and_depth.rst
 
