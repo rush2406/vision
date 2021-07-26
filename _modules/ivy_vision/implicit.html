@@ -536,7 +536,7 @@
 
 
 <div class="viewcode-block" id="render_implicit_features_and_depth"><a class="viewcode-back" href="../../implicit/render_implicit_features_and_depth.html#ivy_vision.implicit.render_implicit_features_and_depth">[docs]</a><span class="k">def</span> <span class="nf">render_implicit_features_and_depth</span><span class="p">(</span><span class="n">network_fn</span><span class="p">,</span> <span class="n">rays_o</span><span class="p">,</span> <span class="n">rays_d</span><span class="p">,</span> <span class="n">near</span><span class="p">,</span> <span class="n">far</span><span class="p">,</span> <span class="n">samples_per_ray</span><span class="p">,</span> <span class="n">render_depth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                       <span class="n">render_feats</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">render_variance</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">batch_size_per_query</span><span class="o">=</span><span class="mi">512</span> <span class="o">*</span> <span class="mi">16</span><span class="p">,</span>
+                                       <span class="n">render_feats</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">render_variance</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">batch_size_per_query</span><span class="o">=</span><span class="mi">512</span> <span class="o">*</span> <span class="mi">64</span><span class="p">,</span>
                                        <span class="n">inter_feat_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">with_grads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Render an rgb-d image, given an implicit rgb and density function conditioned on xyz data.</span>
@@ -572,6 +572,7 @@
 
     <span class="c1"># shapes</span>
     <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rays_o</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">flat_batch_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
     <span class="n">num_batch_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
     <span class="n">ray_batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rays_d</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">num_batch_dims</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">flat_ray_batch_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">ray_batch_shape</span><span class="p">)</span>
@@ -623,7 +624,7 @@
     <span class="c1"># batched render</span>
 
     <span class="c1"># up to BS x FRBS x OF, BS x FRBS x OF, BS x FRBS x 1, BS x FRBS x 1</span>
-    <span class="n">rets_flat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">split_func_call</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">network_inputs</span><span class="p">,</span> <span class="n">batch_size_per_query</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">rets_flat</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">split_func_call</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">network_inputs</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">batch_size_per_query</span> <span class="o">/</span> <span class="n">flat_batch_size</span><span class="p">)),</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">num_ray_batch_dims</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="c1"># up to BS x RBS x OF, BS x RBS x OF, BS x RBS x 1, BS x RBS x 1</span>
