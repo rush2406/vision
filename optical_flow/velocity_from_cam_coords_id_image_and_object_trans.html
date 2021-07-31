@@ -184,23 +184,23 @@
 <h1>velocity_from_cam_coords_id_image_and_object_trans<a class="headerlink" href="#velocity-from-cam-coords-id-image-and-object-trans" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.optical_flow.velocity_from_cam_coords_id_image_and_object_trans">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">velocity_from_cam_coords_id_image_and_object_trans</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cam_coords_t</span></em>, <em class="sig-param"><span class="n">id_image</span></em>, <em class="sig-param"><span class="n">obj_ids</span></em>, <em class="sig-param"><span class="n">obj_trans</span></em>, <em class="sig-param"><span class="n">delta_t</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/optical_flow.html#velocity_from_cam_coords_id_image_and_object_trans"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.optical_flow.velocity_from_cam_coords_id_image_and_object_trans" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">velocity_from_cam_coords_id_image_and_object_trans</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cam_coords_t</span></em>, <em class="sig-param"><span class="n">id_image</span></em>, <em class="sig-param"><span class="n">obj_ids</span></em>, <em class="sig-param"><span class="n">obj_trans</span></em>, <em class="sig-param"><span class="n">delta_t</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/optical_flow.html#velocity_from_cam_coords_id_image_and_object_trans"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.optical_flow.velocity_from_cam_coords_id_image_and_object_trans" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute velocity image from co-ordinate image, id image, and object transformations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cam_coords_t</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image in frame t <em>[batch_shape,h,w,4]</em></p></li>
-<li><p><strong>id_image</strong> (<em>array</em>) – Image containing per-pixel object ids <em>[batch_shape,h,w,1]</em></p></li>
+<li><p><strong>cam_coords_t</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image in frame t <em>[batch_shape,image_shape,4]</em></p></li>
+<li><p><strong>id_image</strong> (<em>array</em>) – Image containing per-pixel object ids <em>[batch_shape,image_shape,1]</em></p></li>
 <li><p><strong>obj_ids</strong> (<em>array</em>) – Object ids <em>[batch_shape,num_obj,1]</em></p></li>
 <li><p><strong>obj_trans</strong> (<em>array</em>) – Object transformations for this frame over time <em>[batch_shape,num_obj,3,4]</em></p></li>
 <li><p><strong>delta_t</strong> (<em>array</em>) – Time difference between frame at timestep t-1 and t <em>[batch_shape,1]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>image_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
 <li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Relative velocity image <em>[batch_shape,h,w,3]</em></p>
+<dd class="field-even"><p>Relative velocity image <em>[batch_shape,image_shape,3]</em></p>
 </dd>
 </dl>
 </dd></dl>
