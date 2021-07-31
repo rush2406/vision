@@ -183,21 +183,21 @@
 <h1>sphere_to_sphere_coords<a class="headerlink" href="#sphere-to-sphere-coords" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.two_view_geometry.sphere_to_sphere_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sphere_to_sphere_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sphere_coords1</span></em>, <em class="sig-param"><span class="n">cam1to2_ext_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/two_view_geometry.html#sphere_to_sphere_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.sphere_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert camera-centric ego-sphere polar co-ordinates image in frame 1 <span class="math notranslate nohighlight">\(\mathbf{S}_{c1}\in\mathbb{R}^{h×w×3}\)</span>
-to camera-centric ego-sphere polar co-ordinates image in frame 2 <span class="math notranslate nohighlight">\(\mathbf{S}_{c2}\in\mathbb{R}^{h×w×3}\)</span>.</p>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sphere_to_sphere_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sphere_coords1</span></em>, <em class="sig-param"><span class="n">cam1to2_ext_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/two_view_geometry.html#sphere_to_sphere_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.two_view_geometry.sphere_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert camera-centric ego-sphere polar co-ordinates image in frame 1 <span class="math notranslate nohighlight">\(\mathbf{S}_{c1}\in\mathbb{R}^{is×3}\)</span>
+to camera-centric ego-sphere polar co-ordinates image in frame 2 <span class="math notranslate nohighlight">\(\mathbf{S}_{c2}\in\mathbb{R}^{is×3}\)</span>.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sphere_coords1</strong> (<em>array</em>) – Camera-centric ego-sphere polar co-ordinates image in frame 1 <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>sphere_coords1</strong> (<em>array</em>) – Camera-centric ego-sphere polar co-ordinates image in frame 1 <em>[batch_shape,image_shape,3]</em></p></li>
 <li><p><strong>cam1to2_ext_mat</strong> (<em>array</em>) – Camera1-to-camera2 extrinsic projection matrix <em>[batch_shape,3,4]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>image_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image shape. Inferred from inputs in None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image in frame 2 <em>[batch_shape,h,w,3]</em></p>
+<dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image in frame 2 <em>[batch_shape,image_shape,3]</em></p>
 </dd>
 </dl>
 </dd></dl>
