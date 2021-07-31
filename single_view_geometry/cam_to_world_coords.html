@@ -206,23 +206,23 @@
 <h1>cam_to_world_coords<a class="headerlink" href="#cam-to-world-coords" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ivy_vision.single_view_geometry.cam_to_world_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">cam_to_world_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords_wrt_cam</span></em>, <em class="sig-param"><span class="n">inv_ext_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#cam_to_world_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.cam_to_world_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get world-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{h×w×4}\)</span> from camera-centric
-homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span>.</p>
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">cam_to_world_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords_wrt_cam</span></em>, <em class="sig-param"><span class="n">inv_ext_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#cam_to_world_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.cam_to_world_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get world-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{is×4}\)</span> from camera-centric
+homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{is×4}\)</span>.</p>
 <p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=174">[reference]</a>
 matrix inverse of page 156, equation 6.6</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>coords_wrt_cam</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
+<li><p><strong>coords_wrt_cam</strong> (<em>array</em>) – Camera-centric homogeneous co-ordinates image <em>[batch_shape,image_shape,4]</em></p></li>
 <li><p><strong>inv_ext_mat</strong> (<em>array</em>) – Inverse extrinsic matrix <em>[batch_shape,3,4]</em></p></li>
 <li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>image_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image shape. Inferred from inputs in None.</p></li>
 <li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>World-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
+<dd class="field-even"><p>World-centric homogeneous co-ordinates image <em>[batch_shape,image_shape,4]</em></p>
 </dd>
 </dl>
 </dd></dl>
