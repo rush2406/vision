@@ -338,23 +338,6 @@
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">combined_img_sampled</span><span class="p">,</span> <span class="n">image_channels</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="sinusoid_positional_encoding"><a class="viewcode-back" href="../../implicit/sinusoid_positional_encoding.html#ivy_vision.implicit.sinusoid_positional_encoding">[docs]</a><span class="k">def</span> <span class="nf">sinusoid_positional_encoding</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">embedding_length</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Perform sinusoid positional encoding of the inputs.</span>
-
-<span class="sd">    :param x: input array to encode *[batch_shape, dim]*</span>
-<span class="sd">    :type x: array</span>
-<span class="sd">    :param embedding_length: Length of the embedding. Default is 10.</span>
-<span class="sd">    :type embedding_length: int, optional</span>
-<span class="sd">    :return: The new positionally encoded array *[batch_shape, dim+dim*2*embedding_length]*</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">rets</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">embedding_length</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">cos</span><span class="p">]:</span>
-            <span class="n">rets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fn</span><span class="p">(</span><span class="mf">2.</span><span class="o">**</span><span class="n">i</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">rets</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
-
-
 <span class="c1"># noinspection PyUnresolvedReferences</span>
 <div class="viewcode-block" id="sampled_volume_density_to_occupancy_probability"><a class="viewcode-back" href="../../implicit/sampled_volume_density_to_occupancy_probability.html#ivy_vision.implicit.sampled_volume_density_to_occupancy_probability">[docs]</a><span class="k">def</span> <span class="nf">sampled_volume_density_to_occupancy_probability</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">inter_sample_distance</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>

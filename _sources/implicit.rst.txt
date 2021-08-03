@@ -15,7 +15,6 @@ Implicit
    implicit/downsampled_image_dims_from_desired_num_pixels.rst
    implicit/create_sampled_pixel_coords_image.rst
    implicit/sample_images.rst
-   implicit/sinusoid_positional_encoding.rst
    implicit/sampled_volume_density_to_occupancy_probability.rst
    implicit/ray_termination_probabilities.rst
    implicit/stratified_sample.rst

@@ -88,7 +88,6 @@
 <li class="toctree-l2"><a class="reference internal" href="implicit/downsampled_image_dims_from_desired_num_pixels.html">downsampled_image_dims_from_desired_num_pixels</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/create_sampled_pixel_coords_image.html">create_sampled_pixel_coords_image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/sample_images.html">sample_images</a></li>
-<li class="toctree-l2"><a class="reference internal" href="implicit/sinusoid_positional_encoding.html">sinusoid_positional_encoding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/sampled_volume_density_to_occupancy_probability.html">sampled_volume_density_to_occupancy_probability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/ray_termination_probabilities.html">ray_termination_probabilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="implicit/stratified_sample.html">stratified_sample</a></li>
@@ -338,23 +337,6 @@ over the image.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="ivy_vision.implicit.sinusoid_positional_encoding">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sinusoid_positional_encoding</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">embedding_length</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#sinusoid_positional_encoding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.sinusoid_positional_encoding" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform sinusoid positional encoding of the inputs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>array</em>) – input array to encode <em>[batch_shape, dim]</em></p></li>
-<li><p><strong>embedding_length</strong> (<em>int</em><em>, </em><em>optional</em>) – Length of the embedding. Default is 10.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The new positionally encoded array <em>[batch_shape, dim+dim*2*embedding_length]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt id="ivy_vision.implicit.stratified_sample">
 <code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">stratified_sample</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">starts</span></em>, <em class="sig-param"><span class="n">ends</span></em>, <em class="sig-param"><span class="n">num_samples</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#stratified_sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.stratified_sample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform stratified sampling, between start and end arrays. This operation divides the range into equidistant bins,
@@ -380,7 +362,6 @@ and uniformly samples value within the ranges for each of these bins.</p>
 <li class="toctree-l1"><a class="reference internal" href="implicit/downsampled_image_dims_from_desired_num_pixels.html">downsampled_image_dims_from_desired_num_pixels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/create_sampled_pixel_coords_image.html">create_sampled_pixel_coords_image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/sample_images.html">sample_images</a></li>
-<li class="toctree-l1"><a class="reference internal" href="implicit/sinusoid_positional_encoding.html">sinusoid_positional_encoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/sampled_volume_density_to_occupancy_probability.html">sampled_volume_density_to_occupancy_probability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/ray_termination_probabilities.html">ray_termination_probabilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implicit/stratified_sample.html">stratified_sample</a></li>
