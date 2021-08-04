@@ -25,7 +25,9 @@ Single view geometry
    single_view_geometry/world_to_cam_coords.rst
    single_view_geometry/cam_to_world_coords.rst
    single_view_geometry/world_to_ds_pixel_coords.rst
+   single_view_geometry/world_coords_to_depth.rst
    single_view_geometry/ds_pixel_to_world_coords.rst
+   single_view_geometry/depth_to_world_coords.rst
    single_view_geometry/pixel_coords_to_world_ray_vectors.rst
    single_view_geometry/sphere_coords_to_world_ray_vectors.rst
    single_view_geometry/bilinearly_interpolate_image.rst

@@ -677,6 +677,25 @@
     <span class="k">return</span> <span class="n">_ivy_pg</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">coords_wrt_world</span><span class="p">,</span> <span class="n">full_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_shape</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="world_coords_to_depth"><a class="viewcode-back" href="../../single_view_geometry/world_coords_to_depth.html#ivy_vision.single_view_geometry.world_coords_to_depth">[docs]</a><span class="k">def</span> <span class="nf">world_coords_to_depth</span><span class="p">(</span><span class="n">coords_wrt_world</span><span class="p">,</span> <span class="n">full_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get depth image :math:`\mathbf{X}_d\in\mathbb{R}^{is×1}` from world-centric</span>
+<span class="sd">    homogeneous co-ordinates image :math:`\mathbf{X}_w\in\mathbb{R}^{is×4}`.\n</span>
+
+<span class="sd">    :param coords_wrt_world: World-centric homogeneous co-ordinates image *[batch_shape,image_shape,4]*</span>
+<span class="sd">    :type coords_wrt_world: array</span>
+<span class="sd">    :param full_mat: Full projection matrix *[batch_shape,3,4]*</span>
+<span class="sd">    :type full_mat: array</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param image_shape: Image shape. Inferred from inputs in None.</span>
+<span class="sd">    :type image_shape: sequence of ints, optional</span>
+<span class="sd">    :return: Depth image *[batch_shape,image_shape,1]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># BS x IS x 1</span>
+    <span class="k">return</span> <span class="n">world_to_ds_pixel_coords</span><span class="p">(</span><span class="n">coords_wrt_world</span><span class="p">,</span> <span class="n">full_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_shape</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span></div>
+
+
 <div class="viewcode-block" id="ds_pixel_to_world_coords"><a class="viewcode-back" href="../../single_view_geometry/ds_pixel_to_world_coords.html#ivy_vision.single_view_geometry.ds_pixel_to_world_coords">[docs]</a><span class="k">def</span> <span class="nf">ds_pixel_to_world_coords</span><span class="p">(</span><span class="n">ds_pixel_coords</span><span class="p">,</span> <span class="n">inv_full_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get world-centric homogeneous co-ordinates image :math:`\mathbf{X}_w\in\mathbb{R}^{is×4}` from depth scaled</span>
@@ -714,6 +733,41 @@
 
     <span class="c1"># BS x IS x 4</span>
     <span class="k">return</span> <span class="n">_ivy_mec</span><span class="o">.</span><span class="n">make_coordinates_homogeneous</span><span class="p">(</span><span class="n">world_coords</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="n">image_shape</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="depth_to_world_coords"><a class="viewcode-back" href="../../single_view_geometry/depth_to_world_coords.html#ivy_vision.single_view_geometry.depth_to_world_coords">[docs]</a><span class="k">def</span> <span class="nf">depth_to_world_coords</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">inv_full_mat</span><span class="p">,</span> <span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get world-centric homogeneous co-ordinates image :math:`\mathbf{X}_w\in\mathbb{R}^{hxw×4}` from depth image</span>
+<span class="sd">    :math:`\mathbf{X}_d\in\mathbb{R}^{hxw×1}`.\n</span>
+
+<span class="sd">    :param depth: Depth image: *[batch_shape,h,w,1]*</span>
+<span class="sd">    :type depth: array</span>
+<span class="sd">    :param inv_full_mat: Inverse full projection matrix *[batch_shape,3,4]*</span>
+<span class="sd">    :type inv_full_mat: array</span>
+<span class="sd">    :param uniform_pixel_coords: Image of homogeneous pixel co-ordinates. Created if None. *[batch_shape,h,w,3]*</span>
+<span class="sd">    :type uniform_pixel_coords: array, optional</span>
+<span class="sd">    :param batch_shape: Shape of batch. Inferred from inputs if None.</span>
+<span class="sd">    :type batch_shape: sequence of ints, optional</span>
+<span class="sd">    :param image_dims: Image shape. Inferred from inputs in None.</span>
+<span class="sd">    :type image_dims: sequence of ints, optional</span>
+<span class="sd">    :return: World-centric homogeneous co-ordinates image *[batch_shape,image_shape,4]*</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">batch_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">depth</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">image_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">image_dims</span> <span class="o">=</span> <span class="n">depth</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># shapes as list</span>
+    <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
+    <span class="n">image_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 3</span>
+    <span class="n">ds_pixel_coords</span> <span class="o">=</span> <span class="n">depth_to_ds_pixel_coords</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">uniform_pixel_coords</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span>
+
+    <span class="c1"># BS x H x W x 4</span>
+    <span class="k">return</span> <span class="n">ds_pixel_to_world_coords</span><span class="p">(</span><span class="n">ds_pixel_coords</span><span class="p">,</span> <span class="n">inv_full_mat</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="pixel_coords_to_world_ray_vectors"><a class="viewcode-back" href="../../single_view_geometry/pixel_coords_to_world_ray_vectors.html#ivy_vision.single_view_geometry.pixel_coords_to_world_ray_vectors">[docs]</a><span class="k">def</span> <span class="nf">pixel_coords_to_world_ray_vectors</span><span class="p">(</span><span class="n">inv_full_mat</span><span class="p">,</span> <span class="n">pixel_coords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">camera_center</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>

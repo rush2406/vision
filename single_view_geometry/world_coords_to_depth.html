@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cam_to_sphere_coords &mdash; Ivy Vision 1.0 documentation</title>
+  <title>world_coords_to_depth &mdash; Ivy Vision 1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="ds_pixel_to_sphere_coords" href="ds_pixel_to_sphere_coords.html" />
-    <link rel="prev" title="calib_and_ext_to_full_mat" href="calib_and_ext_to_full_mat.html" /> 
+    <link rel="next" title="ds_pixel_to_world_coords" href="ds_pixel_to_world_coords.html" />
+    <link rel="prev" title="world_to_ds_pixel_coords" href="world_to_ds_pixel_coords.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -105,7 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="world_to_cam_coords.html">world_to_cam_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cam_to_world_coords.html">cam_to_world_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="world_to_ds_pixel_coords.html">world_to_ds_pixel_coords</a></li>
-<li class="toctree-l2"><a class="reference internal" href="world_coords_to_depth.html">world_coords_to_depth</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">world_coords_to_depth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds_pixel_to_world_coords.html">ds_pixel_to_world_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="depth_to_world_coords.html">depth_to_world_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pixel_coords_to_world_ray_vectors.html">pixel_coords_to_world_ray_vectors</a></li>
@@ -113,7 +113,7 @@
 <li class="toctree-l2"><a class="reference internal" href="bilinearly_interpolate_image.html">bilinearly_interpolate_image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inv_ext_mat_to_camera_center.html">inv_ext_mat_to_camera_center</a></li>
 <li class="toctree-l2"><a class="reference internal" href="calib_and_ext_to_full_mat.html">calib_and_ext_to_full_mat</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">cam_to_sphere_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cam_to_sphere_coords.html">cam_to_sphere_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds_pixel_to_sphere_coords.html">ds_pixel_to_sphere_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angular_pixel_to_sphere_coords.html">angular_pixel_to_sphere_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sphere_to_cam_coords.html">sphere_to_cam_coords</a></li>
@@ -185,13 +185,13 @@
         
           <li><a href="../single_view_geometry.html">Single view geometry</a> &raquo;</li>
         
-      <li>cam_to_sphere_coords</li>
+      <li>world_coords_to_depth</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/single_view_geometry/cam_to_sphere_coords.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/single_view_geometry/world_coords_to_depth.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -204,23 +204,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cam-to-sphere-coords">
-<h1>cam_to_sphere_coords<a class="headerlink" href="#cam-to-sphere-coords" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="world-coords-to-depth">
+<h1>world_coords_to_depth<a class="headerlink" href="#world-coords-to-depth" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="ivy_vision.single_view_geometry.cam_to_sphere_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">cam_to_sphere_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cam_coords</span></em>, <em class="sig-param"><span class="n">forward_facing_z</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#cam_to_sphere_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.cam_to_sphere_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert camera-centric homogeneous cartesian co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{h×w×4}\)</span> to
-camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span>.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
+<dt id="ivy_vision.single_view_geometry.world_coords_to_depth">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">world_coords_to_depth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords_wrt_world</span></em>, <em class="sig-param"><span class="n">full_mat</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#world_coords_to_depth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.world_coords_to_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get depth image <span class="math notranslate nohighlight">\(\mathbf{X}_d\in\mathbb{R}^{is×1}\)</span> from world-centric
+homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_w\in\mathbb{R}^{is×4}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>cam_coords</strong> (<em>array</em>) – Camera-centric homogeneous cartesian co-ordinates image <em>[batch_shape,h,w,4]</em></p></li>
-<li><p><strong>forward_facing_z</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use reference frame so z is forward facing. Default is False.</p></li>
+<li><p><strong>coords_wrt_world</strong> (<em>array</em>) – World-centric homogeneous co-ordinates image <em>[batch_shape,image_shape,4]</em></p></li>
+<li><p><strong>full_mat</strong> (<em>array</em>) – Full projection matrix <em>[batch_shape,3,4]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image shape. Inferred from inputs in None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p>
+<dd class="field-even"><p>Depth image <em>[batch_shape,image_shape,1]</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -240,10 +241,10 @@ camera-centric ego-sphere polar co-ordinates image <span class="math notranslate
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ds_pixel_to_sphere_coords.html" class="btn btn-neutral float-right" title="ds_pixel_to_sphere_coords" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ds_pixel_to_world_coords.html" class="btn btn-neutral float-right" title="ds_pixel_to_world_coords" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="calib_and_ext_to_full_mat.html" class="btn btn-neutral float-left" title="calib_and_ext_to_full_mat" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="world_to_ds_pixel_coords.html" class="btn btn-neutral float-left" title="world_to_ds_pixel_coords" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
