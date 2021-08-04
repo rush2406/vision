@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sphere_to_angular_pixel_coords &mdash; Ivy Vision 1.0 documentation</title>
+  <title>depth_to_cam_coords &mdash; Ivy Vision 1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="persp_angles_and_pp_offsets_to_intrinsics_object" href="persp_angles_and_pp_offsets_to_intrinsics_object.html" />
-    <link rel="prev" title="sphere_to_ds_pixel_coords" href="sphere_to_ds_pixel_coords.html" /> 
+    <link rel="next" title="world_to_cam_coords" href="world_to_cam_coords.html" />
+    <link rel="prev" title="ds_pixel_to_cam_coords" href="ds_pixel_to_cam_coords.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -103,7 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cam_to_ds_pixel_coords.html">cam_to_ds_pixel_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cam_coords_to_depth.html">cam_coords_to_depth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ds_pixel_to_cam_coords.html">ds_pixel_to_cam_coords</a></li>
-<li class="toctree-l2"><a class="reference internal" href="depth_to_cam_coords.html">depth_to_cam_coords</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">depth_to_cam_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="world_to_cam_coords.html">world_to_cam_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cam_to_world_coords.html">cam_to_world_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="world_to_ds_pixel_coords.html">world_to_ds_pixel_coords</a></li>
@@ -120,7 +120,7 @@
 <li class="toctree-l2"><a class="reference internal" href="angular_pixel_to_sphere_coords.html">angular_pixel_to_sphere_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sphere_to_cam_coords.html">sphere_to_cam_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sphere_to_ds_pixel_coords.html">sphere_to_ds_pixel_coords</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">sphere_to_angular_pixel_coords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphere_to_angular_pixel_coords.html">sphere_to_angular_pixel_coords</a></li>
 <li class="toctree-l2"><a class="reference internal" href="persp_angles_and_pp_offsets_to_intrinsics_object.html">persp_angles_and_pp_offsets_to_intrinsics_object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="focal_lengths_and_pp_offsets_to_intrinsics_object.html">focal_lengths_and_pp_offsets_to_intrinsics_object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="calib_mat_to_intrinsics_object.html">calib_mat_to_intrinsics_object</a></li>
@@ -187,13 +187,13 @@
         
           <li><a href="../single_view_geometry.html">Single view geometry</a> &raquo;</li>
         
-      <li>sphere_to_angular_pixel_coords</li>
+      <li>depth_to_cam_coords</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/single_view_geometry/sphere_to_angular_pixel_coords.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/single_view_geometry/depth_to_cam_coords.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -206,23 +206,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="sphere-to-angular-pixel-coords">
-<h1>sphere_to_angular_pixel_coords<a class="headerlink" href="#sphere-to-angular-pixel-coords" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="depth-to-cam-coords">
+<h1>depth_to_cam_coords<a class="headerlink" href="#depth-to-cam-coords" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="ivy_vision.single_view_geometry.sphere_to_angular_pixel_coords">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sphere_to_angular_pixel_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sphere_coords</span></em>, <em class="sig-param"><span class="n">pixels_per_degree</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#sphere_to_angular_pixel_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.sphere_to_angular_pixel_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert camera-centric ego-sphere polar co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{S}_c\in\mathbb{R}^{h×w×3}\)</span> to angular
-pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{A}_p\in\mathbb{R}^{h×w×3}\)</span>.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates">[reference]</a></p>
+<dt id="ivy_vision.single_view_geometry.depth_to_cam_coords">
+<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">depth_to_cam_coords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">depth</span></em>, <em class="sig-param"><span class="n">inv_calib_mat</span></em>, <em class="sig-param"><span class="n">uniform_pixel_coords</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_dims</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/single_view_geometry.html#depth_to_cam_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.single_view_geometry.depth_to_cam_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get camera-centric homogeneous co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{X}_c\in\mathbb{R}^{hxw×4}\)</span> from
+depth image <span class="math notranslate nohighlight">\(\mathbf{X}_p\in\mathbb{R}^{hxw×1}\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sphere_coords</strong> (<em>array</em>) – Camera-centric ego-sphere polar co-ordinates image <em>[batch_shape,h,w,3]</em></p></li>
-<li><p><strong>pixels_per_degree</strong> (<em>float</em>) – Number of pixels per angular degree</p></li>
+<li><p><strong>depth</strong> (<em>array</em>) – Depth image <em>[batch_shape,h,w,1]</em></p></li>
+<li><p><strong>inv_calib_mat</strong> (<em>array</em>) – Inverse calibration matrix <em>[batch_shape,3,3]</em></p></li>
+<li><p><strong>uniform_pixel_coords</strong> (<em>array</em><em>, </em><em>optional</em>) – Image of homogeneous pixel co-ordinates. Created if None. <em>[batch_shape,h,w,3]</em></p></li>
+<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
+<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
+<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as x if None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Angular pixel co-ordinates image <em>[batch_shape,h,w,3]</em></p>
+<dd class="field-even"><p>Camera-centric homogeneous co-ordinates image <em>[batch_shape,h,w,4]</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -242,10 +245,10 @@ pixel co-ordinates image <span class="math notranslate nohighlight">\(\mathbf{A}
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="persp_angles_and_pp_offsets_to_intrinsics_object.html" class="btn btn-neutral float-right" title="persp_angles_and_pp_offsets_to_intrinsics_object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="world_to_cam_coords.html" class="btn btn-neutral float-right" title="world_to_cam_coords" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="sphere_to_ds_pixel_coords.html" class="btn btn-neutral float-left" title="sphere_to_ds_pixel_coords" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ds_pixel_to_cam_coords.html" class="btn btn-neutral float-left" title="ds_pixel_to_cam_coords" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
