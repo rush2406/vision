@@ -167,10 +167,6 @@
   <h1>Source code for ivy_vision.containers</h1><div class="highlight"><pre>
 <span></span><span class="c1"># global</span>
 <span class="kn">import</span> <span class="nn">ivy</span> <span class="k">as</span> <span class="nn">_ivy</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">_tf</span>
-<span class="k">except</span> <span class="p">(</span><span class="ne">ModuleNotFoundError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">):</span>
-    <span class="n">_tf</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="kn">from</span> <span class="nn">ivy.core.container</span> <span class="kn">import</span> <span class="n">Container</span> <span class="k">as</span> <span class="n">_Container</span>
 
 <span class="c1"># local</span>
@@ -205,43 +201,6 @@
 
     <span class="c1"># Class Methods #</span>
     <span class="c1"># --------------#</span>
-
-<div class="viewcode-block" id="PrimitiveScene.as_keras_inputs"><a class="viewcode-back" href="../../containers/PrimitiveScene.html#ivy_vision.containers.PrimitiveScene.as_keras_inputs">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_keras_inputs</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return primitive scene object with array attributes as keras.Input objects. Only applicable for tensorflow.</span>
-
-<span class="sd">        :param batch_shape: Batch shape for each geometric array attribute</span>
-<span class="sd">        :type batch_shape: sequence of ints</span>
-<span class="sd">        :return: New primitive scene object, with each entry as keras.Input objects.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">_tf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Tensorflow is not installed, as_keras_inputs() cannot be called.&#39;</span><span class="p">)</span>
-        <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">batch_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="p">[]</span>
-        <span class="n">sphere_positions</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">sphere_radii</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">cuboid_ext_mats</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">cuboid_dims</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">sphere_positions</span><span class="p">,</span> <span class="n">sphere_radii</span><span class="p">,</span> <span class="n">cuboid_ext_mats</span><span class="p">,</span> <span class="n">cuboid_dims</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="PrimitiveScene.as_tensor_spec"><a class="viewcode-back" href="../../containers/PrimitiveScene.html#ivy_vision.containers.PrimitiveScene.as_tensor_spec">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_tensor_spec</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return primitive scene object with array attributes as tf.TensorSpec objects. Only applicable for tensorflow.</span>
-
-<span class="sd">        :param prefix: prefix string for TensorSpec names.</span>
-<span class="sd">        :type prefix: str</span>
-<span class="sd">        :return: New primitive scene object, with each entry as TensorSpec objects.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">_tf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Tensorflow is not installed, as_keras_inputs() cannot be called.&#39;</span><span class="p">)</span>
-        <span class="n">sphere_positions</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_sphere_positions&#39;</span><span class="p">)</span>
-        <span class="n">sphere_radii</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_sphere_radii&#39;</span><span class="p">)</span>
-        <span class="n">cuboid_ext_mats</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">3</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_cuboid_ext_mats&#39;</span><span class="p">)</span>
-        <span class="n">cuboid_dims</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">3</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_cuboid_dims&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">sphere_positions</span><span class="p">,</span> <span class="n">sphere_radii</span><span class="p">,</span> <span class="n">cuboid_ext_mats</span><span class="p">,</span> <span class="n">cuboid_dims</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="PrimitiveScene.as_identity"><a class="viewcode-back" href="../../containers/PrimitiveScene.html#ivy_vision.containers.PrimitiveScene.as_identity">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>
@@ -342,45 +301,6 @@
     <span class="c1"># Class Methods #</span>
     <span class="c1"># --------------#</span>
 
-<div class="viewcode-block" id="Intrinsics.as_keras_inputs"><a class="viewcode-back" href="../../containers/Intrinsics.html#ivy_vision.containers.Intrinsics.as_keras_inputs">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_keras_inputs</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return camera intrinsics object with array attributes as keras.Input objects. Only applicable for tensorflow.</span>
-
-<span class="sd">        :param batch_shape: Batch shape for each geometric array attribute</span>
-<span class="sd">        :type batch_shape: sequence of ints</span>
-<span class="sd">        :return: New camera intrinsics object, with each entry as keras.Input objects.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">_tf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Tensorflow is not installed, as_keras_inputs() cannot be called.&#39;</span><span class="p">)</span>
-        <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">batch_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="p">[]</span>
-        <span class="n">focal_lengths</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">persp_angles</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">pp_offsets</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">calib_mats</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">inv_calib_mats</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">focal_lengths</span><span class="p">,</span> <span class="n">persp_angles</span><span class="p">,</span> <span class="n">pp_offsets</span><span class="p">,</span> <span class="n">calib_mats</span><span class="p">,</span> <span class="n">inv_calib_mats</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="Intrinsics.as_tensor_spec"><a class="viewcode-back" href="../../containers/Intrinsics.html#ivy_vision.containers.Intrinsics.as_tensor_spec">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_tensor_spec</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return camera intrinsics object with array attributes as tf.TensorSpec objects. Only applicable for tensorflow.</span>
-
-<span class="sd">        :param prefix: prefix string for TensorSpec names.</span>
-<span class="sd">        :type prefix: str</span>
-<span class="sd">        :return: New camera intrinsics object, with each entry as TensorSpec objects.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">_tf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Tensorflow is not installed, as_keras_inputs() cannot be called.&#39;</span><span class="p">)</span>
-        <span class="n">focal_lengths</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">2</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_focal_lengths&#39;</span><span class="p">)</span>
-        <span class="n">persp_angles</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">2</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_persp_angles&#39;</span><span class="p">)</span>
-        <span class="n">pp_offsets</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">2</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_pp_offsets&#39;</span><span class="p">)</span>
-        <span class="n">calib_mats</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_calib_mats&#39;</span><span class="p">)</span>
-        <span class="n">inv_calib_mats</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_inv_calib_mats&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">focal_lengths</span><span class="p">,</span> <span class="n">persp_angles</span><span class="p">,</span> <span class="n">pp_offsets</span><span class="p">,</span> <span class="n">calib_mats</span><span class="p">,</span> <span class="n">inv_calib_mats</span><span class="p">)</span></div>
-
 <div class="viewcode-block" id="Intrinsics.as_identity"><a class="viewcode-back" href="../../containers/Intrinsics.html#ivy_vision.containers.Intrinsics.as_identity">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -460,45 +380,6 @@
     <span class="c1"># Class Methods #</span>
     <span class="c1"># --------------#</span>
 
-<div class="viewcode-block" id="Extrinsics.as_keras_inputs"><a class="viewcode-back" href="../../containers/Extrinsics.html#ivy_vision.containers.Extrinsics.as_keras_inputs">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_keras_inputs</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return camera extrinsics object with array attributes as keras.Input objects. Only applicable for tensorflow.</span>
-
-<span class="sd">        :param batch_shape: Batch shape for each geometric array attribute.</span>
-<span class="sd">        :type batch_shape: sequence of ints</span>
-<span class="sd">        :return: New camera extrinsics object, with each entry as keras.Input objects.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">_tf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Tensorflow is not installed, as_keras_inputs() cannot be called.&#39;</span><span class="p">)</span>
-        <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">batch_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="p">[]</span>
-        <span class="n">cam_centers</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">Rs</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">inv_Rs</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">ext_mats_homo</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">inv_ext_mats_homo</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">cam_centers</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">inv_Rs</span><span class="p">,</span> <span class="n">ext_mats_homo</span><span class="p">,</span> <span class="n">inv_ext_mats_homo</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="Extrinsics.as_tensor_spec"><a class="viewcode-back" href="../../containers/Extrinsics.html#ivy_vision.containers.Extrinsics.as_tensor_spec">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_tensor_spec</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return camera extrinsics object with array attributes as tf.TensorSpec objects. Only applicable for tensorflow.</span>
-
-<span class="sd">        :param prefix: prefix string for TensorSpec names.</span>
-<span class="sd">        :type prefix: str</span>
-<span class="sd">        :return: New camera extrinsics object, with each entry as TensorSpec objects.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">_tf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Tensorflow is not installed, as_keras_inputs() cannot be called.&#39;</span><span class="p">)</span>
-        <span class="n">cam_centers</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_cam_centers&#39;</span><span class="p">)</span>
-        <span class="n">Rs</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_Rs&#39;</span><span class="p">)</span>
-        <span class="n">inv_Rs</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_inv_Rs&#39;</span><span class="p">)</span>
-        <span class="n">ext_mats_homo</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_ext_mats_homo&#39;</span><span class="p">)</span>
-        <span class="n">inv_ext_mats_homo</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_inv_ext_mats_homo&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">cam_centers</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">inv_Rs</span><span class="p">,</span> <span class="n">ext_mats_homo</span><span class="p">,</span> <span class="n">inv_ext_mats_homo</span><span class="p">)</span></div>
-
 <div class="viewcode-block" id="Extrinsics.as_identity"><a class="viewcode-back" href="../../containers/Extrinsics.html#ivy_vision.containers.Extrinsics.as_identity">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -573,43 +454,6 @@
 
     <span class="c1"># Class Methods #</span>
     <span class="c1"># --------------#</span>
-
-<div class="viewcode-block" id="CameraGeometry.as_keras_inputs"><a class="viewcode-back" href="../../containers/CameraGeometry.html#ivy_vision.containers.CameraGeometry.as_keras_inputs">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_keras_inputs</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return camera geometry object with array attributes as keras.Input objects. Only applicable for tensorflow.</span>
-
-<span class="sd">        :param batch_shape: Batch shape for each geometric array attribute</span>
-<span class="sd">        :type batch_shape: sequence of ints</span>
-<span class="sd">        :return: New camera geometry object, with each entry as keras.Input objects.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">_tf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Tensorflow is not installed, as_keras_inputs() cannot be called.&#39;</span><span class="p">)</span>
-        <span class="n">intrinsics</span> <span class="o">=</span> <span class="n">Intrinsics</span><span class="o">.</span><span class="n">as_keras_inputs</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">extrinsics</span> <span class="o">=</span> <span class="n">Extrinsics</span><span class="o">.</span><span class="n">as_keras_inputs</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">batch_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span>
-        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">batch_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="p">[]</span>
-        <span class="n">full_mats_homo</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">inv_full_mats_homo</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">intrinsics</span><span class="p">,</span> <span class="n">extrinsics</span><span class="p">,</span> <span class="n">full_mats_homo</span><span class="p">,</span> <span class="n">inv_full_mats_homo</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="CameraGeometry.as_tensor_spec"><a class="viewcode-back" href="../../containers/CameraGeometry.html#ivy_vision.containers.CameraGeometry.as_tensor_spec">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">as_tensor_spec</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return camera geometry object with array attributes as tf.TensorSpec objects. Only applicable for tensorflow.</span>
-
-<span class="sd">        :param prefix: prefix string for TensorSpec names.</span>
-<span class="sd">        :type prefix: str</span>
-<span class="sd">        :return: New camera geometry object, with each entry as TensorSpec objects.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">_tf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Tensorflow is not installed, as_tensor_spec() cannot be called.&#39;</span><span class="p">)</span>
-        <span class="n">intrinsics</span> <span class="o">=</span> <span class="n">Intrinsics</span><span class="o">.</span><span class="n">as_tensor_spec</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
-        <span class="n">extrinsics</span> <span class="o">=</span> <span class="n">Extrinsics</span><span class="o">.</span><span class="n">as_tensor_spec</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
-        <span class="n">full_mats_homo</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_full_mats_homo&#39;</span><span class="p">)</span>
-        <span class="n">inv_full_mats_homo</span> <span class="o">=</span> <span class="n">_tf</span><span class="o">.</span><span class="n">TensorSpec</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">_tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;_inv_full_mats_homo&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="vm">__class__</span><span class="p">(</span><span class="n">intrinsics</span><span class="p">,</span> <span class="n">extrinsics</span><span class="p">,</span> <span class="n">full_mats_homo</span><span class="p">,</span> <span class="n">inv_full_mats_homo</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CameraGeometry.as_identity"><a class="viewcode-back" href="../../containers/CameraGeometry.html#ivy_vision.containers.CameraGeometry.as_identity">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">as_identity</span><span class="p">(</span><span class="n">batch_shape</span><span class="p">):</span>

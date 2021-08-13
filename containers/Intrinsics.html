@@ -214,34 +214,6 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="ivy_vision.containers.Intrinsics.as_keras_inputs">
-<em class="property">static </em><code class="sig-name descname">as_keras_inputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_shape</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.as_keras_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_keras_inputs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return camera intrinsics object with array attributes as keras.Input objects. Only applicable for tensorflow.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>batch_shape</strong> (<em>sequence of ints</em>) – Batch shape for each geometric array attribute</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>New camera intrinsics object, with each entry as keras.Input objects.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="ivy_vision.containers.Intrinsics.as_tensor_spec">
-<em class="property">static </em><code class="sig-name descname">as_tensor_spec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prefix</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#Intrinsics.as_tensor_spec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.Intrinsics.as_tensor_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return camera intrinsics object with array attributes as tf.TensorSpec objects. Only applicable for tensorflow.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>prefix</strong> (<em>str</em>) – prefix string for TensorSpec names.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>New camera intrinsics object, with each entry as TensorSpec objects.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="ivy_vision.containers.Intrinsics.batch_shape">
 <em class="property">property </em><code class="sig-name descname">batch_shape</code><a class="headerlink" href="#ivy_vision.containers.Intrinsics.batch_shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>Batch shape of each element in container</p>
