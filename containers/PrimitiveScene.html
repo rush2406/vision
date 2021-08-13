@@ -214,12 +214,6 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="ivy_vision.containers.PrimitiveScene.batch_shape">
-<em class="property">property </em><code class="sig-name descname">batch_shape</code><a class="headerlink" href="#ivy_vision.containers.PrimitiveScene.batch_shape" title="Permalink to this definition">¶</a></dt>
-<dd><p>Batch shape of each element in container</p>
-</dd></dl>
-
-<dl class="py method">
 <dt id="ivy_vision.containers.PrimitiveScene.sdf">
 <code class="sig-name descname">sdf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">query_positions</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#PrimitiveScene.sdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.PrimitiveScene.sdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return signed distance function for the scene</p>
@@ -229,23 +223,6 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The signed distance values for each of the query points in the scene <em>[batch_shape,num_points,1]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="ivy_vision.containers.PrimitiveScene.set_slice">
-<code class="sig-name descname">set_slice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">slice_obj</span></em>, <em class="sig-param"><span class="n">primitive_scene</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ivy_vision/containers.html#PrimitiveScene.set_slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.containers.PrimitiveScene.set_slice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set slice of primitive scene object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>slice_obj</strong> (<em>slice of sequence of slices</em>) – slice object to set slice for all container elements.</p></li>
-<li><p><strong>primitive_scene</strong> (<a class="reference internal" href="Intrinsics.html#ivy_vision.containers.Intrinsics" title="ivy_vision.containers.Intrinsics"><em>Intrinsics</em></a>) – Intrinsics object to set the slice equal to.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>PrimitiveScene object, after setting desired slice.</p>
 </dd>
 </dl>
 </dd></dl>
