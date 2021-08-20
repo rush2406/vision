@@ -517,7 +517,7 @@
 
 <div class="viewcode-block" id="render_implicit_features_and_depth"><a class="viewcode-back" href="../../implicit/render_implicit_features_and_depth.html#ivy_vision.implicit.render_implicit_features_and_depth">[docs]</a><span class="k">def</span> <span class="nf">render_implicit_features_and_depth</span><span class="p">(</span><span class="n">network_fn</span><span class="p">,</span> <span class="n">rays_o</span><span class="p">,</span> <span class="n">rays_d</span><span class="p">,</span> <span class="n">near</span><span class="p">,</span> <span class="n">far</span><span class="p">,</span> <span class="n">samples_per_ray</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                        <span class="n">render_depth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">render_feats</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">render_variance</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                       <span class="n">chunk_size_per_GB</span><span class="o">=</span><span class="mf">1000.</span><span class="p">,</span> <span class="n">inter_feat_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">with_grads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                                       <span class="n">chunk_size_per_gb</span><span class="o">=</span><span class="mf">10000.</span><span class="p">,</span> <span class="n">inter_feat_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">with_grads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Render an rgb-d image, given an implicit rgb and density function conditioned on xyz data.</span>
 
@@ -542,9 +542,9 @@
 <span class="sd">    :param render_variance: Whether to also render the feature variance. Default is False.</span>
 <span class="sd">    :type render_variance: bool, optional</span>
 <span class="sd">    :type render_variance: bool, optional</span>
-<span class="sd">    :param chunk_size_per_GB: The chunk size per GB of memory on the GPU. The value should be tweaked for</span>
+<span class="sd">    :param chunk_size_per_gb: The chunk size per GB of memory on the GPU. The value should be tweaked for</span>
 <span class="sd">                              optimal performance, by maximally filling the GPU memory.</span>
-<span class="sd">    :type chunk_size_per_GB: float, optional</span>
+<span class="sd">    :type chunk_size_per_gb: float, optional</span>
 <span class="sd">    :param inter_feat_fn: Function to extract interpolated features from world-coords *[batch_shape,ray_batch_shape,3]*</span>
 <span class="sd">    :type inter_feat_fn: callable, optional</span>
 <span class="sd">    :param with_grads: Whether to track gradients during the network forward pass. Defualt is True.</span>
@@ -565,7 +565,7 @@
     <span class="n">memory_on_dev</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">cache_fn</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">memory_on_dev</span><span class="p">)(</span><span class="n">ivy</span><span class="o">.</span><span class="n">dev_str</span><span class="p">(</span><span class="n">rays_o</span><span class="p">))</span>
 
     <span class="c1"># chunk size</span>
-    <span class="n">chunk_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">memory_on_dev</span> <span class="o">*</span> <span class="n">chunk_size_per_GB</span><span class="p">))</span>
+    <span class="n">chunk_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">memory_on_dev</span> <span class="o">*</span> <span class="n">chunk_size_per_gb</span> <span class="o">/</span> <span class="p">(</span><span class="n">flat_batch_size</span> <span class="o">*</span> <span class="n">samples_per_ray</span><span class="p">)))</span>
 
     <span class="c1"># flatten</span>
     <span class="n">rays_d</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rays_d</span><span class="p">,</span> <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">flat_ray_batch_size</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
