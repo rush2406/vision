@@ -205,7 +205,7 @@
 
 
 <div class="viewcode-block" id="create_sampled_pixel_coords_image"><a class="viewcode-back" href="../../implicit/create_sampled_pixel_coords_image.html#ivy_vision.implicit.create_sampled_pixel_coords_image">[docs]</a><span class="k">def</span> <span class="nf">create_sampled_pixel_coords_image</span><span class="p">(</span><span class="n">image_dims</span><span class="p">,</span> <span class="n">samples_per_dim</span><span class="p">,</span> <span class="n">batch_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">randomize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                      <span class="n">homogeneous</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dev_str</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+                                      <span class="n">homogeneous</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dev_str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create image of randomly sampled homogeneous integer :math:`xy` pixel co-ordinates :math:`\mathbf{X}\in\mathbb{Z}^{h×w×3}`,</span>
 <span class="sd">    stored as floating point values. The origin is at the top-left corner of the image, with :math:`+x` rightwards, and</span>
@@ -271,7 +271,7 @@
     <span class="k">return</span> <span class="n">downsam_pix_coords</span></div>
 
 
-<div class="viewcode-block" id="sample_images"><a class="viewcode-back" href="../../implicit/sample_images.html#ivy_vision.implicit.sample_images">[docs]</a><span class="k">def</span> <span class="nf">sample_images</span><span class="p">(</span><span class="n">list_of_images</span><span class="p">,</span> <span class="n">num_pixels</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">,</span> <span class="n">dev_str</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="sample_images"><a class="viewcode-back" href="../../implicit/sample_images.html#ivy_vision.implicit.sample_images">[docs]</a><span class="k">def</span> <span class="nf">sample_images</span><span class="p">(</span><span class="n">list_of_images</span><span class="p">,</span> <span class="n">num_pixels</span><span class="p">,</span> <span class="n">batch_shape</span><span class="p">,</span> <span class="n">image_dims</span><span class="p">,</span> <span class="n">dev_str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Samples each image in a list of aligned images at num_pixels random pixel co-ordinates, within a unifrom grid</span>
 <span class="sd">    over the image.</span>
