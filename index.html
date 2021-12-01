@@ -398,9 +398,8 @@ functions in this library.</p>
 </pre></div>
 </div>
 <p>The geometries used in this quick start demo are based upon the scene presented below.</p>
-<p align="center">
-    <img width="75%" style="display: block;" src='_images/scene.png'>
-</p><p>The code sample below demonstrates all of the attributes contained within the Ivy camera geometry class.</p>
+<a class="reference internal image-reference" href="https://github.com/ivy-dl/vision/blob/master/_images/scene.png"><img alt="https://github.com/ivy-dl/vision/blob/master/_images/scene.png" src="https://github.com/ivy-dl/vision/blob/master/_images/scene.png" style="width: 100%;" /></a>
+<p>The code sample below demonstrates all of the attributes contained within the Ivy camera geometry class.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">cam_geom</span> <span class="ow">in</span> <span class="n">cam_geoms</span><span class="p">:</span>
 
     <span class="k">assert</span> <span class="n">cam_geom</span><span class="o">.</span><span class="n">intrinsics</span><span class="o">.</span><span class="n">focal_lengths</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)</span>
@@ -445,9 +444,8 @@ This representation simplifies projections between frames.</p>
 </pre></div>
 </div>
 <p>The rgb and depth images are presented below.</p>
-<p align="center">
-    <img width="100%" style="display: block;" src='_images/rgb_and_depth.png'>
-</p><p><strong>Optical Flow and Depth Triangulation</strong></p>
+<a class="reference internal image-reference" href="https://github.com/ivy-dl/vision/blob/master/_images/rgb_and_depth.png"><img alt="https://github.com/ivy-dl/vision/blob/master/_images/rgb_and_depth.png" src="https://github.com/ivy-dl/vision/blob/master/_images/rgb_and_depth.png" style="width: 100%;" /></a>
+<p><strong>Optical Flow and Depth Triangulation</strong></p>
 <p>Now that we have two cameras, their geometries, and their images fully defined,
 we can start to apply some of the more interesting vision functions.
 We start with some optical flow and depth triangulation functions.</p>
@@ -466,9 +464,8 @@ We start with some optical flow and depth triangulation functions.</p>
 </pre></div>
 </div>
 <p>Visualizations of these images are given below.</p>
-<p align="center">
-    <img width="100%" style="display: block;" src='_images/flow_and_depth.png'>
-</p><p><strong>Inverse and Forward Warping</strong></p>
+<a class="reference internal image-reference" href="https://github.com/ivy-dl/vision/blob/master/_images/flow_and_depth.png"><img alt="https://github.com/ivy-dl/vision/blob/master/_images/flow_and_depth.png" src="https://github.com/ivy-dl/vision/blob/master/_images/flow_and_depth.png" style="width: 100%;" /></a>
+<p><strong>Inverse and Forward Warping</strong></p>
 <p>Most of the vision functions, including the flow and depth functions above,
 make use of image projections,
 whereby an image of depth-scaled homogeneous pixel-coordinates is transformed into
@@ -505,9 +502,8 @@ to inverse warp the color data from frame 2 to frame 1, as shown below.</p>
 <p>Again, visualizations of these images are given below.
 The images represent intermediate steps for the inverse warping of color from frame 2 to frame 1,
 which is shown in the bottom right corner.</p>
-<p align="center">
-    <img width="100%" style="display: block;" src='_images/inverse_warped.png'>
-</p><p>For forward warping, we instead assume depth to be known in the source frame.
+<a class="reference internal image-reference" href="https://github.com/ivy-dl/vision/blob/master/_images/inverse_warped.png"><img alt="https://github.com/ivy-dl/vision/blob/master/_images/inverse_warped.png" src="https://github.com/ivy-dl/vision/blob/master/_images/inverse_warped.png" style="width: 100%;" /></a>
+<p>For forward warping, we instead assume depth to be known in the source frame.
 A common approach is to construct a mesh, and then perform rasterization of the mesh.</p>
 <p>The ivy method <code class="docutils literal notranslate"><span class="pre">ivy_vision.render_pixel_coords</span></code> instead takes a simpler approach,
 by determining the pixel projections into the target frame,
@@ -540,9 +536,8 @@ and again render the new color image in target frame 1.</p>
 <p>Again, visualizations of these images are given below.
 The images show the forward warping of both depth and color from frame 2 to frame 1,
 which are shown with and without depth buffers in the right-hand and central columns respectively.</p>
-<p align="center">
-    <img width="100%" style="display: block;" src='_images/forward_warped.png'>
-</p></div>
+<a class="reference internal image-reference" href="https://github.com/ivy-dl/vision/blob/master/_images/forward_warped.png"><img alt="https://github.com/ivy-dl/vision/blob/master/_images/forward_warped.png" src="https://github.com/ivy-dl/vision/blob/master/_images/forward_warped.png" style="width: 100%;" /></a>
+</div>
 <div class="section" id="interactive-demos">
 <h1>Interactive Demos<a class="headerlink" href="#interactive-demos" title="Permalink to this headline">¶</a></h1>
 <p>In addition to the examples above, we provide two further demo scripts,
