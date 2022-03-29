@@ -9,6 +9,7 @@ Projective geometry
 
 
 .. toctree::
+   :hidden:
    :maxdepth: -1
    :caption: Projective geometry
 

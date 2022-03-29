@@ -9,6 +9,7 @@ Quantization
 
 
 .. toctree::
+   :hidden:
    :maxdepth: -1
    :caption: Quantization
 

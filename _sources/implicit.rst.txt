@@ -9,6 +9,7 @@ Implicit
 
 
 .. toctree::
+   :hidden:
    :maxdepth: -1
    :caption: Implicit
 

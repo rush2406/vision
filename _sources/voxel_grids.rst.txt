@@ -9,6 +9,7 @@ Voxel grids
 
 
 .. toctree::
+   :hidden:
    :maxdepth: -1
    :caption: Voxel grids
 

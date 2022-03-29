@@ -9,6 +9,7 @@ Optical flow
 
 
 .. toctree::
+   :hidden:
    :maxdepth: -1
    :caption: Optical flow
 

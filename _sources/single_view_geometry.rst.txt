@@ -9,6 +9,7 @@ Single view geometry
 
 
 .. toctree::
+   :hidden:
    :maxdepth: -1
    :caption: Single view geometry
 
