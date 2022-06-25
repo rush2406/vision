@@ -1,68 +1,36 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Implicit &mdash; Ivy Vision 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="downsampled_image_dims_from_desired_num_pixels" href="implicit/downsampled_image_dims_from_desired_num_pixels.html" />
     <link rel="prev" title="CameraGeometry" href="containers/CameraGeometry.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> Ivy Vision
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -70,18 +38,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Modules</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Implicit</a><ul>
@@ -106,7 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="two_view_geometry.html">Two view geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="voxel_grids.html">Voxel grids</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Docs</span></p>
+<p class="caption" role="heading"><span class="caption-text">Docs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ivy"">Ivy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mech"">Ivy mech</a></li>
@@ -119,295 +77,65 @@
 <li class="toctree-l1"><a class="reference internal" href="../ecosystem"">Ivy ecosystem</a></li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Ivy Vision</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Implicit</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="_sources/implicit.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="module-ivy_vision.implicit">
-<span id="implicit"></span><h1>Implicit<a class="headerlink" href="#module-ivy_vision.implicit" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="ivy_vision.implicit.create_sampled_pixel_coords_image">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">create_sampled_pixel_coords_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">samples_per_dim</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">randomize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">homogeneous</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#create_sampled_pixel_coords_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.create_sampled_pixel_coords_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create image of randomly sampled homogeneous integer <span class="math notranslate nohighlight">\(xy\)</span> pixel co-ordinates <span class="math notranslate nohighlight">\(\mathbf{X}\in\mathbb{Z}^{h×w×3}\)</span>,
-stored as floating point values. The origin is at the top-left corner of the image, with <span class="math notranslate nohighlight">\(+x\)</span> rightwards, and
-<span class="math notranslate nohighlight">\(+y\)</span> downwards. The final homogeneous dimension are all ones. In subsequent use of this image, the depth of
-each pixel can be represented using this same homogeneous representation, by simply scaling each 3-vector by the
-depth value. The final dimension therefore always holds the depth value, while the former two dimensions hold depth
-scaled pixel co-ordinates.</p>
-<p><a class="reference external" href="localhost:63342/ivy/docs/source/references/mvg_textbook.pdf#page=172">[reference]</a>
-deduction from top of page 154, section 6.1, equation 6.1</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>image_dims</strong> (<em>sequence of ints.</em>) – Image dimensions.</p></li>
-<li><p><strong>samples_per_dim</strong> (<em>sequence of ints.</em>) – The number of samples to perform per image dimension.</p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Assumed no batch dimensions if None.</p></li>
-<li><p><strong>normalized</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to normalize x-y pixel co-ordinates to the range 0-1. Default is False.</p></li>
-<li><p><strong>randomize</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to randomize the sampled co-ordiantes within their window. Default is True.</p></li>
-<li><p><strong>homogeneous</strong> – Whether the pixel co-ordinates should be 3D homogeneous or just 2D. Default is True.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Type</dt>
-<dd class="field-even"><p>homogeneous: bool, optional</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Image of homogeneous pixel co-ordinates <em>[batch_shape,height,width,3]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.implicit.downsampled_image_dims_from_desired_num_pixels">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">downsampled_image_dims_from_desired_num_pixels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">num_pixels</span></em>, <em class="sig-param"><span class="n">maximum</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#downsampled_image_dims_from_desired_num_pixels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.downsampled_image_dims_from_desired_num_pixels" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the best downsampled image dimensions, given original image dimensions and the ideal total number of
-pixels for the downsampled image. The final number of pixels in the downsampled image dimensions may not be exact,
-but will best balance aspect ratio preservation and total number of pixels.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>image_dims</strong> (<em>sequence of ints.</em>) – The image dimensions of the original image.</p></li>
-<li><p><strong>num_pixels</strong> (<em>int</em>) – The ideal numbr of pixels in the downsampled image.</p></li>
-<li><p><strong>maximum</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the number of pixels is a hard maximum. Default is False.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The image dimensions for a new downsampled image.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.implicit.ray_termination_probabilities">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">ray_termination_probabilities</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">density</span></em>, <em class="sig-param"><span class="n">inter_sample_distance</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#ray_termination_probabilities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.ray_termination_probabilities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute probability of occupancy, given sampled volume densities and their associated inter-sample distances</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>density</strong> (<em>array</em>) – The sampled density values <em>[batch_shape,num_samples_per_ray]</em></p></li>
-<li><p><strong>inter_sample_distance</strong> (<em>array</em>) – The inter-sample distances <em>[batch_shape,num_samples_per_ray]</em></p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The occupancy probabilities <em>[batch_shape]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.implicit.render_implicit_features_and_depth">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">render_implicit_features_and_depth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">network_fn</span></em>, <em class="sig-param"><span class="n">rays_o</span></em>, <em class="sig-param"><span class="n">rays_d</span></em>, <em class="sig-param"><span class="n">near</span></em>, <em class="sig-param"><span class="n">far</span></em>, <em class="sig-param"><span class="n">samples_per_ray</span></em>, <em class="sig-param"><span class="n">timestamps</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">render_depth</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">render_feats</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">render_variance</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">inter_feat_fn</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">with_grads</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">v</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#render_implicit_features_and_depth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.render_implicit_features_and_depth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Render an rgb-d image, given an implicit rgb and density function conditioned on xyz data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>network_fn</strong> (<em>callable</em>) – the implicit function.</p></li>
-<li><p><strong>rays_o</strong> (<em>array</em>) – The camera center <em>[batch_shape,3]</em></p></li>
-<li><p><strong>rays_d</strong> (<em>array</em>) – The rays in world space <em>[batch_shape,ray_batch_shape,3]</em></p></li>
-<li><p><strong>near</strong> (<em>array</em>) – The near clipping plane values <em>[batch_shape,ray_batch_shape]</em></p></li>
-<li><p><strong>far</strong> (<em>array</em>) – The far clipping plane values <em>[batch_shape,ray_batch_shape]</em></p></li>
-<li><p><strong>samples_per_ray</strong> (<em>int</em>) – The number of stratified samples to use along each ray</p></li>
-<li><p><strong>timestamps</strong> (<em>array</em><em>, </em><em>optional</em>) – The timestamps associated with each image. Default is None. <em>[batch_shape,1]</em></p></li>
-<li><p><strong>render_depth</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the depth. Default is True.</p></li>
-<li><p><strong>render_feats</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to render the features. Default is True.</p></li>
-<li><p><strong>render_variance</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to also render the feature variance. Default is False.</p></li>
-<li><p><strong>inter_feat_fn</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function to extract interpolated features from world-coords <em>[batch_shape,ray_batch_shape,3]</em></p></li>
-<li><p><strong>with_grads</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to track gradients during the network forward pass. Defualt is True.</p></li>
-<li><p><strong>v</strong> (<em>ivy Container of variables</em>) – The container of trainable variables for the implicit model. default is to use internal variables.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The rendered feature <em>[batch_shape,ray_batch_shape,feat]</em> and radial depth <em>[batch_shape,ray_batch_shape,1]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.implicit.render_rays_via_termination_probabilities">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">render_rays_via_termination_probabilities</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ray_term_probs</span></em>, <em class="sig-param"><span class="n">features</span></em>, <em class="sig-param"><span class="n">render_variance</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#render_rays_via_termination_probabilities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.render_rays_via_termination_probabilities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Render features onto the image plane, given rays sampled at radial depths with readings of
-feature values and densities at these sample points.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ray_term_probs</strong> (<em>array</em>) – The ray termination probabilities <em>[batch_shape,num_samples_per_ray]</em></p></li>
-<li><p><strong>features</strong> (<em>array</em>) – Feature values at the sample points <em>[batch_shape,num_samples_per_ray,feat_dim]</em></p></li>
-<li><p><strong>render_variance</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to also render the feature variance. Default is False.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The feature renderings along the rays, computed via the termination probabilities <em>[batch_shape,feat_dim]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.implicit.sample_images">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sample_images</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_of_images</span></em>, <em class="sig-param"><span class="n">num_pixels</span></em>, <em class="sig-param"><span class="n">batch_shape</span></em>, <em class="sig-param"><span class="n">image_dims</span></em>, <em class="sig-param"><span class="n">dev_str</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#sample_images"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.sample_images" title="Permalink to this definition">¶</a></dt>
-<dd><p>Samples each image in a list of aligned images at num_pixels random pixel co-ordinates, within a unifrom grid
-over the image.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>list_of_images</strong> (<em>sequence of arrays.</em>) – List of images to sample from.</p></li>
-<li><p><strong>num_pixels</strong> (<em>int</em>) – The number of pixels to sample from each image.</p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch. Inferred from inputs if None.</p></li>
-<li><p><strong>image_dims</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Image dimensions. Inferred from inputs in None.</p></li>
-<li><p><strong>dev_str</strong> (<em>str</em><em>, </em><em>optional</em>) – device on which to create the array ‘cuda:0’, ‘cuda:1’, ‘cpu’ etc. Same as images if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.implicit.sampled_volume_density_to_occupancy_probability">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">sampled_volume_density_to_occupancy_probability</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">density</span></em>, <em class="sig-param"><span class="n">inter_sample_distance</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#sampled_volume_density_to_occupancy_probability"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.sampled_volume_density_to_occupancy_probability" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute probability of occupancy, given sampled volume densities and their associated inter-sample distances</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>density</strong> (<em>array</em>) – The sampled density values <em>[batch_shape]</em></p></li>
-<li><p><strong>inter_sample_distance</strong> (<em>array</em>) – The inter-sample distances <em>[batch_shape]</em></p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The occupancy probabilities <em>[batch_shape]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ivy_vision.implicit.stratified_sample">
-<code class="sig-prename descclassname">ivy_vision.</code><code class="sig-name descname">stratified_sample</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">starts</span></em>, <em class="sig-param"><span class="n">ends</span></em>, <em class="sig-param"><span class="n">num_samples</span></em>, <em class="sig-param"><span class="n">batch_shape</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ivy_vision/implicit.html#stratified_sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ivy_vision.implicit.stratified_sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform stratified sampling, between start and end arrays. This operation divides the range into equidistant bins,
-and uniformly samples value within the ranges for each of these bins.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>starts</strong> (<em>array</em>) – Start values <em>[batch_shape]</em></p></li>
-<li><p><strong>ends</strong> (<em>array</em>) – End values <em>[batch_shape]</em></p></li>
-<li><p><strong>num_samples</strong> (<em>int</em>) – The number of samples to generate between starts and ends</p></li>
-<li><p><strong>batch_shape</strong> (<em>sequence of ints</em><em>, </em><em>optional</em>) – Shape of batch, Inferred from inputs if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The stratified samples, with each randomly placed in uniformly spaced bins <em>[batch_shape,num_samples]</em></p>
-</dd>
-</dl>
-</dd></dl>
-
+             
+  <section id="implicit">
+<h1>Implicit<a class="headerlink" href="#implicit" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="implicit/downsampled_image_dims_from_desired_num_pixels.html" class="btn btn-neutral float-right" title="downsampled_image_dims_from_desired_num_pixels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="containers/CameraGeometry.html" class="btn btn-neutral float-left" title="CameraGeometry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="containers/CameraGeometry.html" class="btn btn-neutral float-left" title="CameraGeometry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="implicit/downsampled_image_dims_from_desired_num_pixels.html" class="btn btn-neutral float-right" title="downsampled_image_dims_from_desired_num_pixels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2020, Ivy Team
-
-    </p>
+    <p>&#169; Copyright 2020, Ivy Team.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
