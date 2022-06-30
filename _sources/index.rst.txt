@@ -516,7 +516,6 @@ Citation
    :caption: Modules
 
    containers.rst
-   image.rst
    implicit.rst
    mesh.rst
    optical_flow.rst
